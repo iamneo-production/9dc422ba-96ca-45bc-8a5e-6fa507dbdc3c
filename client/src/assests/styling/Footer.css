@@ -1,0 +1,17 @@
+.footer-grid{
+    text-align: left;
+    width: 90%;
+    margin-left: 5%;
+}
+.col2,.col3,.col4{
+    text-align: left;
+}
+.footer-grid-row-title{
+    font-weight: bold;
+}
+.footer-grid-row-empty{
+    margin-top: 30px;
+}
+.footer-grid-row{
+    margin-top: 10px;
+}

@@ -1,0 +1,52 @@
+*{
+    font-family:'Courier New', Courier, monospace;
+}
+.greetings-home{
+    color: green;
+    font-size: 25px;
+    font-weight: bolder;
+
+}
+.intro-home{
+    font-size: 50px;
+    font-weight: bold;
+    padding-right: 20px;
+
+}
+.home-text{
+    font-size: 20px;
+    font-weight: lighter;
+}
+.registerButton{
+    margin-top: 20px;
+    font-size: 20px;
+    width: 200px;
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    z-index: 1;
+    box-shadow: 2px 2px 2px grey;
+}
+.button-shadow{
+    border: 1px solid black;
+    width: 200px;
+    height:30px;
+    border-radius: 8px;
+    z-index: -1;
+    margin-top: -25px;
+    margin-left: 5px;
+
+}
+.scroll-top-div{
+    width: 72%;
+    text-align: end;
+
+}
+.scroll-top{
+    margin-top: 20px;
+    color: black;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: wheat;
+    text-decoration: none;
+}
