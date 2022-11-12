@@ -1,0 +1,99 @@
+.get-started-container {
+    width: 60%;
+    margin: auto;
+    border: 2px solid black;
+    text-align: center;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+.get-started-text {
+    overflow-x: auto;
+    margin: auto;
+    font-size: auto;
+    font-weight: 500;
+    text-shadow: 1ch;
+}
+
+.accountPage-firstCol {
+    height: fit-content;
+    width: 90%;
+    display: flex;
+    flex-direction: initial;
+    margin: auto;
+}
+
+.img{
+    width:100%;
+    height: 100%;
+}
+
+.firstCol-textContent {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 900;
+    background: rgb(120, 135, 148);
+    background: linear-gradient(90deg, rgba(120, 135, 148, 1) 0%, rgba(215, 212, 236, 1) 100%);
+}
+
+img .firstCol-textContent {
+    size: auto;
+}
+
+.TermsandConditions {
+    font-size: 14px;
+    height: 10%;
+}
+
+.accountPage-secondCol {
+    height: fit-content;
+    width: 90%;
+    margin: auto;
+    display: flex;
+}
+.img.accountPage-secondCol{
+    width: 100%;
+    height: 100%;
+}
+.secondCol-textContent{
+    width: 50%;
+    font-size: 15px;
+    text-align: left;
+    padding: 2%;
+    padding-top: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content:left;
+}
+.reviewsandRating{
+    width: 100%;
+    padding: auto;
+    text-align: center;
+    border: 2px solid black;
+    width:fit-content;
+    font-size: 20px;
+    font-weight: 700;
+    overflow-x: auto;
+    box-shadow: 1px 1px 5px black;
+    margin-left: 14%;
+}
+.reviewslider{
+    width: 50%;
+}
+.accountPage-thirdCol{
+    display: flex;
+    padding: 2%;
+}
+.thirdCol-textContent{
+    width: 50%;
+    padding: 2%;
+    font-size: 23px;
+}
+h3{
+    font-size: 40px;
+    font-weight: 700;
+}

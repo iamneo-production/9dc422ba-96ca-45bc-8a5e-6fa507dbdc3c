@@ -1,0 +1,18 @@
+@media screen and (max-width: 992px) {
+    #basic-navbar-nav{
+        font-size: 20px;
+    }
+    .contact-van-icon{
+        width: 25%;
+        float: left;
+        margin-left: 0px !important;
+    }
+    .search-nav-icon{
+        width: 100% !important;
+        margin-left: 0px !important;
+        margin-top: 10px;
+    }
+    a.nav-link{
+        margin-left: 0 !important;
+    }
+}

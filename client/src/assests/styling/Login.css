@@ -1,0 +1,18 @@
+.login-email{
+    width: 30%;
+    margin-left: 35%;
+}
+.email-label{
+    width: 30%;
+    margin-left: 35.5%;
+    font-size: 16px;
+    margin-bottom: -15px;
+}
+.password-label{
+    width: 100%;
+    margin-left: 35.5%;
+}
+.password-field{
+    width: 30%;
+    margin-left: 35%;
+}

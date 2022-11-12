@@ -1,0 +1,196 @@
+.user-details-row {
+    height: 50px;
+    text-align: center;
+}
+
+.account-number {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #f8f4d3;
+    font-weight: bold;
+    width: 64.4%;
+    margin-left: 20%;
+}
+
+.account-holder {
+    padding-top: 10px;
+    font-weight: bolder;
+}
+
+.mob-number {
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: auto;
+    background-color: #f8f4d4;
+    font-weight: bold;
+
+}
+
+.collapse-menu {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background-color: #f8f4d3;
+    border-radius: 5px;
+}
+
+.transaction-display, .financial-chart,.cashflow {
+    border: 2px solid black;
+    border-radius: 20px;
+    height: 30%;
+    margin-top: 3%;
+}
+
+.transaction-content {
+    height: 60%;
+}
+
+.show-more-transactions {
+    display: flex;
+    justify-content: center;
+}
+
+.financial-chart-period {
+    border: 2px solid black;
+    height: 20px;
+    border-radius: 5px;
+    width: 100px;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    margin-top: 0px;
+}
+
+.dropdown-icon {
+    width: 18px;
+    height: 16px;
+    border-radius: 5px;
+    margin: auto;
+}
+.graph-icons{
+    margin-left: auto;
+    margin-right:2%;
+    width: 5%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.accBalance{
+    border: 2px solid black;
+    width:80%;
+    margin: auto;
+    height: auto;
+    border-radius: 10px;
+    background-color: #f8f4d3;
+    text-align: center;
+    font-weight: bolder;
+    font-size: x-large;
+}
+.investment-chart{
+    border: 2px solid black;
+    height: auto;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #f8f4d3;
+    font-weight:600;
+}
+.stat-display{
+    font-size: xx-large;
+
+}
+/* @media screen and (max-width:955px) {
+    .user-details-row{
+        margin-bottom: 30px;
+    }
+}
+ */
+@media screen and (max-width:769px) {
+    .user-details-row {
+        height: 40px;
+        margin-bottom: 30px;
+    }
+
+    .title-col-dash {
+        width: 30%;
+    }
+
+    .account-holder {
+        text-align: center;
+        font-size: 13px;
+        width: 100%;
+    }
+
+
+    .account-number, .mob-number {
+        font-size: 13px;
+        margin-left: 0% !important;
+        width: 100%;
+    }
+
+    .collapse-menu {
+        display: none;
+    }
+
+    .transaction-content {
+        height: 50%;
+    }
+    .graph-icons{
+        width: 6%;
+        height: fit-content;
+    }
+    .sidebar-menu-item,.accBalance,.investment-chart{
+        width: 90%;
+    }
+    .stat-display{
+        font-size: x-large;
+    }
+    .expense-over-time{
+        font-size: 15px !important;
+    }
+    #extra-feature{
+        display: none;
+    }
+}
+@media screen and (max-width:595px) {
+    .stat-display{
+        font-size: medium;
+    }
+    .stat-and-pie-container{
+        margin-top: 2%;
+        height: 80% !important;
+    }
+}
+@media screen and (max-width:426px) {
+    .financial-chart-period{
+        margin-right: 20%;
+    }
+    .graph-icons{
+        width: 8%;
+    }
+    .stat-display{
+        font-size:x-small;
+    }
+    .aerrow{
+        width: 25px;
+        height: 45px;
+    }
+    .expense-over-time{
+        margin-top: 5px !important;
+        font-size: 12px !important;
+    }
+}
+@media screen and (max-width: 400px) {
+    .graph-icons{
+        width: 15%;
+    }
+    .cashflow-more{
+        width: 20px;
+    }
+    .expense-over-time{
+        font-size: 10px !important;
+    }
+}

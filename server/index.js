@@ -1,0 +1,27 @@
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+const environment = app.get('env');
+app.use(express.json());
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
+    res.header("Access-Control-Expose-Headers", "x-auth-token");
+    next();
+});
+
+const userservicerouter = require('./user-service/user_controller');
+const accountservicerouter = require('./account-service/account_controller');
+const transactionservicerouter = require('./transaction-service/transaction_controller');
+app.use('/bankingapp/api/user', userservicerouter);
+app.use('/bankingapp/api/account', accountservicerouter);
+app.use('/bankingapp/api/transaction', transactionservicerouter);
+
+if (environment === 'development') {
+    app.use(morgan('env_m'));
+}
+
+app.listen(port, () => {
+    console.log(`Application running in ${environment} environment, listening to port ${port}....`);
+});

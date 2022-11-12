@@ -1,0 +1,37 @@
+.services-heading{
+    border: 2px solid black;
+    text-align: center;
+    width: 30%;
+    margin-left: 35%;
+    font-size: 35px;
+    color: #2c8894;
+    border-radius: 20px;
+}
+.service-title{
+    font-weight: bold;
+}
+.Service-Grid{
+    margin-top: 2%;
+}
+.service-card-boundary{
+    text-align: center;
+    border: 2px solid black;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 20px;
+    width: auto;
+    height: auto;
+    background-color: #f8f4d4;
+}
+.service-desc{
+    font-weight:normal;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.service-link{
+    width:50%;
+    background-color: #AAE8D9;
+    margin-left: 25%;
+    margin-bottom: 2%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
