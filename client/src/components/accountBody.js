@@ -28,7 +28,7 @@ const AccountBody = (props) => {
             <div>
               Open a Digital {props.accountType} With Your Pan Card & Aadhar Card
             </div>
-            <Button variant='light' style={{ color: "Red", fontWeight: "bolder", fontSize: "25px", margin: "auto" }}>
+            <Button href='/OpenAccount' variant='light' style={{ color: "Red", fontWeight: "bolder", fontSize: "25px", margin: "auto" }}>
               OPEN NOW
             </Button>
             <a className='TermsandConditions'>
@@ -58,7 +58,7 @@ const AccountBody = (props) => {
                 <li>Anytime banking</li>
               </ul>
             </div>
-            <Button variant='info' style={{ color: "black", fontWeight: "bolder", fontSize: "25px", margin: "auto" }}>
+            <Button href={"/OpenAccount"} variant='info' style={{ color: "black", fontWeight: "bolder", fontSize: "25px", margin: "auto" }}>
               OPEN NOW
             </Button>
           </div>
