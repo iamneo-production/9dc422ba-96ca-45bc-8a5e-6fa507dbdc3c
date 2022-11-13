@@ -22,7 +22,7 @@ function NavBar() {
                         <Nav.Link href="/Login"style={{marginLeft:"15px"}}>Login/SignUp</Nav.Link>
                         <Nav.Link href="/Dashboard"style={{marginLeft:"15px"}}>Dashboard</Nav.Link>
                         <Nav.Link href='#link' style={{marginLeft:"20px"}}><Noty width={"20px"} color={"#122C34"}  /></Nav.Link>
-                        <Nav.Link href="#link" style={{border:"2px groove black", borderRadius:"5px", marginLeft:"50px", boxShadow: "1px 1px 1px grey"}} className="contact-van-icon">Contact Us</Nav.Link>
+                        <Nav.Link href="/Contact-us" style={{border:"2px groove black", borderRadius:"5px", marginLeft:"50px", boxShadow: "1px 1px 1px grey"}} className="contact-van-icon">Contact Us</Nav.Link>
                         <Nav.Link href="#link" style={{border:"2px solid black", borderRadius:"5px", marginLeft:"30px", width:'55px', alignItems:"centre", boxShadow: "1px 1px 1px grey"}} className="search-nav-icon"><AiOutlineSearch size={"35px"}/></Nav.Link>
 
 

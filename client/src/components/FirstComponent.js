@@ -411,7 +411,7 @@ function Step1() {
                             <div style={{ width:"30%",marginLeft:"10%"}}>
                                 <div style={{width:"60%" ,display:"flex",flexDirection:"column", alignItems:"center", border:"2px solid black", borderRadius:"5px", marginLeft:"30%"}}>
                                     <h6 style={{textDecoration:"underline"}}> Need Help?</h6>
-                                    <a href="#">Contact Us</a>
+                                    <a href="/Contact-us">Contact Us</a>
                                     <a href="#">FAQs</a>
                                     <a href="#">Why KYC?</a>
                                 </div>
