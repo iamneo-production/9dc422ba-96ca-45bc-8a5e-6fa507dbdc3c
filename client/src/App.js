@@ -9,6 +9,7 @@ import SavingsAccount from "./components/SavingsAccount";
 import SalaryAccount from "./components/SalaryAccount";
 import CurrentAccount from "./components/currentAccount";
 import CreateAccount from "./components/openAccount";
+import ContactUs from "./components/contactUs";
 function App() {
   return (
     <div className="App">
@@ -23,7 +24,7 @@ function App() {
           <Route path="/CreateSalaryAccount" element={<SalaryAccount/>}/>          
           <Route path="/CreateCurrentAccount" element={<CurrentAccount/>}/>
           <Route path="/OpenAccount" element={<CreateAccount/>}/>
-
+          <Route path="/Contact-us" element={<ContactUs/>}/>
         </Routes>
       </BrowserRouter>
 

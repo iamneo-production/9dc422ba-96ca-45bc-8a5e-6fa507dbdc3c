@@ -1,0 +1,20 @@
+.contact-box{
+    background-color: #609cac;
+    width: 60%;
+    margin:auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    height: 100%;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+
+}
+.contact-type{
+    width: 33%;
+    font-size: 30px;
+    font-weight: 700;
+    text-overflow:clip;
+    text-shadow: 1px 1px red;
+}
+
