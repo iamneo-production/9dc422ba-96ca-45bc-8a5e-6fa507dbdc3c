@@ -8,6 +8,7 @@ import Dashboard from "./components/Dashboard";
 import SavingsAccount from "./components/SavingsAccount";
 import SalaryAccount from "./components/SalaryAccount";
 import CurrentAccount from "./components/currentAccount";
+import CreateAccount from "./components/openAccount";
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
           <Route path="/CreateSavingsAccount" element={<SavingsAccount/>}/>
           <Route path="/CreateSalaryAccount" element={<SalaryAccount/>}/>          
           <Route path="/CreateCurrentAccount" element={<CurrentAccount/>}/>
+          <Route path="/OpenAccount" element={<CreateAccount/>}/>
 
         </Routes>
       </BrowserRouter>

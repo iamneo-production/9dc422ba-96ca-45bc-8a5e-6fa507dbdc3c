@@ -1,0 +1,72 @@
+.form-container-main {
+    background-color: #50ccb4;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    border: 1px solid black;
+    height: 100%;
+    padding: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+}
+
+.form-content-box {
+    width: auto;
+    border: 1px solid black;
+    height: auto;
+    background-color: #f8fcf4;
+    padding: 5%;
+}
+
+.text-val {
+    font-size: 14px;
+    width: 70%;
+    margin: auto;
+}
+
+.aadharentry {
+    text-align: left;
+    margin-top: 5%;
+    margin-left: 5%;
+
+}
+
+.label {
+    width: 35%;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 2%;
+}
+
+.form-input {
+    width: 58%;
+}
+
+.aadharsubmit {
+    background-color: #a0d0c8;
+}
+
+.nextbuttonform {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.termsandcondition{
+    margin-top: 8%;
+}
+.condition {
+    display: flex;
+    text-align: left;
+    font-size: 13px;
+    margin-top: 2%;
+}
+
+.condition input{
+    margin: auto;
+}
+.KYCtext{
+    text-align: left;
+}
