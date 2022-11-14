@@ -6,12 +6,14 @@ import Slideshow from "./HomeSlider";
 import { Button } from "react-bootstrap";
 import { BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
-function HomeBody() {
+import Notification from "./notification";
+
+function HomeBody(props) {
     const style = {
         display: "none",
         opacity: "100%",
     }
-
+    const notStyle=props.state
     const [isclick, setIsclick] = useState(0);
     const [popUpStyle, setpopUpStyle] = useState(style)
 
@@ -35,11 +37,13 @@ function HomeBody() {
         setIsclick(0);
         setpopUpStyle({ display: "none", opacity: "100%" })
     }
-    console.log(isclick, " final");
 
+    function hideNoti(e){
+        props.changeState({display:"none"})
+    }
     return (
         <>
-            <div style={{ width: "100%", height: "100px" }}></div>
+            <div style={{ width: "100%", height: "100px" }} onClick={e=>hideNoti(e)}></div>
             <div className="main-box" style={{ display: popUpStyle.display }}>
                 <div className="content-box">
                     <Link to={"CreateSavingsAccount"} className="GetStartedType">
@@ -65,7 +69,24 @@ function HomeBody() {
                     </div>
                 </div>
             </div>
-            <div style={{ opacity: popUpStyle.opacity }}>
+
+
+
+
+            <div style={{ width: '20%',position:'absolute', backgroundColor:"white", zIndex: "100", marginLeft:"60%", marginTop:"-110px", border:"2px solid black", display:notStyle.display}}>
+                <div>
+                    {Notification.map(item => (
+                        <div style={{ display: 'flex', fontSize: "14px", width: "100%", border:"0.5px solid grey",padding:"2%" }}>
+                            <div>
+                                {item.content}
+                            </div>
+                            <a href="#">Know More</a>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div style={{ opacity: popUpStyle.opacity }} onClick={e=>hideNoti(e)}>
                 <div style={{ display: "flex" }}>
                     <div style={{ marginLeft: "100px", width: "50%" }}>
                         <div className="greetings-home">

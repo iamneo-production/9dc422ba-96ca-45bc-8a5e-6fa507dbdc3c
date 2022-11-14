@@ -4,57 +4,76 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 function Step1() {
     const [step, setstep] = useState(2);
-    const UserData = {
-        aadharNumber: "",
-        dob: "",
-        gender: "",
-        Phone: "",
-        Email: "",
-        PAN: "",
-        nationality: "",
-        fathersName: "",
-        mothersName: "",
-        pincode: "",
-        state: "",
-        district: "",
-        annualIncone: 0,
-        maritalStatus: ""
-    }
-    const [formData, setformData] = useState(UserData)
+    //formdata stats
     const [aadharvalue, setaadharvalue] = useState("");
-    const nextStep = (e) => {
-        setaadharvalue("")
-        e.preventDefault()
+    const [pannumber, setpannumber] = useState("");
+    const [fname, setfname] = useState("");
+    const [mname, setmname] = useState("");
+    const [lname, setlname] = useState("");
+    const [phone,setphone]=useState("");
+    const [email, setemail]=useState("");
+    const [dob,setdob]=useState("");
+    const [gender, setgender]=useState("");
+    const [nationality, setnationality]=useState("");
+    const [fatherName, setfatherName]=useState("");
+    const [motherName, setmotherName]=useState("");
+    const [motherMaidenName, setmotherMaidenName]=useState("");
+    const [pincode,setpincode]=useState("");
+    const [state, setstate]=useState("");
+    const [district, setdistrict]=useState("");
+    const [annualIncome, setannualIncome]=useState("")
+    const [marital, setmarital]=useState("");
 
-        setstep(step + 1);
+
+    //form data update functions
+    const FathernameToUpperCase = e => {
+        const result = e.target.value.toUpperCase();
+        setfatherName(result);
     }
-    function prevStep() {
-        setaadharvalue("")
-
-        setstep(step - 1)
+    const MothernameToUpperCase = e => {
+        const result = e.target.value.toUpperCase();
+        setmotherName(result);
     }
-    useEffect(() => {
-        prevStep();
-    }, []);
-
-    const handleInputData = input => e => {
-        console.log(e);
-        const { value } = e.target;
-
-        setformData(prevState => ({
-            ...prevState,
-            [input]: value
-        }));
-
+    const motherMaidennameToUpperCase=e=>{
+        const result=e.target.value.toUpperCase();
+        setmotherMaidenName(result);
     }
-    const handleChange = event => {
+    const updateState=e=>{
+        const result=e.target.value.toUpperCase();
+        setstate(result);
+    }
+    const updateDistrict=e=>{
+        const result=e.target.value.toUpperCase();
+        setdistrict(result);
+    }
+    const updateMarital=e=>{
+        const result=e.target.value.toUpperCase();
+        setmarital(result);
+    }
+    const handlePinChange = event => {
+        var result = event.target.value.replace(/\D/g, '');
+        setpincode(result);
+        
+    }
+    const updateAnnualIncome = event => {
+        var result = event.target.value.replace(/\D/g, '');
+        setannualIncome(result);
+        
+    }
+    const handleAadharChange = event => {
         var result = event.target.value.replace(/\D/g, '');
         setaadharvalue(result);
+        
     }
-    const [pannumber, setpannumber] = useState("");
-    const [fname, setfname] = useState("")
-    const [mname, setmname] = useState("")
-    const [lname, setlname] = useState("")
+    const handleMobileChange = event => {
+        var result = event.target.value.replace(/\D/g, '');
+        setphone(result); 
+    }
+    const handleEmailChange = event => {
+        var result = event.target.value;
+        setemail(result);
+    }
+    
     const FnameToUpperCase = e => {
         const result = e.target.value.toUpperCase();
         setfname(result);
@@ -71,6 +90,51 @@ function Step1() {
         const result = e.target.value.toUpperCase();
         setpannumber(result);
     }
+    const updateDob=e=>{
+        setdob(e.target.value);
+    }
+    const updateGender=e=>{
+        const ind=e.target.options.selectedIndex
+        setgender(e.target.options[ind].value);
+    }
+    const updateNationality=e=>{
+        const ind=e.target.options.selectedIndex
+        setnationality(e.target.options[ind].value);
+    }
+
+    //Step changers
+    const nextStep = (e) => {
+        e.preventDefault()
+        setstep(step + 1);
+    }
+    function prevStep() {
+        setstep(step - 1)
+    }
+    useEffect(() => {
+        prevStep();
+    }, []);
+    const UserData={
+        aadhar:aadharvalue,
+        pan:pannumber,
+        phone:phone,
+        email:email,
+        fname:fname,
+        mname:mname,
+        lname:lname,
+        dob:dob,
+        gender:gender,
+        nationality:nationality,
+        fatherName:fatherName,
+        motherName:motherName,
+        motherMaidenName:motherMaidenName,
+        pincode:pincode,
+        state:state,
+        district:district,
+        annualIncome:annualIncome,
+        marital:marital
+    }
+    //form data
+    console.log(UserData);
     switch (step) {
         case 1:
             return (
@@ -85,10 +149,10 @@ function Step1() {
                             <label className="label">
                                 Aadhar Number*
                             </label>
-                            <input className="form-input" type={"text"} name="aadharNumber" placeholder="Enter Your Aadhar Number" value={aadharvalue} onChange={(e) => handleChange(e) && handleInputData(e)} maxLength={"12"} minLength={"12"} required />
+                            <input className="form-input" type={"text"} name="aadharNumber" placeholder="Enter Your Aadhar Number" value={aadharvalue} onChange={(e) => handleAadharChange(e)} maxLength={"12"} minLength={"12"} required />
                         </div>
                         <div style={{ textAlign: "center", padding: "5%" }}>
-                            <Button className="aadharsubmit">Validate Aadhar</Button>
+                            <Button className="aadharsubmit" >Validate Aadhar</Button>
                         </div>
                         <div className="nextbuttonform">
                             <div style={{ margin: "auto", marginLeft: "45%" }}>{step}/8</div>
@@ -116,13 +180,13 @@ function Step1() {
                                 <label className="label">
                                     Mobile Number*
                                 </label>
-                                <input className="form-input" type={"text"} name="Phone" placeholder="Enter Your Mobile Number" value={aadharvalue} onChange={(e) => handleChange(e) && handleInputData(e)} maxLength={"10"} minLength={"10"} required />
+                                <input className="form-input" type={"text"} name="Phone" placeholder="Enter Your Mobile Number" value={phone} onChange={(e) => handleMobileChange(e)} maxLength={"10"} minLength={"10"} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     Email*
                                 </label>
-                                <input className="form-input" type={"Email"} name="Email" placeholder="Email" onChange={e => handleInputData(e)} required />
+                                <input className="form-input" type={"Email"} name="Email" placeholder="Email" value={email} onChange={e => handleEmailChange(e)} required />
                             </div>
                             <div className="nextbuttonform">
 
@@ -156,13 +220,13 @@ function Step1() {
                                 <label className="label">
                                     Middle Name
                                 </label>
-                                <input className="form-input" type={"text"} name="mname" placeholder="Enter Your Middle Name" value={mname} onChange={(e) => MnameToUpperCase(e) && handleInputData(e)} required />
+                                <input className="form-input" type={"text"} name="mname" placeholder="Enter Your Middle Name" value={mname} onChange={(e) => MnameToUpperCase(e) && (e)} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     Last Name*
                                 </label>
-                                <input className="form-input" type={"text"} name="lname" placeholder="Enter Your Last Name" value={lname} onChange={e => LnameToUpperCase(e) && handleInputData(e)} required />
+                                <input className="form-input" type={"text"} name="lname" placeholder="Enter Your Last Name" value={lname} onChange={e => LnameToUpperCase(e) && (e)} required />
                             </div>
                             <div className="nextbuttonform">
 
@@ -191,18 +255,18 @@ function Step1() {
                                 <label className="label">
                                     DOB*
                                 </label>
-                                <input className="form-input " type={"date"} name="dob" onChange={(e) => handleInputData(e)} required />
+                                <input className="form-input " type={"date"} name="dob" onChange={(e) => updateDob(e)} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     Gender
                                 </label>
-                                <select className="form-input" type={"text"} name="gender" placeholder="Enter Your Middle Name" onChange={(e) => handleInputData(e)} required>
-                                    <option className="form-input" id="0" selected>Gender</option>
-                                    <option id="1" >Male</option>
-                                    <option id="2">Female</option>
-                                    <option id="3">Transgender</option>
-                                    <option id="4">Prefer Not to Say</option>
+                                <select className="form-input" type={"text"} name="gender" placeholder="Gender" onChange={(e) => updateGender(e)} required>
+                                    <option className="form-input" id="0" defaultValue={""}>Gender</option>
+                                    <option id="1" value={"Male"} >Male</option>
+                                    <option id="2" value={"Female"}>Female</option>
+                                    <option id="3" value={"Transgender"}>Transgender</option>
+                                    <option id="4" value={"Prefer Not to Say"}>Prefer Not to Say</option>
 
                                 </select>
                             </div>
@@ -210,10 +274,10 @@ function Step1() {
                                 <label className="label">
                                     Nationality*
                                 </label>
-                                <select className="form-input" type={"text"} name="Nationality" placeholder="Nationality" value={lname} onChange={e => LnameToUpperCase(e) && handleInputData(e)} required>
-                                    <option id="0" selected>Nationality</option>
-                                    <option id="1">Indian</option>
-                                    <option id="2">Others..</option>
+                                <select className="form-input" type={"text"} name="Nationality" placeholder="Nationality" onChange={e => updateNationality(e)} required>
+                                    <option id="0" defaultValue={""}>Nationality</option>
+                                    <option id="1" value={"Indian"}>Indian</option>
+                                    <option id="2" value={"Others.."}>Others..</option>
                                 </select>
                             </div>
                             <div className="nextbuttonform">
@@ -242,19 +306,19 @@ function Step1() {
                                 <label className="label">
                                     Father's Name*
                                 </label>
-                                <input className="form-input " type={"text"} name="FatherName" placeholder="Enter Your Father's Name" value={fname} onChange={(e) => FnameToUpperCase(e)} required />
+                                <input className="form-input " type={"text"} name="FatherName" placeholder="Enter Your Father's Name" value={fatherName} onChange={(e) => FathernameToUpperCase(e)} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     Mother's Name
                                 </label>
-                                <input className="form-input" type={"text"} name="MotherName" placeholder="Enter Your Mother's Name" value={mname} onChange={(e) => MnameToUpperCase(e) && handleInputData(e)} required />
+                                <input className="form-input" type={"text"} name="MotherName" placeholder="Enter Your Mother's Name" value={motherName} onChange={(e) => MothernameToUpperCase(e) } required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     Mother's Maiden Name*
                                 </label>
-                                <input className="form-input" type={"text"} name="MotherMaidenName" placeholder="Enter Your Mother's Maiden Name" value={lname} onChange={e => LnameToUpperCase(e) && handleInputData(e)} required />
+                                <input className="form-input" type={"text"} name="MotherMaidenName" placeholder="Enter Your Mother's Maiden Name" value={motherMaidenName} onChange={e => motherMaidennameToUpperCase(e) && (e)} required />
                             </div>
                             <div className="nextbuttonform">
 
@@ -283,19 +347,19 @@ function Step1() {
                                 <label className="label">
                                     PINCODE*
                                 </label>
-                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your PINCODE" value={aadharvalue} onChange={(e) => handleChange(e)} maxLength={"6"} minLength={"6"} required />
+                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your PINCODE" value={pincode} onChange={(e) => handlePinChange(e)} maxLength={"6"} minLength={"6"} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     State*
                                 </label>
-                                <input className="form-input" type={"text"} name="state" placeholder="Enter Your State" value={mname} onChange={(e) => MnameToUpperCase(e) && handleInputData(e)} required />
+                                <input className="form-input" type={"text"} name="state" placeholder="Enter Your State" value={state} onChange={(e) => updateState(e)} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     District*
                                 </label>
-                                <input className="form-input" type={"text"} name="district" placeholder="Enter Your District" value={lname} onChange={e => LnameToUpperCase(e) && handleInputData(e)} required />
+                                <input className="form-input" type={"text"} name="district" placeholder="Enter Your District" value={district} onChange={e => updateDistrict(e)} required />
                             </div>
                             <div className="nextbuttonform">
 
@@ -324,13 +388,13 @@ function Step1() {
                                 <label className="label">
                                     Annual Income*
                                 </label>
-                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your PINCODE" value={aadharvalue} onChange={(e) => handleChange(e)} maxLength={"6"} minLength={"6"} required />
+                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your Annual Income" value={annualIncome} onChange={(e) => updateAnnualIncome(e)} maxLength={"6"} minLength={"6"} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     Marital Status*
                                 </label>
-                                <input className="form-input" type={"text"} name="state" placeholder="Enter Your State" value={mname} onChange={(e) => MnameToUpperCase(e) && handleInputData(e)} required />
+                                <input className="form-input" type={"text"} name="state" placeholder="Enter Your Marital Status" value={marital} onChange={(e) => updateMarital(e)} required />
                             </div>
                             <div className="termsandcondition">
                                 <div className="condition">

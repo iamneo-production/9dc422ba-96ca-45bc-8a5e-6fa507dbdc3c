@@ -43,6 +43,7 @@
 
 .transaction-content {
     height: 60%;
+    font-weight: 600;
 }
 
 .show-more-transactions {

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { Button, Container, Dropdown } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,11 +12,15 @@ import { VscGraphLine } from "react-icons/vsc"
 import dropdown from "../assests/img/dropdown.png"
 import { BsArrowRightSquareFill, BsCashCoin } from "react-icons/bs"
 import { PieChart } from "react-minimal-pie-chart";
+import Transanctions from "./transactions";
 function Dashboard() {
-    const piedata =
+
+    const [income, setIncome]=useState(0);
+    const [expense, setexpense]=useState(0);
+    let piedata =
         [
-            { title: "Income", value: 4.44120, color: "#4708b4" },
-            { title: "Expense", value: 2.95980, color: "#f97405" }
+            { title: "Income", value: income, color: "#4708b4" },
+            { title: "Expense", value: expense, color: "#f97405" }
         ]
 
     const Expense = {
@@ -24,7 +28,41 @@ function Dashboard() {
         weekly: 1233,
         monthly: 1233
     }
-    const accBalance = 100000;
+    const isCreditedfrom=(item)=> {
+        if (item.isCredited == true) {
+            return ("From: ")
+        } else {
+            return ("To: ")
+        }
+    }
+    const [accBalance,setaccBalance]=useState(0);
+    function updatetType(item){
+        if(item.isCredited==true){
+            return("green")
+        }else{
+            return("red");
+        }
+    }
+    useEffect(() => {
+        let amt=0;
+        let inc=0;
+        let exp=0;
+        for(let i=0;i<Transanctions.length;i++){
+            if(Transanctions[i].isCredited==true){
+                let val=parseInt(Transanctions[i].amount);
+                inc+=val;
+                amt+=val;
+            }else{
+                let val=parseInt(Transanctions[i].amount)
+                exp+=val;
+                amt-=val;
+            }
+        }
+        setIncome(inc);
+        setexpense(exp);
+        setaccBalance(amt);
+    }, []);
+    console.log("hello");
     return (
         <>
             <NavBar />
@@ -51,9 +89,9 @@ function Dashboard() {
                     </Col>
                 </Row>
                 <Row style={{ height: "1400px" }}>
-                    <Col md={8} style={{zIndex:"1"}}>
+                    <Col md={8} style={{ zIndex: "1" }}>
                         <div className="transaction-display">
-                            <div style={{ display: "flex", marginTop: ".5%", height: "20%" }}>
+                            <div style={{ display: "flex", marginTop: ".5%", height: "12%" }}>
                                 <h5 style={{ marginLeft: "2%", fontWeight: "bold" }}>
                                     Latest Transanctions
                                 </h5>
@@ -62,7 +100,62 @@ function Dashboard() {
                                 </div>
                             </div>
                             <div className="transaction-content">
-
+                                <div style={{ display: "flex", margin: "auto", marginBottom: "2%" }}>
+                                    <div style={{ display: "flex", margin: "auto", textAlign: "center", width: "25%" }}>
+                                        <div style={{ width: "40%" }}>
+                                            Time
+                                        </div>
+                                        <div style={{ width: "60%" }}>
+                                            Date
+                                        </div>
+                                    </div>
+                                    <div style={{ width: "25%" }}>
+                                        Transanctions ID
+                                    </div>
+                                    <div style={{ width: "30%", display:"flex", textAlign:"left" }}>
+                                            <div style={{width:"33%"}}>
+                                                Cre/Deb
+                                            </div>
+                                            <div style={{width:"33%"}}>
+                                                From
+                                            </div>
+                                            <div style={{width:"33%"}}>
+                                                Amount
+                                            </div>
+                                        </div>
+                                    <div style={{ width: "20%", textAlign:"center" }}>
+                                        Remark
+                                    </div>
+                                </div>
+                                {Transanctions.map(item =>(
+                                    <div style={{ display: "flex", margin: "auto" }}>
+                                        <div style={{ display: "flex", margin: "auto", textAlign: "center", width: "25%" }}>
+                                            <div style={{ width: "40%" }}>
+                                                {item.time}
+                                            </div>
+                                            <div style={{ width: "60%" }}>
+                                                {item.date}
+                                            </div>
+                                        </div>
+                                        <div style={{ width: "25%" }}>
+                                            {item.transID}
+                                        </div>
+                                        <div style={{ width: "30%", display:"flex", textAlign:"left" }}>
+                                            <div style={{width:"33%"}}>
+                                                {isCreditedfrom(item)}
+                                            </div>
+                                            <div style={{width:"33%"}}>
+                                                {item.from}
+                                            </div>
+                                            <div style={{width:"33%", color:updatetType(item)}}>
+                                                {"Rs. "+item.amount}
+                                            </div>
+                                        </div>
+                                        <div style={{ width: "20%",textAlign:"center" }}>
+                                            {item.remark}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                             <div className="show-more-transactions">
                                 <Button type="submit" style={{ width: "150px", display: "flex", alignItems: "center" }}>
@@ -98,7 +191,6 @@ function Dashboard() {
                                 </div>
                             </div>
                             <div className="transaction-content">
-
                             </div>
                             <div className="show-more-transactions">
                                 <Button type="submit" style={{ width: "150px", display: "flex", alignItems: "center" }}>
@@ -121,18 +213,18 @@ function Dashboard() {
                             </div>
                             <div style={{ height: "90%", display: "flex" }}>
 
-                                <div style={{ height: "100%", width:"100%" }}>
-                                    <div className="stat-and-pie-container" style={{ marginLeft: "1px", backgroundColor: "#fffcec", display:"flex", height:"95%"}}>
-                                        <div style={{width:"70%"}}>
+                                <div style={{ height: "100%", width: "100%" }}>
+                                    <div className="stat-and-pie-container" style={{ marginLeft: "1px", backgroundColor: "#fffcec", display: "flex", height: "95%" }}>
+                                        <div style={{ width: "70%" }}>
                                             <PieChart className="piechart" data={piedata} animate={"True"} radius={50} startAngle={270} center={[50, 50]} label={(piedata) => piedata.dataEntry.title} labelStyle={{ fontSize: "9px", backgroundColor: "white" }}>
                                             </PieChart>
                                         </div>
-                                        <div className="stat-display" style={{ display: "flex", flexDirection: "column", alignItems: "center", marginLeft:"auto", marginRight:"5px", width:"auto" }}>
-                                            <div style={{height:"auto",border: "2px solid #4708b4", borderRadius: "10px", width: "100%", margin: "auto", color: "#4708b4", display: "flex" }}>
+                                        <div className="stat-display" style={{ display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "auto", marginRight: "5px", width: "auto" }}>
+                                            <div style={{ height: "auto", border: "2px solid #4708b4", borderRadius: "10px", width: "100%", margin: "auto", color: "#4708b4", display: "flex" }}>
                                                 <div style={{ display: "flex", alignItems: "center" }}>
-                                                    <AiOutlineArrowDown className="aerrow" color="#4708b4" size={40}/>
+                                                    <AiOutlineArrowDown className="aerrow" color="#4708b4" size={40} />
                                                 </div>
-                                                <div style={{ textAlign: "center", width: "auto", margin:"auto" }}>
+                                                <div style={{ textAlign: "center", width: "auto", margin: "auto" }}>
                                                     <div style={{ fontWeight: "bolder", fontSize: "auto" }}>
                                                         {piedata[0].value + "$"}
                                                     </div>
@@ -147,7 +239,7 @@ function Dashboard() {
                                                 <div style={{ display: "flex", alignItems: "center" }}>
                                                     <AiOutlineArrowUp className="aerrow" color="#f97405" size={40} />
                                                 </div>
-                                                <div style={{ textAlign: "center", width: "100%", margin:"auto"}}>
+                                                <div style={{ textAlign: "center", width: "100%", margin: "auto" }}>
                                                     <div style={{ fontWeight: "bolder" }}>
                                                         {piedata[1].value + "$"}
                                                     </div>
@@ -161,20 +253,20 @@ function Dashboard() {
                                         </div>
                                     </div>
                                 </div>
-                                <div  style={{ width: "30%", display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", fontSize: "auto", textAlign: "center", height:"auto"}}>
-                                    <div  className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
+                                <div style={{ width: "30%", display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: "center", fontSize: "auto", textAlign: "center", height: "auto" }}>
+                                    <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                         Daily
                                         <div>
                                             {"$ " + Expense.daily}
                                         </div>
                                     </div >
-                                    <div  className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
+                                    <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                         Weekly
                                         <div>
                                             {"$ " + Expense.weekly}
                                         </div>
                                     </div>
-                                    <div  className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
+                                    <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                         Monthly
                                         <div>
                                             {"$ " + Expense.monthly}
@@ -186,7 +278,7 @@ function Dashboard() {
                             </div>
                         </div>
                     </Col>
-                    <Col md={4}  style={{zIndex:"1"}}>
+                    <Col md={4} style={{ zIndex: "1" }}>
                         <div style={{ height: "2%" }}></div>
                         <Button className="sidebar-menu-item" type="button" style={{ backgroundColor: "rgb(16,28,92)", display: "flex", alignItems: "center", width: '80%', margin: "auto", textAlign: "center" }}>
                             <div style={{ width: "90%" }}>
@@ -232,8 +324,8 @@ function Dashboard() {
                                 <br />
                                 <br />
                                 eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus
-                                <br/>
-                                <br/>
+                                <br />
+                                <br />
                                 sugduf vcyec eygfe8 gegyfg e gft7e8 fegfegfe
                             </div>
                         </div>
