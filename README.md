@@ -51,7 +51,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="https://user-images.githubusercontent.com/77981888/201919921-f8e5510f-dd8c-402d-96d9-b323f6a1421a.jpeg"  width="800" height="500" />
+<img src="https://user-images.githubusercontent.com/77981888/201981211-6ee3580e-efb1-4a69-bb64-7d368d7b63b1.png"  width="800" height="500" />
 
 ----------------------
 
