@@ -23,7 +23,8 @@ function Step1() {
     const [district, setdistrict]=useState("");
     const [annualIncome, setannualIncome]=useState("")
     const [marital, setmarital]=useState("");
-
+    const [username, setusername]=useState("");
+    const [password, setpassword]=useState("")
 
     //form data update functions
     const FathernameToUpperCase = e => {
@@ -101,7 +102,14 @@ function Step1() {
         const ind=e.target.options.selectedIndex
         setnationality(e.target.options[ind].value);
     }
-
+    const updateuserName=e=>{
+        const user=e.target.value;
+        setusername(user)
+    }
+    const updatepass=e=>{
+        const pass=e.target.value
+        setpassword(pass);
+    }
     //Step changers
     const nextStep = (e) => {
         e.preventDefault()
@@ -131,7 +139,9 @@ function Step1() {
         state:state,
         district:district,
         annualIncome:annualIncome,
-        marital:marital
+        marital:marital,
+        username:username,
+        password:password
     }
     //form data
     console.log(UserData);
@@ -155,7 +165,7 @@ function Step1() {
                             <Button className="aadharsubmit" >Validate Aadhar</Button>
                         </div>
                         <div className="nextbuttonform">
-                            <div style={{ margin: "auto", marginLeft: "45%" }}>{step}/8</div>
+                            <div style={{ margin: "auto", marginLeft: "45%" }}>{step}/9</div>
                             <Button style={{ backgroundColor: "#48842c", width: "30%", float: "right" }} onClick={e => nextStep(e)}>Next<AiFillCaretRight /></Button>
                         </div>
                     </div>
@@ -192,7 +202,7 @@ function Step1() {
 
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
                                 <div style={{ margin: "auto" }}>
-                                    {step}/8
+                                    {step}/9
                                 </div>
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => nextStep(e)}>Next <AiFillCaretRight /></Button>
                             </div>
@@ -202,6 +212,40 @@ function Step1() {
                 </>
             )
         case 3:
+            return(
+                <>
+                <div className="form-content-box">
+                        <div className="text-val">
+                            Fields marked *(star) are MANDATORY.
+                        </div>
+                        <form method="post" >
+
+                            <div className="aadharentry">
+                                <label className="label">
+                                    USERNAME*
+                                </label>
+                                <input className="form-input " type={"text"} name="username" placeholder="Enter Your Username" value={username} onChange={(e) => updateuserName(e)} minLength={"6"} required />
+                            </div>
+                            <div className="aadharentry">
+                                <label className="label">
+                                    PASSWORD*
+                                </label>
+                                <input className="form-input" type={"password"} name="password" placeholder="Enter Your Password" value={password} onChange={(e) => updatepass(e)} minLength={"8"} required />
+                            </div>
+                            <div className="nextbuttonform">
+
+                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
+                                <div style={{ margin: "auto" }}>
+                                    {step}/9
+                                </div>
+                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => nextStep(e)}>Next <AiFillCaretRight /></Button>
+                            </div>
+                        </form>
+
+                    </div>
+                </>
+            )
+        case 4:
             return (
                 <>
                     <div className="form-content-box">
@@ -232,7 +276,7 @@ function Step1() {
 
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
                                 <div style={{ margin: "auto" }}>
-                                    {step}/8
+                                    {step}/9
                                 </div>
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => nextStep(e)}>Next <AiFillCaretRight /></Button>
                             </div>
@@ -242,7 +286,7 @@ function Step1() {
                 </>
 
             )
-        case 4:
+        case 5:
             return (
                 <>
                     <div className="form-content-box">
@@ -284,7 +328,7 @@ function Step1() {
 
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
                                 <div style={{ margin: "auto" }}>
-                                    {step}/8
+                                    {step}/9
                                 </div>
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => nextStep(e)}>Next <AiFillCaretRight /></Button>
                             </div>
@@ -293,7 +337,7 @@ function Step1() {
                     </div>
                 </>
             )
-        case 5:
+        case 6:
             return (
                 <>
                     <div className="form-content-box">
@@ -324,7 +368,7 @@ function Step1() {
 
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
                                 <div style={{ margin: "auto" }}>
-                                    {step}/8
+                                    {step}/9
                                 </div>
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => nextStep(e)}>Next <AiFillCaretRight /></Button>
                             </div>
@@ -334,7 +378,7 @@ function Step1() {
                 </>
 
             )
-        case 6:
+        case 7:
             return (
                 <>
                     <div className="form-content-box">
@@ -365,7 +409,7 @@ function Step1() {
 
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
                                 <div style={{ margin: "auto" }}>
-                                    {step}/8
+                                    {step}/9
                                 </div>
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => nextStep(e)}>Next <AiFillCaretRight /></Button>
                             </div>
@@ -375,7 +419,7 @@ function Step1() {
                 </>
 
             )
-        case 7:
+        case 8:
             return (
                 <>
                     <div className="form-content-box">
@@ -426,7 +470,7 @@ function Step1() {
 
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
                                 <div style={{ margin: "auto" }}>
-                                    {step}/8
+                                    {step}/9
                                 </div>
                                 <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => nextStep(e)}>Next <AiFillCaretRight /></Button>
                             </div>
@@ -435,7 +479,7 @@ function Step1() {
                     </div>
                 </>
             )
-        case 8:
+        case 9:
             return (
                 <>
                     <div className="form-content-box">
