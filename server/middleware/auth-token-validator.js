@@ -1,19 +1,11 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const secretKey = getJwtSecretKey();
+const secretKey = "1122";
 
-function getJwtSecretKey() {
-    try {
-        return config.get('jwt.secretkey');
-    } catch (err) {
-        console.error('jwt key req for starting');
-        process.exit(0);
-    }
-}
 
 module.exports = function (req, res, next) {
-    const token = req.header('auth-token');
+    const token = req.header('x-auth-token');
     if (!token) {
         return res.status(400).send({
             message: 'Access denied. Authentication token not found.',
@@ -25,8 +17,8 @@ module.exports = function (req, res, next) {
         next();
     } catch (err) {
         return res.status(400).send({
-            message: 'invAlid token',
-            messageCode: '400'
+            message: 'Access denied. Invalid authentication token.',
+            messageCode: 'INVTKN'
         });
     }
 }
