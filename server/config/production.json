@@ -1,13 +1,13 @@
 {
     "app-name": "Banking Applicaion - Production",
-    "transaction-service-config":{
-        "protocol" : "http://",
+    "transaction-service-config": {
+        "protocol": "http://",
         "host": "localhost:",
         "port": 8081,
         "base": "/bankingapp/api/transaction",
-        "uri":"/logtransactionsummary"
+        "uri": "/logtransactionsummary"
     },
-    "mongodb-config":{
+    "mongodb-config": {
         "protocol": "mongodb://",
         "host": "127.0.0.1:",
         "port": 27017,

@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const userSchemaModel = require('./userSchema_model');
+const userSchemaModel = require('./user-schema-model');
 
 const validateLoginUserSchema = (loginUser) => {
     return Joi.validate(loginUser, userSchemaModel.loginUserInputSchemaModel);
@@ -21,6 +21,10 @@ const validateUpdatePhoneNoSchema = (updatePhoneNo) => {
     return Joi.validate(updatePhoneNo, userSchemaModel.updatePhoneNoInputSchemaModel);
 }
 
+const validateUpdateAddressSchema = (user) => {
+    return Joi.validate(user, userSchemaModel.updateAddressInputSchemaModel);
+}
+
 const validateUserByUsernameSchema = (username) => {
     return Joi.validate(username, userSchemaModel.getUserByUsernameInputSchemaModel);
 }
@@ -36,6 +40,7 @@ module.exports = {
     validateUpdatePasswordSchema,
     validateUpdateEmailSchema,
     validateUpdatePhoneNoSchema,
+    validateUpdateAddressSchema,
     validateUserByUsernameSchema,
-    validateUserByPhoneNoSchema
+    validateUserByPhoneNoSchema,
 }
