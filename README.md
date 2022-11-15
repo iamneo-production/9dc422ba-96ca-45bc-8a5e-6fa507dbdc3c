@@ -118,7 +118,7 @@ The backend is created on Express. It has 3 features for now.
 
 <!-- Roadmap -->
 ## Roadmap
-<div display="flex" flex-direction="column" align-item="center" justify-content="center">
+<div margin="auto">
 <img src="https://user-images.githubusercontent.com/77981888/201920119-68f6b221-d7c1-4a47-9658-125f3defe780.jpeg"  width="500" height="300" />
 <img src="https://user-images.githubusercontent.com/77981888/201920424-7c2c4a68-a4f6-4a1a-87f3-72d4134b9ef7.jpeg"  width="500" height="300" />
 <img src="https://user-images.githubusercontent.com/77981888/201920553-cabedc64-6a02-4887-b13e-705092cdb6d6.jpeg"  width="500" height="300" />
