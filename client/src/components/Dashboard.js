@@ -14,7 +14,6 @@ import { BsArrowRightSquareFill, BsCashCoin } from "react-icons/bs"
 import { PieChart } from "react-minimal-pie-chart";
 import Transanctions from "./transactions";
 function Dashboard() {
-
     const [income, setIncome]=useState(0);
     const [expense, setexpense]=useState(0);
     let piedata =
@@ -43,6 +42,7 @@ function Dashboard() {
             return("red");
         }
     }
+    // useEffect is to avoid the infinite loop due to change in state continuously
     useEffect(() => {
         let amt=0;
         let inc=0;
