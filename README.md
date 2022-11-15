@@ -1,9 +1,10 @@
 <a name="readme-top"></a>
 
-[![Hemant][linkedin-shield1]][contributors-url1]
-[![Prakhar][linkedin-shield2]][contributors-url2]
-[![Ayush][linkedin-shield3]][contributors-url3]
-[![Anuj][linkedin-shield4]][contributors-url4]
+
+[![Anuj][linkedin-shield1]][contributors-url1]
+[![Ayush][linkedin-shield2]][contributors-url2]
+[![Hemant][linkedin-shield3]][contributors-url3]
+[![Prakhar][linkedin-shield4]][contributors-url4]
 [![Sanket][linkedin-shield5]][contributors-url5]
 
 
@@ -169,15 +170,15 @@ Download the repo and then follow the installation methods given below.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[linkedin-shield1]: https://img.shields.io/static/v1?label=&message=Hemant&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield2]: https://img.shields.io/static/v1?label=&message=Prakhar&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield3]: https://img.shields.io/static/v1?label=&message=Ayush&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield4]: https://img.shields.io/static/v1?label=&message=Anuj&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield1]: https://img.shields.io/static/v1?label=&message=Anuj&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield2]: https://img.shields.io/static/v1?label=&message=Ayush&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield3]: https://img.shields.io/static/v1?label=&message=Hemant&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield4]: https://img.shields.io/static/v1?label=&message=Prakhar&color=black&style=for-the-badge&logo=linkedin
 [linkedin-shield5]: https://img.shields.io/static/v1?label=&message=Sanket&color=black&style=for-the-badge&logo=linkedin
-[contributors-url1]: https://www.linkedin.com/in/hyturing/
-[contributors-url2]: https://www.linkedin.com/in/prakhartomar53/
-[contributors-url3]: https://www.linkedin.com/in/ayush-mehta-6997a4235/
-[contributors-url4]: https://www.linkedin.com/in/awasthi-anuj/
+[contributors-url1]: https://www.linkedin.com/in/awasthi-anuj/
+[contributors-url2]: https://www.linkedin.com/in/ayush-mehta-6997a4235/
+[contributors-url3]: https://www.linkedin.com/in/hyturing/
+[contributors-url4]: https://www.linkedin.com/in/prakhartomar53/
 [contributors-url5]: https://www.linkedin.com/in/sanket-kumar-singh-b698191b8/
 
 
