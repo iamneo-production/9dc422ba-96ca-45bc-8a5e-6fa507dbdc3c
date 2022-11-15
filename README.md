@@ -124,7 +124,7 @@ The backend is created on Express. It has 3 features for now.
 
 </div>
 <div display="flex" justify-content="center">
-<img src="https://user-images.githubusercontent.com/77981888/201920424-7c2c4a68-a4f6-4a1a-87f3-72d4134b9ef7.jpeg"  width="600" height="300" />
+<img src="https://user-images.githubusercontent.com/77981888/201920424-7c2c4a68-a4f6-4a1a-87f3-72d4134b9ef7.jpeg"  width="800" height="300" />
 
 </div>
 
