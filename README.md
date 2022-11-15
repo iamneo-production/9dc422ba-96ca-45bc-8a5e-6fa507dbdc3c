@@ -51,7 +51,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="https://user-images.githubusercontent.com/77981888/201919921-f8e5510f-dd8c-402d-96d9-b323f6a1421a.jpeg"  width="800" height="600" />
 
 ----------------------
 
