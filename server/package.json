@@ -1,9 +1,8 @@
 {
-  "name": "banking-api",
+  "name": "bankingapp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "description": "A simple net banking application",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,17 +10,15 @@
   "author": "Ayush",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "config": "^3.0.1",
-    "debug": "^4.1.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "axios": "^1.1.3",
+    "bcrypt": "^5.1.0",
+    "config": "^3.3.8",
+    "debug": "^4.3.4",
+    "express": "^4.18.2",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.29",
+    "mongoose": "^5.13.15",
     "morgan": "^1.9.1",
-    "dotenv": "^16.0.1"
+    "pdfmake": "^0.1.53"
   }
 }

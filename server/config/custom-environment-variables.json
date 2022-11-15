@@ -1,5 +1,5 @@
 {
     "jwt": {
-        "secretkey": "bankingapp-secretkey"
+        "secretKey": "1122"
     }
 }
