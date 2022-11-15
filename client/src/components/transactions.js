@@ -31,7 +31,7 @@ const Transanctions=[
         from:"Ayush",
         isCredited:false,
         amount:"10000",
-        remark:"Drugs",
+        remark:"Medicine",
         date:"2022-10-10",
         time:"21:30"
 
