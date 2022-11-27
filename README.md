@@ -7,11 +7,14 @@
 [![Prakhar][linkedin-shield4]][contributors-url4]
 [![Sanket][linkedin-shield5]][contributors-url5]
 
-
+## The Project Presentation
+[![Canva][canva-shield]][canva-url]
+-----------------------------------------------------------------------------------
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
+
 
 ![image](https://user-images.githubusercontent.com/77242965/204131932-eed3c646-8e34-4356-83e9-9712817a959b.png)
 
@@ -174,11 +177,13 @@ Download the repo and then follow the installation methods given below.
 [linkedin-shield3]: https://img.shields.io/static/v1?label=&message=Hemant&color=black&style=for-the-badge&logo=linkedin
 [linkedin-shield4]: https://img.shields.io/static/v1?label=&message=Prakhar&color=black&style=for-the-badge&logo=linkedin
 [linkedin-shield5]: https://img.shields.io/static/v1?label=&message=Sanket&color=black&style=for-the-badge&logo=linkedin
+[canva-shield]: https://img.shields.io/static/v1?label=&message=Click-Here&color=black&style=for-the-badge&logo=Canva
 [contributors-url1]: https://www.linkedin.com/in/awasthi-anuj/
 [contributors-url2]: https://www.linkedin.com/in/ayush-mehta-6997a4235/
 [contributors-url3]: https://www.linkedin.com/in/hyturing/
 [contributors-url4]: https://www.linkedin.com/in/prakhartomar53/
 [contributors-url5]: https://www.linkedin.com/in/sanket-kumar-singh-b698191b8/
+[canva-url]: https://www.canva.com/design/DAFTILlf_XE/UVbaZyQnBFmsyjjHRuuNgQ/view?utm_content=DAFTILlf_XE&utm_campaign=designshare&utm_medium=link&utm_source=publishpresent
 
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
