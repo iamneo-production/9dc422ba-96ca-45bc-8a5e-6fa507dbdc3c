@@ -62,12 +62,6 @@ const Payment = (props) => {
                                 <form method="post" >
                                     <div className="aadharentry">
                                         <label className="label">
-                                            Bank*
-                                        </label>
-                                        <input className="form-input " type={"text"} name="bank" placeholder="Enter Sender's bank name" value={bank} onChange={(e) => updateBank(e)} minLength={"10"} required />
-                                    </div>
-                                    <div className="aadharentry">
-                                        <label className="label">
                                             Account Number*
                                         </label>
                                         <input className="form-input " type={"text"} name="accountnumber" placeholder="Enter Account Number" value={accountNumber} onChange={(e) => handleAccountChange(e)} minLength={"10"} required />
@@ -78,6 +72,12 @@ const Payment = (props) => {
                                         </label>
                                         <input className="form-input" type={"password"} name="confirmaccnumber" placeholder="Confirm Account Number" onChange={(e) => confirmAccountNumber(e)} onPaste={e => e.preventDefault()} minLength={"10"} maxLength={accountmaxlim} required />
                                         <div className="errorMsg" style={{ display: errorStyle }}>Account Numbers Don't Match</div>
+                                    </div>
+                                    <div className="aadharentry">
+                                        <label className="label">
+                                            Beneficiary Name*
+                                        </label>
+                                        <input className="form-input " type={"text"} name="accountnumber" placeholder="Enter Beneficiary Name" value={accountNumber} onChange={(e) => handleAccountChange(e)} minLength={"10"} required />
                                     </div>
                                     <div className="aadharentry">
                                         <label className="label">
