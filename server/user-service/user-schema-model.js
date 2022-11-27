@@ -18,8 +18,8 @@ const registerInputUserSchemaModel = {
     password: Joi.string().min(8).required(),
     phoneNo: Joi.string().min(10).max(10).required(),
     address: {
-        firstline: Joi.string().min(1).required(),
-        secondline: Joi.string().min(1).required(),
+        firstline: Joi.string().min(1),
+        secondline: Joi.string().min(1),
         city: Joi.string().min(3).required(),
         country: Joi.string().min(3).required(),
         pin: Joi.string().min(6).required()
