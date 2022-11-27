@@ -1,9 +1,10 @@
 <a name="readme-top"></a>
 
-[![Hemant][linkedin-shield1]][contributors-url1]
-[![Prakhar][linkedin-shield2]][contributors-url2]
-[![Ayush][linkedin-shield3]][contributors-url3]
-[![Anuj][linkedin-shield4]][contributors-url4]
+
+[![Anuj][linkedin-shield1]][contributors-url1]
+[![Ayush][linkedin-shield2]][contributors-url2]
+[![Hemant][linkedin-shield3]][contributors-url3]
+[![Prakhar][linkedin-shield4]][contributors-url4]
 [![Sanket][linkedin-shield5]][contributors-url5]
 
 
@@ -12,8 +13,7 @@
 <br />
 <div align="center">
 
-
-<img src="https://user-images.githubusercontent.com/77238801/201717153-e8a42737-9715-423b-a1a7-c26ca6489a47.jpeg"  width="800" height="600" />
+![image](https://user-images.githubusercontent.com/77242965/204131932-eed3c646-8e34-4356-83e9-9712817a959b.png)
 
 
 
@@ -51,7 +51,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="https://user-images.githubusercontent.com/77981888/201981211-6ee3580e-efb1-4a69-bb64-7d368d7b63b1.png"  width="800" height="500" />
+![image](https://user-images.githubusercontent.com/77242965/204131812-13bfe3ee-d794-49e7-be72-5c839280d1e5.png)
 
 ----------------------
 
@@ -169,15 +169,15 @@ Download the repo and then follow the installation methods given below.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[linkedin-shield1]: https://img.shields.io/static/v1?label=&message=Hemant&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield2]: https://img.shields.io/static/v1?label=&message=Prakhar&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield3]: https://img.shields.io/static/v1?label=&message=Ayush&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield4]: https://img.shields.io/static/v1?label=&message=Anuj&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield1]: https://img.shields.io/static/v1?label=&message=Anuj&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield2]: https://img.shields.io/static/v1?label=&message=Ayush&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield3]: https://img.shields.io/static/v1?label=&message=Hemant&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield4]: https://img.shields.io/static/v1?label=&message=Prakhar&color=black&style=for-the-badge&logo=linkedin
 [linkedin-shield5]: https://img.shields.io/static/v1?label=&message=Sanket&color=black&style=for-the-badge&logo=linkedin
-[contributors-url1]: https://www.linkedin.com/in/hyturing/
-[contributors-url2]: https://www.linkedin.com/in/prakhartomar53/
-[contributors-url3]: https://www.linkedin.com/in/ayush-mehta-6997a4235/
-[contributors-url4]: https://www.linkedin.com/in/awasthi-anuj/
+[contributors-url1]: https://www.linkedin.com/in/awasthi-anuj/
+[contributors-url2]: https://www.linkedin.com/in/ayush-mehta-6997a4235/
+[contributors-url3]: https://www.linkedin.com/in/hyturing/
+[contributors-url4]: https://www.linkedin.com/in/prakhartomar53/
 [contributors-url5]: https://www.linkedin.com/in/sanket-kumar-singh-b698191b8/
 
 
@@ -195,3 +195,4 @@ Download the repo and then follow the installation methods given below.
 [Morgan-url]: https://www.npmjs.com/package/morgan
 [B-crypt]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [Bcrypt-url]: https://www.npmjs.com/package/bcryptjs
+#

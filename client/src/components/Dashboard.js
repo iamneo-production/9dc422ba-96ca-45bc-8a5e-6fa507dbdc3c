@@ -76,7 +76,7 @@ function Dashboard() {
                     <Row className="user-details-row">
                         <Col md={4} className="title-col-dash">
                             <div className="account-number">
-                                Account Number
+                                Account No. 423287332823
                             </div>
                         </Col>
                         <Col md={4} className="title-col-dash">
@@ -86,7 +86,7 @@ function Dashboard() {
                         </Col>
                         <Col md={3} className="title-col-dash">
                             <div className="mob-number">
-                                Mobile Number
+                                Mobile No. 9988776655
                             </div>
 
                         </Col>
@@ -313,7 +313,7 @@ function Dashboard() {
                                         <li>Salam Ewaalekum</li>
                                         <li>Qwerty Qwerty</li>
                                         <li>Holopinsss</li>
-                                        <li>Loda lasan</li>
+                                        <li>Mississippi</li>
                                     </ol>
                                 </div>
                             </div>
@@ -322,7 +322,7 @@ function Dashboard() {
                                 <div style={{ border: '1px solid black', backgroundColor: '#f0f4f4', borderRadius: "8px", fontSize: "22px" }}>
                                     IMPORTANT ANNOUNCEMENTS
                                 </div>
-                                <div style={{ textAlign: "left", fontWeight: "lighter" }}>
+                                <div style={{ textAlign: "centre", fontWeight: "lighter" }}>
                                     Lorem ipsum dolor sit amet. Qui suscipit consequuntur
                                     <br />
                                     <br />

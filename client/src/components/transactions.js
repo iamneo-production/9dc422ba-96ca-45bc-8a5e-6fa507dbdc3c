@@ -1,7 +1,7 @@
 const Transanctions=[
     {
         transID:"000374698734893",
-        from:"Anuj",
+        from:"Sanket",
         isCredited:true,
         amount:"20000",
         remark:"Salary",
@@ -37,10 +37,10 @@ const Transanctions=[
 
     },  {
         transID:"000374698734893",
-        from:"Anuj",
+        from:"Sanket",
         isCredited:true,
         amount:"5000",
-        remark:"Party",
+        remark:"Solan Trip",
         date:"2022-11-25",
         time:"12:00"
 
