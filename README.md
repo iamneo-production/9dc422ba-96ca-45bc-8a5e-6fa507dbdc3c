@@ -52,7 +52,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="https://user-images.githubusercontent.com/77981888/201981211-6ee3580e-efb1-4a69-bb64-7d368d7b63b1.png"  width="800" height="500" />
+![image](https://user-images.githubusercontent.com/77242965/204131812-13bfe3ee-d794-49e7-be72-5c839280d1e5.png)
 
 ----------------------
 
