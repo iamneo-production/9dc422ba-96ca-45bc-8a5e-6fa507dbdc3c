@@ -12,8 +12,9 @@ import { VscGraphLine } from "react-icons/vsc"
 import dropdown from "../assests/img/dropdown.png"
 import { BsArrowRightSquareFill, BsCashCoin } from "react-icons/bs"
 import { PieChart } from "react-minimal-pie-chart";
-import Transanctions from "./transactions";
+import Transactions from "./transactions";
 import Payment from "./payment";
+import BarGraph from "./BarGraph";
 function Dashboard() {
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
@@ -48,13 +49,13 @@ function Dashboard() {
         let amt = 0;
         let inc = 0;
         let exp = 0;
-        for (let i = 0; i < Transanctions.length; i++) {
-            if (Transanctions[i].isCredited == true) {
-                let val = parseInt(Transanctions[i].amount);
+        for (let i = 0; i < Transactions.length; i++) {
+            if (Transactions[i].isCredited == true) {
+                let val = parseInt(Transactions[i].amount);
                 inc += val;
                 amt += val;
             } else {
-                let val = parseInt(Transanctions[i].amount)
+                let val = parseInt(Transactions[i].amount)
                 exp += val;
                 amt -= val;
             }
@@ -66,6 +67,7 @@ function Dashboard() {
     function paymentMode(e){
         setpayment(1);
     }
+    const DispplayTransArray=Transactions.slice(0,7);
     const [payment, setpayment] = useState(0);
     if (payment === 0) {
 
@@ -99,7 +101,7 @@ function Dashboard() {
                             <div className="transaction-display">
                                 <div style={{ display: "flex", marginTop: ".5%", height: "12%" }}>
                                     <h5 style={{ marginLeft: "2%", fontWeight: "bold" }}>
-                                        Latest Transanctions
+                                        Latest Transactions
                                     </h5>
                                     <div style={{ marginLeft: "auto", marginRight: "2%" }}>
                                         <BsArrowRightSquareFill color="#2c8894" size={"30px"} />
@@ -116,7 +118,7 @@ function Dashboard() {
                                             </div>
                                         </div>
                                         <div style={{ width: "25%" }}>
-                                            Transanctions ID
+                                            Transactions ID
                                         </div>
                                         <div style={{ width: "30%", display: "flex", textAlign: "left" }}>
                                             <div style={{ width: "33%" }}>
@@ -133,7 +135,7 @@ function Dashboard() {
                                             Remark
                                         </div>
                                     </div>
-                                    {Transanctions.map(item => (
+                                    {DispplayTransArray.map(item => (
                                         <div style={{ display: "flex", margin: "auto" }}>
                                             <div style={{ display: "flex", margin: "auto", textAlign: "center", width: "25%" }}>
                                                 <div style={{ width: "40%" }}>
@@ -180,7 +182,7 @@ function Dashboard() {
                                     </h5>
                                     <div className="financial-chart-period">
                                         <div style={{ width: "70%", fontSize: "auto" }}>
-                                            Weekly
+                                            Annualy
                                         </div>
                                         <img className="dropdown-icon" src={dropdown} />
                                     </div>
@@ -197,6 +199,7 @@ function Dashboard() {
                                     </div>
                                 </div>
                                 <div className="transaction-content">
+                                    <BarGraph/>
                                 </div>
                                 <div className="show-more-transactions">
                                     <Button type="submit" style={{ width: "150px", display: "flex", alignItems: "center" }}>
@@ -263,19 +266,19 @@ function Dashboard() {
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Daily
                                             <div>
-                                                {"$ " + Expense.daily}
+                                                {(piedata[1].value/30).toFixed(2) + "$"}
                                             </div>
                                         </div >
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Weekly
                                             <div>
-                                                {"$ " + Expense.weekly}
+                                            {piedata[1].value/4 + "$"}
                                             </div>
                                         </div>
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Monthly
                                             <div>
-                                                {"$ " + Expense.monthly}
+                                            {piedata[1].value + "$"}
                                             </div>
                                         </div>
 
