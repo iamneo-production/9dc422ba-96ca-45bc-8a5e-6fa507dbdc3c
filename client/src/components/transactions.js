@@ -35,14 +35,14 @@ const Transanctions = [
         date: "May 24, 2022",
         time: "21:30"
 
-    }, {
-        transID: "000374698734893",
-        from: "Anuj",
-        isCredited: true,
-        amount: 5000,
-        remark: "Party",
-        date: "Jul 12,2022",
-        time: "12:00"
+    },  {
+        transID:"000374698734893",
+        from:"Sanket",
+        isCredited:true,
+        amount:"5000",
+        remark:"Solan Trip",
+        date:"Jul 12,2022",
+        time:"12:00"
 
     }, {
         transID: "000374698734893",
