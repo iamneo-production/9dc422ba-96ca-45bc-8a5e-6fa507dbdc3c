@@ -9,6 +9,7 @@ import Footer from './Footer';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import '../assests/styling/error.css'
+import { SyntheticEventData } from 'react-dom/test-utils/index.js';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -50,84 +51,87 @@ export default function BasicTabs() {
         seterrorMsgstyle("none")
         setValue(newValue);
     };
-    const [newUserName, setnewUserName]=useState("");
-    const [verifyUser, setverifyUser]=useState("");
-    const [currpass, setcurrpass]=useState("");
-    const [newPass, setnewPass]=useState("");
-    const [confirmPass, setconfirmPass]=useState("");
-    const [newEmail, setnewEmail]=useState("");
-    const [confirmEmail, setconfirmEmail]=useState("");
-    const [phone, setphone]=useState("");
-    const [confirmphone, setconfirmphone]=useState("");
-    const handleMobileChange = event => {
-        var result = event.target.value.replace(/\D/g, '');
-        if(result.length>10){
-            setphone(result.substr(0,10))
-        }else{
-            setphone(result); 
+    const [newUserName, setnewUserName] = useState("");
+    const [verifyUser, setverifyUser] = useState("");
+    const [currpass, setcurrpass] = useState("");
+    const [newPass, setnewPass] = useState("");
+    const [confirmPass, setconfirmPass] = useState("");
+    const [newEmail, setnewEmail] = useState("");
+    const [confirmEmail, setconfirmEmail] = useState("");
+    const [phone, setphone] = useState("");
+    const [confirmphone, setconfirmphone] = useState("");
+    const handleMobileChange = (e: React.BaseSyntheticEvent) => {
+        console.log(e);
+        var result = e.target.value.replace(/\D/g, '');
+        if (result.length > 10) {
+            setphone(result.substr(0, 10))
+        } else {
+            setphone(result);
         }
     }
 
-    const handleconfirmMobileChange = event => {
-        var result = event.target.value.replace(/\D/g, '');
-        setconfirmphone(result); 
+    const handleconfirmMobileChange = (e: React.BaseSyntheticEvent) => {
+        console.log(e);
+
+        var result = e.target.value.replace(/\D/g, '');
+        setconfirmphone(result);
     }
 
 
-    function changenewEmail(e){
+    function changenewEmail(e: React.BaseSyntheticEvent) {
         setnewEmail(e.target.value);
     }
-    function changeconfirmEmail(e){
+    function changeconfirmEmail(e: React.BaseSyntheticEvent) {
         setconfirmEmail(e.target.value);
     }
-    function changeCurrPass(e){
+    function changeCurrPass(e: React.BaseSyntheticEvent) {
         setcurrpass(e.target.value);
     }
-    function changenewPass(e){
+    function changenewPass(e: React.BaseSyntheticEvent) {
         setnewPass(e.target.value)
     }
-    function changeconfirmPass(e){
+    function changeconfirmPass(e: React.BaseSyntheticEvent) {
         setconfirmPass(e.target.value)
     }
-    function updateUserName(e){
+    function updateUserName(e: React.BaseSyntheticEvent) {
         setnewUserName(e.target.value);
     }
-    function verifyUserName(e){
+    function verifyUserName(e: React.BaseSyntheticEvent) {
         setverifyUser(e.target.value)
     }
-    function finalPasswordSet(e){
+    function finalPasswordSet(e: React.BaseSyntheticEvent) {
 
-        if(value<3){
-            setValue(value+1)
+        if (value < 3) {
+            setValue(value + 1)
         }
         /* 
         Verify old password
         */
     }
-    function VerifyEmailFinal(e){
-        if(newEmail==="" || newEmail!==confirmEmail){
+    function VerifyEmailFinal(e: React.BaseSyntheticEvent) {
+        if (newEmail === "" || newEmail !== confirmEmail) {
             seterrorMsgstyle("block");
-        }else{
-            if(value<3){
-                setValue(value+1)
+        } else {
+            if (value < 3) {
+                setValue(value + 1)
                 seterrorMsgstyle("none");
             }
         }
     }
 
-    function VerifyUsernameFinal(e){
-        if(newUserName===""|| newUserName!==verifyUser){
+    function VerifyUsernameFinal(e: React.BaseSyntheticEvent) {
+        if (newUserName === "" || newUserName !== verifyUser) {
             seterrorMsgstyle("block");
-        }else{
-            if(value<3){
-                setValue(value+1)
+        } else {
+            if (value < 3) {
+                setValue(value + 1)
                 seterrorMsgstyle("none");
             }
         }
     }
-    
-    const  [errorMsgstyle, seterrorMsgstyle]=useState("none")
-    const  [errorMsg, seterrorMsg]=useState("Kindly put all the fields correctly")
+
+    const [errorMsgstyle, seterrorMsgstyle] = useState("none")
+    const [errorMsg, seterrorMsg] = useState("Kindly put all the fields correctly")
     return (
         <>
             <NavBar />
@@ -143,47 +147,50 @@ export default function BasicTabs() {
                             <Tab label="update phone" {...a11yProps(2)} style={{ width: "25%", border: "0.5px solid #e8e4e4" }} />
                         </Tabs>
                     </Box>
-                    <TabPanel value={value} index={0} style={{ border: "0.5px solid #e8e4e4", textAlign: "center" }}>
-                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
-                            <div className="error" style={{display:errorMsgstyle}} onClick={e=>seterrorMsgstyle("none")}>{errorMsg}</div>
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
-                                <Input placeholder='Enter New Username' style={{ width: '50%', margin: "auto" }} onChange={(e)=>updateUserName(e)} required />
-                                <Input placeholder='Confirm Username' style={{ width: '50%', margin: "auto" }} onInput={(e)=>verifyUserName(e)} required />
+                    <div className="editaccdetailsbox">
+
+                        <TabPanel value={value} index={0} >
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
+                                <div className="error" style={{ display: errorMsgstyle }} onClick={e => seterrorMsgstyle("none")}>{errorMsg}</div>
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
+                                    <Input placeholder='Enter New Username' style={{ width: '50%', margin: "auto" }} onChange={(e) => updateUserName(e)} required />
+                                    <Input placeholder='Confirm Username' style={{ width: '50%', margin: "auto" }} onInput={(e) => verifyUserName(e)} required />
+                                </div>
+                                <Button variant='contained' style={{ width: '30%' }} onClick={e => VerifyUsernameFinal(e)}>Submit</Button>
                             </div>
-                            <Button variant='contained' style={{ width: '30%' }} onClick={e=>VerifyUsernameFinal(e)}>Submit</Button>
-                        </div>
-                    </TabPanel>
-                    <TabPanel value={value} index={1} style={{ border: "0.5px solid #e8e4e4", textAlign: "center" }}>
-                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
-                            <div className="error" style={{display:errorMsgstyle}} onClick={e=>seterrorMsgstyle("none")}>{errorMsg}</div>
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
-                                <Input placeholder='Enter Old Password' type='password' style={{ width: '50%', margin: "auto" }} onChange={e=>changeCurrPass(e)} required />
-                                <Input placeholder='Enter New Password' type='password' style={{ width: '50%', margin: "auto" }} onChange={e=>changenewPass(e)} required />
-                                <Input placeholder='Confirm Password' type='password' style={{ width: '50%', margin: "auto" }}   onChange={e=>changeconfirmPass(e)} required />
+                        </TabPanel>
+                        <TabPanel value={value} index={1} >
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
+                                <div className="error" style={{ display: errorMsgstyle }} onClick={e => seterrorMsgstyle("none")}>{errorMsg}</div>
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
+                                    <Input placeholder='Enter Old Password' type='password' style={{ width: '50%', margin: "auto" }} onChange={e => changeCurrPass(e)} required />
+                                    <Input placeholder='Enter New Password' type='password' style={{ width: '50%', margin: "auto" }} onChange={e => changenewPass(e)} required />
+                                    <Input placeholder='Confirm Password' type='password' style={{ width: '50%', margin: "auto" }} onChange={e => changeconfirmPass(e)} required />
+                                </div>
+                                <Button variant='contained' style={{ width: '30%' }} onClick={e => finalPasswordSet(e)}>Submit</Button>
                             </div>
-                            <Button variant='contained' style={{ width: '30%' }} onClick={e=>finalPasswordSet(e)}>Submit</Button>
-                        </div>
-                    </TabPanel>
-                    <TabPanel value={value} index={2} style={{ border: "0.5px solid #e8e4e4", textAlign: "center" }}>
-                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
-                            <div className="error" style={{display:errorMsgstyle}} onClick={e=>seterrorMsgstyle("none")}>{errorMsg}</div>
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
-                                <Input placeholder='Enter New Email' type='email' style={{ width: '50%', margin: "auto" }} onChange={e=>changenewEmail(e)} required />
-                                <Input placeholder='Confirm Email' type='email' style={{ width: '50%', margin: "auto" }} onChange={e=>changeconfirmEmail(e)} required />
+                        </TabPanel>
+                        <TabPanel value={value} index={2} >
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
+                                <div className="error" style={{ display: errorMsgstyle }} onClick={e => seterrorMsgstyle("none")}>{errorMsg}</div>
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
+                                    <Input placeholder='Enter New Email' type='email' style={{ width: '50%', margin: "auto" }} onChange={e => changenewEmail(e)} required />
+                                    <Input placeholder='Confirm Email' type='email' style={{ width: '50%', margin: "auto" }} onChange={e => changeconfirmEmail(e)} required />
+                                </div>
+                                <Button variant='contained' style={{ width: '30%' }} onSubmit={e => VerifyEmailFinal(e)}>Submit</Button>
                             </div>
-                            <Button variant='contained' style={{ width: '30%' }} onSubmit={e=>VerifyEmailFinal(e)}>Submit</Button>
-                        </div>
-                    </TabPanel>
-                    <TabPanel value={value} index={3} style={{ border: "0.5px solid #e8e4e4", textAlign: "center" }}>
-                        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
-                            <div className="error" style={{display:errorMsgstyle}} onClick={e=>seterrorMsgstyle("none")}>{errorMsg}</div>
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
-                                <Input placeholder='Enter New Phone Number' value={phone} style={{ width: '50%', margin: "auto" }} onChange={e=>handleMobileChange(e)} maxRows={10} required />
-                                <Input placeholder='Confirm Phone Number' value={confirmphone} style={{ width: '50%', margin: "auto" }} onChange={e=>handleconfirmMobileChange(e)} required />
+                        </TabPanel>
+                        <TabPanel value={value} index={3} >
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "400px" }}>
+                                <div className="error" style={{ display: errorMsgstyle }} onClick={e => seterrorMsgstyle("none")}>{errorMsg}</div>
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', height: "75%", width: "100%" }}>
+                                    <Input placeholder='Enter New Phone Number' value={phone} style={{ width: '50%', margin: "auto" }} onChange={e => handleMobileChange(e)} maxRows={10} required />
+                                    <Input placeholder='Confirm Phone Number' value={confirmphone} style={{ width: '50%', margin: "auto" }} onChange={e => handleconfirmMobileChange(e)} required />
+                                </div>
+                                <Button variant='contained' style={{ width: '30%' }} >Submit</Button>
                             </div>
-                            <Button variant='contained' style={{ width: '30%' }} >Submit</Button>
-                        </div>
-                    </TabPanel>
+                        </TabPanel>
+                    </div>
                 </Box>
             </div>
             <div style={{ height: "50px" }}></div>

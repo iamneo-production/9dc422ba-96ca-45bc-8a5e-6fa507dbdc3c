@@ -5,7 +5,7 @@ const transactionSchema = require('./transaction-schema-model').mongoTransaction
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
 // const pdfMake = require('pdfmake/build/pdfmake');
 // const pdfFonts = require('pdfmake/build/vfs_fonts');
-const createDocumentDefinition = require('./pdf-document-definition');
+// const createDocumentDefinition = require('./pdf-document-definition');
 const config = require('config');
 
 const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config.host') + config.get('mongodb-config.port') + config.get('mongodb-config.db');
@@ -59,22 +59,22 @@ const getTransactionSummary = async (accountNo, response) => {
         });
 }
 
-const generateStatement = async (accountNo, response) => {
-    const summary = await retrieveTransactionSummary(accountNo);
-    const docDefinition = await createDocumentDefinition(summary);
+// const generateStatement = async (accountNo, response) => {
+//     const summary = await retrieveTransactionSummary(accountNo);
+//     const docDefinition = await createDocumentDefinition(summary);
 
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
-    const pdfDocument = pdfMake.createPdf(docDefinition);
+//     pdfMake.vfs = pdfFonts.pdfMake.vfs;
+//     const pdfDocument = pdfMake.createPdf(docDefinition);
 
-    pdfDocument.getBase64((data) => {
-        const pdfJsonBuffer = Buffer.from(data.toString('utf-8'), 'base86').toJSON();
-        log.info(`gen statement. ${accountNo} : [${new Date()}] `);
-        response.send({
-            statement: accountNo,
-            buffer: pdfJsonBuffer.data
-        });
-    });
-}
+//     pdfDocument.getBase64((data) => {
+//         const pdfJsonBuffer = Buffer.from(data.toString('utf-8'), 'base86').toJSON();
+//         log.info(`gen statement. ${accountNo} : [${new Date()}] `);
+//         response.send({
+//             statement: accountNo,
+//             buffer: pdfJsonBuffer.data
+//         });
+//     });
+// }
 
 async function retrieveTransactionSummary(accountNo) {
     return await TransactionModel.find({ from: accountNo })
@@ -101,5 +101,4 @@ async function retrieveTransactionSummary(accountNo) {
 module.exports = {
     logTransactionSummary,
     getTransactionSummary,
-    generateStatement
 }
