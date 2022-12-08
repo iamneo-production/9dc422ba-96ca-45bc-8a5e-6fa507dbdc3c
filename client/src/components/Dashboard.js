@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container, Dropdown } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Footer from "./Footer";
@@ -9,11 +9,11 @@ import { HiOutlineArrowRight } from 'react-icons/hi'
 import "../assests/styling/Dashboard.css"
 import { GoGraph } from "react-icons/go"
 import { VscGraphLine } from "react-icons/vsc"
-import dropdown from "../assests/img/dropdown.png"
 import { BsArrowRightSquareFill, BsCashCoin } from "react-icons/bs"
 import { PieChart } from "react-minimal-pie-chart";
-import Transanctions from "./transactions";
+import Transactions from "./transactions";
 import Payment from "./payment";
+import BarGraph from "./BarGraph";
 function Dashboard() {
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
@@ -23,11 +23,6 @@ function Dashboard() {
             { title: "Expense", value: expense, color: "#f97405" }
         ]
 
-    const Expense = {
-        daily: 1233,
-        weekly: 1233,
-        monthly: 1233
-    }
     const isCreditedfrom = (item) => {
         if (item.isCredited == true) {
             return ("From: ")
@@ -43,18 +38,22 @@ function Dashboard() {
             return ("red");
         }
     }
+    const [graphDuration, setgraphDuration]=useState("Weekly")
+    function changeGraphDuration(e){
+        setgraphDuration(e.target.value);
+    }
     // useEffect is to avoid the infinite loop due to change in state continuously
     useEffect(() => {
         let amt = 0;
         let inc = 0;
         let exp = 0;
-        for (let i = 0; i < Transanctions.length; i++) {
-            if (Transanctions[i].isCredited == true) {
-                let val = parseInt(Transanctions[i].amount);
+        for (let i = 0; i < Transactions.length; i++) {
+            if (Transactions[i].isCredited == true) {
+                let val = parseInt(Transactions[i].amount);
                 inc += val;
                 amt += val;
             } else {
-                let val = parseInt(Transanctions[i].amount)
+                let val = parseInt(Transactions[i].amount)
                 exp += val;
                 amt -= val;
             }
@@ -63,10 +62,22 @@ function Dashboard() {
         setexpense(exp);
         setaccBalance(amt);
     }, []);
-    function paymentMode(e){
+    function paymentMode(e) {
         setpayment(1);
     }
+    const DisplayTransArray = Transactions.slice(Transactions.length-7, Transactions.length);
+    // console.log(DisplayTransArray);
     const [payment, setpayment] = useState(0);
+    let count=1;
+    const [graphType, setgraphType]=useState("bar")
+    function changeGraphTypetoBar(e){
+        // console.log("Bar clicked");
+        setgraphType('bar');
+    }
+    function changeGraphTypetoLine(e){
+        // console.log("Bar clicked");
+        setgraphType('scatter');
+    }
     if (payment === 0) {
 
         return (
@@ -99,7 +110,7 @@ function Dashboard() {
                             <div className="transaction-display">
                                 <div style={{ display: "flex", marginTop: ".5%", height: "12%" }}>
                                     <h5 style={{ marginLeft: "2%", fontWeight: "bold" }}>
-                                        Latest Transanctions
+                                        Latest Transactions
                                     </h5>
                                     <div style={{ marginLeft: "auto", marginRight: "2%" }}>
                                         <BsArrowRightSquareFill color="#2c8894" size={"30px"} />
@@ -116,7 +127,7 @@ function Dashboard() {
                                             </div>
                                         </div>
                                         <div style={{ width: "25%" }}>
-                                            Transanctions ID
+                                            Transactions ID
                                         </div>
                                         <div style={{ width: "30%", display: "flex", textAlign: "left" }}>
                                             <div style={{ width: "33%" }}>
@@ -133,8 +144,8 @@ function Dashboard() {
                                             Remark
                                         </div>
                                     </div>
-                                    {Transanctions.map(item => (
-                                        <div style={{ display: "flex", margin: "auto" }}>
+                                    {DisplayTransArray.map(item => (
+                                        <div style={{ display: "flex", margin: "auto" }} key={count++}>
                                             <div style={{ display: "flex", margin: "auto", textAlign: "center", width: "25%" }}>
                                                 <div style={{ width: "40%" }}>
                                                     {item.time}
@@ -174,29 +185,32 @@ function Dashboard() {
                             </div>
 
                             <div className="financial-chart">
-                                <div style={{ display: "flex", marginTop: ".5%", height: "20%" }}>
+                                <div style={{ display: "flex", marginTop: ".5%", height: "7%" }}>
                                     <h5 style={{ marginLeft: "2%", fontWeight: "bold" }}>
                                         Financial Chart
                                     </h5>
-                                    <div className="financial-chart-period">
-                                        <div style={{ width: "70%", fontSize: "auto" }}>
-                                            Weekly
-                                        </div>
-                                        <img className="dropdown-icon" src={dropdown} />
-                                    </div>
+                                    <select className="financial-chart-period" onChange={e=>changeGraphDuration(e)}>
+                                        <option value={"Weekly"} >Weekly</option>
+                                        <option value={"Monthly"}>Monthly</option>
+                                        <option value={"Annualy"} defaultValue>Annualy</option>
+                                    </select>
                                     <div className="graph-icons" >
-                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", marginTop: "0px" }}>
+                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", marginTop: "0px" }} onClick={e=>changeGraphTypetoBar(e)}>
                                             <GoGraph size={"100%"} />
                                         </div>
                                         <div style={{ height: "10%" }}>
 
                                         </div>
-                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", alignItems: "center" }}>
+                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", alignItems: "center"}} onClick={e=>changeGraphTypetoLine(e)}>
                                             <VscGraphLine size={"100%"} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="transaction-content">
+                                    <BarGraph 
+                                    duration={graphDuration}
+                                    type={graphType}
+                                    />
                                 </div>
                                 <div className="show-more-transactions">
                                     <Button type="submit" style={{ width: "150px", display: "flex", alignItems: "center" }}>
@@ -263,19 +277,19 @@ function Dashboard() {
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Daily
                                             <div>
-                                                {"$ " + Expense.daily}
+                                                {(piedata[1].value / 30).toFixed(2) + "$"}
                                             </div>
                                         </div >
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Weekly
                                             <div>
-                                                {"$ " + Expense.weekly}
+                                                {piedata[1].value / 4 + "$"}
                                             </div>
                                         </div>
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Monthly
                                             <div>
-                                                {"$ " + Expense.monthly}
+                                                {piedata[1].value + "$"}
                                             </div>
                                         </div>
 
@@ -286,7 +300,7 @@ function Dashboard() {
                         </Col>
                         <Col md={4} style={{ zIndex: "1" }}>
                             <div style={{ height: "2%" }}></div>
-                            <Button className="sidebar-menu-item" onClick={e=>paymentMode(e)} type="button" style={{ backgroundColor: "rgb(16,28,92)", display: "flex", alignItems: "center", width: '80%', margin: "auto", textAlign: "center" }}>
+                            <Button className="sidebar-menu-item" onClick={e => paymentMode(e)} type="button" style={{ backgroundColor: "rgb(16,28,92)", display: "flex", alignItems: "center", width: '80%', margin: "auto", textAlign: "center" }}>
                                 <div style={{ width: "90%" }}>
                                     Transfer Money
                                 </div>
@@ -345,15 +359,17 @@ function Dashboard() {
                         </Col>
                     </Row>
                 </Container>
+                <div style={{height:"80px"}}>
+                </div>
                 <Footer />
             </>
         )
-    }else{
-        return(
+    } else {
+        return (
             <>
-            <Payment
-            backtodash={setpayment}
-            />
+                <Payment
+                    backtodash={setpayment}
+                />
             </>
         )
     }
