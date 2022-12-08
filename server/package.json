@@ -1,5 +1,5 @@
 {
-  "name": "Bank",
+  "name": "bankingapp-api",
   "version": "1.0.0",
   "description": "A simple net banking application",
   "main": "main.js",
@@ -12,10 +12,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.1",
     "config": "^3.0.1",
     "debug": "^4.1.1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.15",

@@ -54,7 +54,6 @@ async function resgisterNewUser(userObj, response) {
         firstname: userObj.firstname,
         lastname: userObj.lastname,
         emailId: userObj.emailId,
-        dateOfBirth: new Date(userObj.dateOfBirth),
         username: userObj.username,
         password: userObj.password,
         phoneNo: userObj.phoneNo,

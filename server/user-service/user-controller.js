@@ -52,8 +52,9 @@ userrouter.post('/updatephoneno', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in updating phone no. for username ${phonoNoObj.username}: ` + err));
 });
 
-userrouter.get('/getuserbyusername/:username', authTokenValidator, (req, res) => {
+userrouter.get('/getuserbyusername/:username', (req, res) => {
     let username = req.params.username;
+    console.log(req);
     let { error } = userValidator.validateUserByUsernameSchema({ username: username });
     if (isNotValidSchema(error, res)) return;
     userDao.getUserByUsername(username, res)
@@ -61,7 +62,7 @@ userrouter.get('/getuserbyusername/:username', authTokenValidator, (req, res) =>
         .catch((err) => log.error(`Error in retrieving user by username ${username} : ` + err));
 });
 
-userrouter.get('/getuserbyphoneno/:phoneNo', authTokenValidator, (req, res) => {
+userrouter.get('/getuserbyphoneno/:phoneNo', (req, res) => {
     let phoneNo = req.params.phoneNo;
     let { error } = userValidator.validateUserByPhoneNoSchema({ phoneNo: phoneNo });
     if (isNotValidSchema(error, res)) return;

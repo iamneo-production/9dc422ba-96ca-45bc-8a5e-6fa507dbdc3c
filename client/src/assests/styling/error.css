@@ -11,3 +11,9 @@
     width: 100%;
     background-image: url('https://i.imgur.com/GnyDvKN.png');
 }
+.editaccdetailsbox{
+    border: 0.5px solid #e8e4e4;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
