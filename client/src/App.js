@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/signup";
@@ -10,6 +9,7 @@ import SalaryAccount from "./components/SalaryAccount";
 import CurrentAccount from "./components/currentAccount";
 import CreateAccount from "./components/openAccount";
 import ContactUs from "./components/contactUs";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <div className="App">

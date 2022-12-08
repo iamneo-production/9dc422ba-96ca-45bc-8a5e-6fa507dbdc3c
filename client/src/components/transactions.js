@@ -23,7 +23,7 @@ const Transanctions = [
         isCredited: false,
         amount: 30000,
         remark: "Party",
-        date: "April 12, 2022",
+        date: "Apr 12, 2022",
         time: "11:00"
 
     }, {
@@ -39,7 +39,7 @@ const Transanctions = [
         transID:"000374698734893",
         from:"Sanket",
         isCredited:true,
-        amount:"5000",
+        amount:5000,
         remark:"Solan Trip",
         date:"Jul 12,2022",
         time:"12:00"
@@ -107,6 +107,87 @@ const Transanctions = [
         remark: "medicine",
         isCredited: false,
         time: "02:29"
-    }
+    },{
+        from:"Kevin",
+        transID:634623846286384,
+        amount:1000,
+        date:"Dec 08, 2022",
+        remark:"moza hi moza",
+        isCredited:true,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:4000,
+        date:"Dec 04, 2022",
+        remark:"moza hi moza",
+        isCredited:false,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:7000,
+        date:"Dec 04, 2022",
+        remark:"moza hi moza",
+        isCredited:true,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:6000,
+        date:"Dec 08, 2022",
+        remark:"russian",
+        isCredited:false,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:5000,
+        date:"Dec 03, 2022",
+        remark:"moza hi moza",
+        isCredited:true,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:10000,
+        date:"Dec 05, 2022",
+        remark:"moza hi moza",
+        isCredited:false,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:4000,
+        date:"Dec 06, 2022",
+        remark:"moza hi moza",
+        isCredited:false,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:3000,
+        date:"Dec 07, 2022",
+        remark:"moza hi moza",
+        isCredited:true,
+        time:"13:48"
+    },
+    {
+        from:"Kevin",
+        transID:634623846286384,
+        amount:2500,
+        date:"Dec 07, 2022",
+        remark:"moza hi moza",
+        isCredited:false,
+        time:"13:50"
+    },
+    
 ]
 export default Transanctions;
