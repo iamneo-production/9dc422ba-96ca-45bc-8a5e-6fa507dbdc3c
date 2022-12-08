@@ -10,7 +10,6 @@ const Payment = (props) => {
     const [senderName, setsenderName] = useState("");
     const [errorStyle, seterrorStyle] = useState('none');
     const [accountmaxlim, setaccountmaxlim] = useState(0);
-    const [bank, setbank] = useState("");
     const [amount, setamount] = useState("");
 
     function nextSteppayment(e) {
@@ -30,11 +29,6 @@ const Payment = (props) => {
     function updateIfsc(e) {
         const ifsc = e.target.value.toUpperCase();
         setiFSCcode(ifsc);
-    }
-    function updateBank(e) {
-        let bnk = e.target.value
-        bnk = bnk.toUpperCase()
-        setbank(bnk)
     }
     function updatename(e) {
         setsenderName(e.target.value.toUpperCase())

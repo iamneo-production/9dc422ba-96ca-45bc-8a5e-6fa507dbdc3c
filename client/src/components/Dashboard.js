@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Footer from "./Footer";
 import NavBar from "./header";
-import { AiOutlineMenu, AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai"
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai"
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import "../assests/styling/Dashboard.css"
 import { GoGraph } from "react-icons/go"
@@ -24,7 +24,7 @@ function Dashboard() {
         ]
 
     const isCreditedfrom = (item) => {
-        if (item.isCredited == true) {
+        if (item.isCredited === true) {
             return ("From: ")
         } else {
             return ("To: ")
@@ -32,17 +32,16 @@ function Dashboard() {
     }
     const [accBalance, setaccBalance] = useState(0);
     function updatetType(item) {
-        if (item.isCredited == true) {
+        if (item.isCredited === true) {
             return ("green")
         } else {
             return ("red");
         }
     }
-    const [graphDuration, setgraphDuration]=useState("Weekly")
-    function changeGraphDuration(e){
+    const [graphDuration, setgraphDuration] = useState("Weekly")
+    function changeGraphDuration(e) {
         setgraphDuration(e.target.value);
     }
-    // useEffect is to avoid the infinite loop due to change in state continuously
     useEffect(() => {
         let amt = 0;
         let inc = 0;
@@ -65,17 +64,14 @@ function Dashboard() {
     function paymentMode(e) {
         setpayment(1);
     }
-    const DisplayTransArray = Transactions.slice(Transactions.length-7, Transactions.length);
-    // console.log(DisplayTransArray);
+    const DisplayTransArray = Transactions.slice(Transactions.length - 7, Transactions.length);
     const [payment, setpayment] = useState(0);
-    let count=1;
-    const [graphType, setgraphType]=useState("bar")
-    function changeGraphTypetoBar(e){
-        // console.log("Bar clicked");
+    let count = 1;
+    const [graphType, setgraphType] = useState("bar")
+    function changeGraphTypetoBar(e) {
         setgraphType('bar');
     }
-    function changeGraphTypetoLine(e){
-        // console.log("Bar clicked");
+    function changeGraphTypetoLine(e) {
         setgraphType('scatter');
     }
     if (payment === 0) {
@@ -85,12 +81,12 @@ function Dashboard() {
                 <NavBar />
                 <Container fluid>
                     <Row className="user-details-row">
-                        <Col md={4} className="title-col-dash">
+                        <Col md={3} className="title-col-dash">
                             <div className="account-number">
                                 Account No. 423287332823
                             </div>
                         </Col>
-                        <Col md={4} className="title-col-dash">
+                        <Col md={3} className="title-col-dash">
                             <div className="account-holder">
                                 Hello, Anuj Awasthi
                             </div>
@@ -101,8 +97,10 @@ function Dashboard() {
                             </div>
 
                         </Col>
-                        <Col md={1} className="title-col-dash">
-                            <AiOutlineMenu className="collapse-menu" />
+                        <Col md={3} className="title-col-dash">
+                            <a href={"/editAccountDetails"} style={{fontSize:"16px", fontWeight:"bold"}} >
+                                Edit Account Detail
+                            </a>
                         </Col>
                     </Row>
                     <Row style={{ height: "1400px" }}>
@@ -189,27 +187,27 @@ function Dashboard() {
                                     <h5 style={{ marginLeft: "2%", fontWeight: "bold" }}>
                                         Financial Chart
                                     </h5>
-                                    <select className="financial-chart-period" onChange={e=>changeGraphDuration(e)}>
+                                    <select className="financial-chart-period" onChange={e => changeGraphDuration(e)}>
                                         <option value={"Weekly"} >Weekly</option>
                                         <option value={"Monthly"}>Monthly</option>
                                         <option value={"Annualy"} defaultValue>Annualy</option>
                                     </select>
                                     <div className="graph-icons" >
-                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", marginTop: "0px" }} onClick={e=>changeGraphTypetoBar(e)}>
+                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", marginTop: "0px" }} onClick={e => changeGraphTypetoBar(e)}>
                                             <GoGraph size={"100%"} />
                                         </div>
                                         <div style={{ height: "10%" }}>
 
                                         </div>
-                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", alignItems: "center"}} onClick={e=>changeGraphTypetoLine(e)}>
+                                        <div style={{ width: "100%", height: "45%", border: "1px solid black", alignItems: "center" }} onClick={e => changeGraphTypetoLine(e)}>
                                             <VscGraphLine size={"100%"} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="transaction-content">
-                                    <BarGraph 
-                                    duration={graphDuration}
-                                    type={graphType}
+                                    <BarGraph
+                                        duration={graphDuration}
+                                        type={graphType}
                                     />
                                 </div>
                                 <div className="show-more-transactions">
@@ -359,7 +357,7 @@ function Dashboard() {
                         </Col>
                     </Row>
                 </Container>
-                <div style={{height:"80px"}}>
+                <div style={{ height: "80px" }}>
                 </div>
                 <Footer />
             </>

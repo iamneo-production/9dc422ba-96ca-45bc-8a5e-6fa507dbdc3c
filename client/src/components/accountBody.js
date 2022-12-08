@@ -22,7 +22,7 @@ const AccountBody = (props) => {
       <div>
         <div className='accountPage-firstCol'>
           <div style={{ width: "55%" }}>
-            <img className='img' src={props.firstpic} />
+            <img className='img' src={props.firstpic} alt={"Picture"}/>
           </div>
           <div className='firstCol-textContent'>
             <div>
@@ -40,7 +40,7 @@ const AccountBody = (props) => {
       <div style={{ marginTop: "2%" }}>
         <div className='accountPage-secondCol'>
           <div style={{ width: "50%" }}>
-            <img className='img' src={props.secondpic} />
+            <img className='img' src={props.secondpic} alt={"Picture"}/>
           </div>
           <div className='secondCol-textContent'>
             <div>

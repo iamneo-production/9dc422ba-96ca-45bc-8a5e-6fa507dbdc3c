@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,14 +6,13 @@ import Noty from "./Noty";
 import { AiOutlineSearch } from "react-icons/ai";
 import logo from "../assests/img/logo.png"
 import "../assests/styling/header.css"
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function NavBar(props) {
     const toggleNot=props.changeState;
     return (
         <Navbar bg="light" expand="lg" id='nav'>
             <Container>
-                <Navbar.Brand><img src={logo} /></Navbar.Brand>
+                <Navbar.Brand><img src={logo} alt={"logo"}/></Navbar.Brand>
                 <Navbar.Brand href="/" style={{ fontSize: "35px", fontWeight: "bolder", color: "#2c8894" }}>RBH Bank</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

@@ -144,7 +144,7 @@ function Step1() {
         password:password
     }
     //form data
-    console.log(UserData);
+    // console.log(UserData);
     switch (step) {
         case 1:
             return (

@@ -10,6 +10,7 @@ import CurrentAccount from "./components/currentAccount";
 import CreateAccount from "./components/openAccount";
 import ContactUs from "./components/contactUs";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import EditUserDetails from "./components/editAccountDetail.tsx";
 function App() {
   return (
     <div className="App">
@@ -25,6 +26,7 @@ function App() {
           <Route path="/CreateCurrentAccount" element={<CurrentAccount/>}/>
           <Route path="/OpenAccount" element={<CreateAccount/>}/>
           <Route path="/Contact-us" element={<ContactUs/>}/>
+          <Route path="/editAccountDetails" element={<EditUserDetails/>}/>
         </Routes>
       </BrowserRouter>
 
