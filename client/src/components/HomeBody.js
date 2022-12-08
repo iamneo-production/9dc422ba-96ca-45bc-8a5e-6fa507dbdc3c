@@ -21,16 +21,7 @@ function HomeBody(props) {
         if (isclick === 0) {
             setIsclick(1);
             setpopUpStyle({ display: "block", opacity: "10%" });
-            // console.log(isclick, isOut," 1st click");
         }
-        // else if (isclick === 1 && isOut === 0) {
-        //     setIsOut(1);
-        //     console.log(isclick, isOut, " 2nd");
-        //     setIsOut(0);
-        //     setIsclick(0);
-        //     setpopUpStyle(style);
-        //     console.log(isclick, isOut, " final");
-        // }
 
     }
     function getBackStyle(e) {

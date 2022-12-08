@@ -1,11 +1,9 @@
 import React from "react";
 import Transanctions from "./transactions";
 import Plot from 'react-plotly.js'
-import { E } from "chart.js/dist/chunks/helpers.segment";
 function BarGraph(props) {
     let data = { data: [] }
-    let options = {}
-    console.log(props.type);
+    // console.log(props.type);
     if (props.duration === "Annualy") {
         const monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         const monthDataExpense = [];
@@ -45,18 +43,12 @@ function BarGraph(props) {
         var today = date.getDay();
         var todayDate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
         todayDate = new Date(todayDate);
-        // console.log(todayDate);
-        // console.log(weekArr);
-        // weekArr=weekArr.slice(today,weekArr.length)+weekArr.slice(0,today);
-        // console.log(weekArr);
         let incomeArr = [0, 0, 0, 0, 0, 0, 0];
         let expenseArr = [0, 0, 0, 0, 0, 0, 0];
-        // console.log(Transanctions.length);
         Transanctions.forEach(trans => {
             var transdate = new Date(trans.date);
             var dayDiff = todayDate.getTime() - transdate.getTime();
             dayDiff = dayDiff / (1000 * 3600 * 24);
-            // console.log(dayDiff);
             if (dayDiff < 7) {
                 if (trans.isCredited) {
                     incomeArr[transdate.getDay()] += trans.amount;
@@ -72,7 +64,7 @@ function BarGraph(props) {
             incomeArr.unshift(incomeArr.pop());
             expenseArr.unshift(expenseArr.pop());
         }
-        console.log(incomeArr, expenseArr);
+        // console.log(incomeArr, expenseArr);
         data.data = [{
             x: weekArr,
             y: incomeArr,
@@ -128,10 +120,8 @@ function BarGraph(props) {
             type: props.type
         }
         ]
-        // console.log(monthArr);
 
     }
-    // console.log(data.data);
     return (<>
         <Plot
             data={data.data}

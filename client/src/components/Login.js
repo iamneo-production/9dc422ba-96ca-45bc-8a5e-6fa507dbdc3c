@@ -20,7 +20,7 @@ function Login() {
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label className="password-label">Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" className="password-field" required />
+                        <Form.Control type="password" placeholder="Password" className="password-field"  required />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>
                         <Form.Check type="checkbox" label="Remember Me" />

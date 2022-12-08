@@ -3,20 +3,6 @@ import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 
 export default function App() {
-//   const words = [
-//     "ben",
-//     "ten",
-//     "sven",
-//     "ren",
-//     "john",
-//     "amy",
-//     "morris",
-//     "pascal",
-//     "andrew",
-//     "clark",
-//     "david",
-//     "gil"
-//   ];
   const [search, setSearch] = useState("");
   const [hideInput, setHideInput] = useState(false);
 
@@ -36,29 +22,31 @@ export default function App() {
         </div>
       </div>
 
-      {/* {words
-        .filter((word) => {
-          if (search === "") {
+      {
+        words
+          .filter((word) => {
+            if (search === "") {
+              return (
+                <div>
+                  <p>{word}</p>
+                </div>
+              );
+            } else if (word.toLowerCase().includes(search.toLowerCase())) {
+              return (
+                <div>
+                  <p>{word}</p>
+                </div>
+              );
+            }
+          })
+          .map((word) => {
             return (
-              <div>
+              <div className="container">
                 <p>{word}</p>
               </div>
             );
-          } else if (word.toLowerCase().includes(search.toLowerCase())) {
-            return (
-              <div>
-                <p>{word}</p>
-              </div>
-            );
-          }
-        })
-        .map((word) => {
-          return (
-            <div className="container">
-              <p>{word}</p>
-            </div>
-          );
-        })} */}
+          })
+      }
     </div>
   );
 }

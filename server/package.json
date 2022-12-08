@@ -20,6 +20,12 @@
     "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.15",
     "morgan": "^1.9.1",
+    "nodemon": "^2.0.20",
     "pdfmake": "^0.1.53"
+  },
+  "scripts":
+  { 
+      "start": "node ./bin/www",
+      "start-dev": "nodemon ./app.js"
   }
 }
