@@ -10,20 +10,23 @@ const loginUserInputSchemaModel = {
 }
 
 const registerInputUserSchemaModel = {
-    firstname: Joi.string().min(1).required(),
-    lastname: Joi.string().min(1).required(),
-    emailId: Joi.string().email().required(),
-    dateOfBirth: Joi.date().iso().required(),
-    username: Joi.string().min(6).required(),
-    password: Joi.string().min(8).required(),
-    phoneNo: Joi.string().min(10).max(10).required(),
-    address: {
-        firstline: Joi.string().min(1),
-        secondline: Joi.string().min(1),
-        city: Joi.string().min(3).required(),
-        country: Joi.string().min(3).required(),
-        pin: Joi.string().min(6).required()
-    },
+    firstname: Joi.string().min(1),
+    lastname: Joi.string().min(1),
+    fatherName: Joi.string(),
+    emailId: Joi.string().email(),
+    dateOfBirth: Joi.date().iso(),
+    username: Joi.string().min(6),
+    password: Joi.string().min(8),
+    phoneNo: Joi.string().min(10).max(10),
+    city: Joi.string().min(3),
+    state: Joi.string().min(3),
+    country: Joi.string().min(3),
+    pin: Joi.string().min(6),
+    aadharID: Joi.string(),
+    panNo: Joi.string(),
+    gender: Joi.string(),
+    annualincome: Joi.string(),
+    marital: Joi.string().min(3),
 }
 
 const updatePasswordInputSchemaModel = {
@@ -43,17 +46,6 @@ const updatePhoneNoInputSchemaModel = {
     phoneNo: Joi.string().min(10).max(10).required()
 }
 
-const updateAddressInputSchemaModel = {
-    username: Joi.string().min(6).required(),
-    address: {
-        firstline: Joi.string().min(1).required(),
-        secondline: Joi.string().min(1).required(),
-        city: Joi.string().min(3).required(),
-        country: Joi.string().min(3).required(),
-        pin: Joi.string().min(6).required()
-    }
-}
-
 const getUserByUsernameInputSchemaModel = {
     username: Joi.string().min(6).required(),
 }
@@ -70,13 +62,15 @@ const mongoUserSchema = new mongoose.Schema({
     dateOfBirth: Date,
     password: String,
     phoneNo: String,
-    address: {
-        firstline: String,
-        secondline: String,
-        city: String,
-        country: String,
-        pin: String
-    }
+    city: String,
+    state: String,
+    country: String,
+    pin: String,
+    aadharID: String,
+    panNo: String,
+    gender: String,
+    annualincome: String,
+    marital: String,
 });
 
 mongoUserSchema.methods.encryptPassword = function () {
@@ -93,7 +87,6 @@ module.exports = {
     updatePasswordInputSchemaModel,
     updateEmailInputSchemaModel,
     updatePhoneNoInputSchemaModel,
-    updateAddressInputSchemaModel,
     getUserByUsernameInputSchemaModel,
     getUserByPhoneNoInputSchemaModel,
     mongoUserSchema

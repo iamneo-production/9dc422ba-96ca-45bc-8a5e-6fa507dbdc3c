@@ -3,8 +3,8 @@ const log = new Logger('Transaction-Dao');
 const mongoose = require('mongoose');
 const transactionSchema = require('./transaction-schema-model').mongoTransactionSchema;
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
-const pdfMake = require('pdfmake/build/pdfmake');
-const pdfFonts = require('pdfmake/build/vfs_fonts');
+// const pdfMake = require('pdfmake/build/pdfmake');
+// const pdfFonts = require('pdfmake/build/vfs_fonts');
 const createDocumentDefinition = require('./pdf-document-definition');
 const config = require('config');
 
@@ -13,9 +13,6 @@ const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(log.info('connected to mongo database....'))
     .catch(err => log.error('unable to connect, please check your connection....' + err));
-
-//Below statement is only for development purpose, can be removed
-// mongoose.connection.dropCollection('transactions', err => { if (err) log.error('Unable to drop transaction collections: ' + err) });
 
 const logTransactionSummary = async (transactionSummary, response) => {
     let newSummary = new TransactionModel({
@@ -70,8 +67,8 @@ const generateStatement = async (accountNo, response) => {
     const pdfDocument = pdfMake.createPdf(docDefinition);
 
     pdfDocument.getBase64((data) => {
-        const pdfJsonBuffer = Buffer.from(data.toString('utf-8'), 'base64').toJSON();
-        log.info(`generating transaction summary statement for account no. ${accountNo} : [${new Date()}] `);
+        const pdfJsonBuffer = Buffer.from(data.toString('utf-8'), 'base86').toJSON();
+        log.info(`gen statement. ${accountNo} : [${new Date()}] `);
         response.send({
             statement: accountNo,
             buffer: pdfJsonBuffer.data

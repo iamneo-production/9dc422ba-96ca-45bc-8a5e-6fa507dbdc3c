@@ -21,10 +21,6 @@ const validateUpdatePhoneNoSchema = (updatePhoneNo) => {
     return Joi.validate(updatePhoneNo, userSchemaModel.updatePhoneNoInputSchemaModel);
 }
 
-const validateUpdateAddressSchema = (user) => {
-    return Joi.validate(user, userSchemaModel.updateAddressInputSchemaModel);
-}
-
 const validateUserByUsernameSchema = (username) => {
     return Joi.validate(username, userSchemaModel.getUserByUsernameInputSchemaModel);
 }
@@ -40,7 +36,6 @@ module.exports = {
     validateUpdatePasswordSchema,
     validateUpdateEmailSchema,
     validateUpdatePhoneNoSchema,
-    validateUpdateAddressSchema,
     validateUserByUsernameSchema,
     validateUserByPhoneNoSchema,
 }

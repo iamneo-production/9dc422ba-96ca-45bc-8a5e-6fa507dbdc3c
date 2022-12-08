@@ -7,7 +7,7 @@ const log = new Logger('Transaction-Controller');
 const authTokenValidator = require('../middleware/auth-token-validator');
 
 transactionrouter.post('/logtransactionsummary', authTokenValidator, (req, res) => {
-    let transactionSummary = req.body;
+    let transactionSummary = req.query;
     let { error } = transactionSummaryValidator.validateTransationSummarySchema(transactionSummary);
     if (isNotValidSchema(error, res)) return;
     if (isSameAccountNo(transactionSummary.from, transactionSummary.to, res)) return;
@@ -17,14 +17,14 @@ transactionrouter.post('/logtransactionsummary', authTokenValidator, (req, res) 
 });
 
 transactionrouter.get('/transactionsummary/:accountno', authTokenValidator, (req, res) => {
-    let accountNo = req.params.accountno;
+    let accountNo = req.query.accountno;
     transactionDao.getTransactionSummary(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in retrieving transaction summary for account no. ${accountNo}: ` + err));
 });
 
 transactionrouter.get('/generatestatement/:accountno', authTokenValidator, (req, res) => {
-    let accountNo = req.params.accountno;
+    let accountNo = req.query.accountno;
     transactionDao.generateStatement(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in generating transaction statement for account no. ${accountNo}: ` + err));

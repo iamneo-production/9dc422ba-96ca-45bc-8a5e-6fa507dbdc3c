@@ -7,7 +7,8 @@ const log = new Logger('User-Controller');
 const authTokenValidator = require('../middleware/auth-token-validator');
 
 userrouter.post('/register', (req, res) => {
-    let userObj = req.body;
+    let userObj = req.query;
+    console.log(req);
     let { error } = userValidator.validateNewUserSchema(userObj);
     if (isNotValidSchema(error, res)) return;
     userDao.resgisterNewUser(userObj, res)
@@ -16,7 +17,7 @@ userrouter.post('/register', (req, res) => {
 });
 
 userrouter.post('/validateuser', (req, res) => {
-    let loginInfo = req.body;
+    let loginInfo = req.query;
     let { error } = userValidator.validateLoginUserSchema(loginInfo);
     if (isNotValidSchema(error, res)) return;
     userDao.validateLoginUser(loginInfo, res)
@@ -25,7 +26,7 @@ userrouter.post('/validateuser', (req, res) => {
 });
 
 userrouter.post('/updatepassword', (req, res) => {
-    let passwordObj = req.body;
+    let passwordObj = req.query;
     let { error } = userValidator.validateUpdatePasswordSchema(passwordObj);
     if (isNotValidSchema(error, res)) return;
     userDao.updatePassword(passwordObj, res)
@@ -34,7 +35,7 @@ userrouter.post('/updatepassword', (req, res) => {
 });
 
 userrouter.post('/updateemail', authTokenValidator, (req, res) => {
-    let emailObj = req.body;
+    let emailObj = req.query;
     let { error } = userValidator.validateUpdateEmailSchema(emailObj);
     if (isNotValidSchema(error, res)) return;
     userDao.updateEmail(emailObj, res)
@@ -43,21 +44,12 @@ userrouter.post('/updateemail', authTokenValidator, (req, res) => {
 });
 
 userrouter.post('/updatephoneno', authTokenValidator, (req, res) => {
-    let phonoNoObj = req.body;
+    let phonoNoObj = req.query;
     let { error } = userValidator.validateUpdatePhoneNoSchema(phonoNoObj);
     if (isNotValidSchema(error, res)) return;
     userDao.updatePhonoNo(phonoNoObj, res)
         .then()
         .catch((err) => log.error(`Error in updating phone no. for username ${phonoNoObj.username}: ` + err));
-});
-
-userrouter.post('/updateaddress', authTokenValidator, (req, res) => {
-    let addressObj = req.body;
-    let { error } = userValidator.validateUpdateAddressSchema(addressObj);
-    if (isNotValidSchema(error, res)) return;
-    userDao.updateAddress(addressObj, res)
-        .then()
-        .catch((err) => log.error(`Error in updating address for username ${addressObj.username}: ` + err));
 });
 
 userrouter.get('/getuserbyusername/:username', authTokenValidator, (req, res) => {

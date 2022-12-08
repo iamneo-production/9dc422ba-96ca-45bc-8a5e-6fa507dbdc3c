@@ -15,9 +15,6 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAn
     .then(log.info('connected to mongo database....'))
     .catch(err => log.error('unable to connect, please check your connection....' + err));
 
-//Below statement is only for development purpose, can be removed
-// mongoose.connection.dropCollection('users', err => { if (err) log.error('Unable to drop user collections: ' + err) });
-
 async function validateLoginUser(loginInfo, response) {
     await UserModel.findOne({ username: loginInfo.username }, (err, result) => {
         if (err || !result) {
@@ -29,7 +26,7 @@ async function validateLoginUser(loginInfo, response) {
             });
         }
 
-        if (result && bcrypt.compareSync(loginInfo.password, result.password)) {
+        if (result && bcrypt.compare(loginInfo.password, result.password)) {
             log.info(loginInfo.username + ' has been validated');
             const jwtToken = jwt.sign({
                 username: result.username,
@@ -46,7 +43,7 @@ async function validateLoginUser(loginInfo, response) {
             return response.status(404).send({
                 username: loginInfo.username,
                 messageCode: 'USRNPI',
-                message: 'Username/Password incorrect.'
+                message: 'Username or Password incorrect.'
             });
         }
     });
@@ -61,13 +58,15 @@ async function resgisterNewUser(userObj, response) {
         username: userObj.username,
         password: userObj.password,
         phoneNo: userObj.phoneNo,
-        address: {
-            firstline: userObj.address.firstline,
-            secondline: userObj.address.secondline,
-            city: userObj.address.city,
-            country: userObj.address.country,
-            pin: userObj.address.pin
-        }
+        city: userObj.city,
+        state: userObj.state,
+        country: userObj.country,
+        pin: userObj.pin,
+        aadharId: userObj.aadharId,
+        panNo: userObj.panNo,
+        gender: userObj.gender,
+        annialIncome: userObj.annialIncome,
+        marital: userObj.marital,
     });
 
     newUser.password = newUser.encryptPassword();
@@ -166,30 +165,6 @@ async function updatePhonoNo(phonoNoObj, response) {
     });
 }
 
-async function updateAddress(addressObj, response) {
-    await UserModel.findOneAndUpdate({ username: addressObj.username }, { $set: { address: addressObj.address } }, (err, result) => {
-        if (err) {
-            log.error(`Error in updating address for username ${addressObj.username}: ` + err);
-            return response.status(400).send({
-                messageCode: new String(err.errmsg).split(" ")[0],
-                message: 'Error in updating address.'
-            });
-        }
-        if (!result || result.nModified === 0) {
-            log.warn('Unable to update address for ' + addressObj.username);
-            return response.status(404).send({
-                messageCode: 'DETLSNM',
-                message: 'Submitted details don\'t match.'
-            });
-        }
-        log.info('Address has been updated for ' + addressObj.username);
-        return response.send({
-            messageCode: 'USRASU',
-            message: 'Your address has been successfully updated.'
-        });
-    });
-}
-
 async function getUserByUsername(username, response) {
     await UserModel.find({ username: username }, (err, result) => {
         if (err) {
@@ -218,22 +193,12 @@ async function getUserByPhoneNo(phoneNo, response) {
     });
 }
 
-function getJwtSecretKey() {
-    try {
-        return config.get('jwt.secretkey');
-    } catch (err) {
-        console.error('\x1b[31mUnable to start application without JWT secret key. Please set "bankingapp-secretkey" in environment variable and try again.\x1b[0m');
-        process.exit(0);
-    }
-}
-
 module.exports = {
     validateLoginUser,
     resgisterNewUser,
     updatePassword,
     updateEmail,
     updatePhonoNo,
-    updateAddress,
     getUserByUsername,
     getUserByPhoneNo
 }

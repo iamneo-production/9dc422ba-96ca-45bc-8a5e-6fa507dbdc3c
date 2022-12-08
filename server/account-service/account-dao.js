@@ -8,14 +8,11 @@ const config = require('config');
 
 const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config.host') + config.get('mongodb-config.port') + config.get('mongodb-config.db');
 
-var accountNumberBase = 452300011000;
+var accountNumberBase = 69426942728718;
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(log.info('connected to mongo database....'))
     .catch(err => log.error('unable to connect, please check your connection....' + err));
-
-//Below statement is only for development purpose, can be removed
-// mongoose.connection.dropCollection('accounts', err => { if (err) log.error('Unable to drop account collections: ' + err) });
 
 const createNewAccount = async (accountDetails, response) => {
     let newAccount = new AccountModel({
@@ -286,7 +283,6 @@ async function logTransaction(transferAmount, token) {
 
     await axios({
         method: 'post',
-        //url: 'http://localhost:8081/bankingapp/api/transaction/logtransactionsummary',
         url: transactionService.protocol + transactionService.host + transactionService.port + transactionService.base + transactionService.uri,
         data: JSON.stringify(requestBody),
         headers: {
