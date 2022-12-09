@@ -22,7 +22,7 @@ const transferAmountSchemaModel = {
     }).required(),
     to:Joi.object({
         accountNo: Joi.string().min(12).required(),
-        amount: Joi.string().required()
+        amount: Joi.string()
     }).required(),
     remark: Joi.string().required()
 
