@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import NavBar from "./header";
 import Footer from "./Footer";
+
 const Payment = (props) => {
     const [paymentStep, setpaymentStep] = useState(1);
     const [accountNumber, setaccountNumber] = useState("");
@@ -66,12 +67,6 @@ const Payment = (props) => {
                                         </label>
                                         <input className="form-input" type={"password"} name="confirmaccnumber" placeholder="Confirm Account Number" onChange={(e) => confirmAccountNumber(e)} onPaste={e => e.preventDefault()} minLength={"10"} maxLength={accountmaxlim} required />
                                         <div className="errorMsg" style={{ display: errorStyle }}>Account Numbers Don't Match</div>
-                                    </div>
-                                    <div className="aadharentry">
-                                        <label className="label">
-                                            Beneficiary Name*
-                                        </label>
-                                        <input className="form-input " type={"text"} name="accountnumber" placeholder="Enter Beneficiary Name" value={accountNumber} onChange={(e) => handleAccountChange(e)} minLength={"10"} required />
                                     </div>
                                     <div className="aadharentry">
                                         <label className="label">

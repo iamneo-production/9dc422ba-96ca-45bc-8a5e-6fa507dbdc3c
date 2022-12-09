@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
+import axios from "axios";
 function Step1() {
     const [step, setstep] = useState(2);
     //formdata stats
@@ -10,21 +11,23 @@ function Step1() {
     const [fname, setfname] = useState("");
     const [mname, setmname] = useState("");
     const [lname, setlname] = useState("");
-    const [phone,setphone]=useState("");
-    const [email, setemail]=useState("");
-    const [dob,setdob]=useState("");
-    const [gender, setgender]=useState("");
-    const [nationality, setnationality]=useState("");
-    const [fatherName, setfatherName]=useState("");
-    const [motherName, setmotherName]=useState("");
-    const [motherMaidenName, setmotherMaidenName]=useState("");
-    const [pincode,setpincode]=useState("");
-    const [state, setstate]=useState("");
-    const [district, setdistrict]=useState("");
-    const [annualIncome, setannualIncome]=useState("")
-    const [marital, setmarital]=useState("");
-    const [username, setusername]=useState("");
-    const [password, setpassword]=useState("")
+    const [phone, setphone] = useState("");
+    const [email, setemail] = useState("");
+    const [dob, setdob] = useState("");
+    const [gender, setgender] = useState("");
+    const [nationality, setnationality] = useState("");
+    const [fatherName, setfatherName] = useState("");
+    const [motherName, setmotherName] = useState("");
+    const [motherMaidenName, setmotherMaidenName] = useState("");
+    const [pincode, setpincode] = useState("");
+    const [state, setstate] = useState("");
+    const [district, setdistrict] = useState("");
+    const [annualIncome, setannualIncome] = useState("")
+    const [marital, setmarital] = useState("");
+    const [username, setusername] = useState("");
+    const [password, setpassword] = useState("");
+    const [openingBal, setopeningBal] = useState("");
+
 
     //form data update functions
     const FathernameToUpperCase = e => {
@@ -35,46 +38,51 @@ function Step1() {
         const result = e.target.value.toUpperCase();
         setmotherName(result);
     }
-    const motherMaidennameToUpperCase=e=>{
-        const result=e.target.value.toUpperCase();
+    const motherMaidennameToUpperCase = e => {
+        const result = e.target.value.toUpperCase();
         setmotherMaidenName(result);
     }
-    const updateState=e=>{
-        const result=e.target.value.toUpperCase();
+    const updateState = e => {
+        const result = e.target.value.toUpperCase();
         setstate(result);
     }
-    const updateDistrict=e=>{
-        const result=e.target.value.toUpperCase();
+    const updateDistrict = e => {
+        const result = e.target.value.toUpperCase();
         setdistrict(result);
     }
-    const updateMarital=e=>{
-        const result=e.target.value.toUpperCase();
+    const updateMarital = e => {
+        const result = e.target.value.toUpperCase();
         setmarital(result);
     }
     const handlePinChange = event => {
         var result = event.target.value.replace(/\D/g, '');
         setpincode(result);
-        
+
     }
     const updateAnnualIncome = event => {
         var result = event.target.value.replace(/\D/g, '');
         setannualIncome(result);
-        
+
+    }
+    const updateOpeningBal = event => {
+        var result = event.target.value.replace(/\D/g, '');
+        setopeningBal(result);
+
     }
     const handleAadharChange = event => {
         var result = event.target.value.replace(/\D/g, '');
         setaadharvalue(result);
-        
+
     }
     const handleMobileChange = event => {
         var result = event.target.value.replace(/\D/g, '');
-        setphone(result); 
+        setphone(result);
     }
     const handleEmailChange = event => {
         var result = event.target.value;
         setemail(result);
     }
-    
+
     const FnameToUpperCase = e => {
         const result = e.target.value.toUpperCase();
         setfname(result);
@@ -91,23 +99,23 @@ function Step1() {
         const result = e.target.value.toUpperCase();
         setpannumber(result);
     }
-    const updateDob=e=>{
+    const updateDob = e => {
         setdob(e.target.value);
     }
-    const updateGender=e=>{
-        const ind=e.target.options.selectedIndex
+    const updateGender = e => {
+        const ind = e.target.options.selectedIndex
         setgender(e.target.options[ind].value);
     }
-    const updateNationality=e=>{
-        const ind=e.target.options.selectedIndex
+    const updateNationality = e => {
+        const ind = e.target.options.selectedIndex
         setnationality(e.target.options[ind].value);
     }
-    const updateuserName=e=>{
-        const user=e.target.value;
+    const updateuserName = e => {
+        const user = e.target.value;
         setusername(user)
     }
-    const updatepass=e=>{
-        const pass=e.target.value
+    const updatepass = e => {
+        const pass = e.target.value
         setpassword(pass);
     }
     //Step changers
@@ -121,27 +129,46 @@ function Step1() {
     useEffect(() => {
         prevStep();
     }, []);
-    const UserData={
-        aadhar:aadharvalue,
-        pan:pannumber,
-        phone:phone,
-        email:email,
-        fname:fname,
-        mname:mname,
-        lname:lname,
-        dob:dob,
-        gender:gender,
-        nationality:nationality,
-        fatherName:fatherName,
-        motherName:motherName,
-        motherMaidenName:motherMaidenName,
-        pincode:pincode,
-        state:state,
-        district:district,
-        annualIncome:annualIncome,
-        marital:marital,
-        username:username,
-        password:password
+    async function CreateAccount(e) {
+        const UserData = {
+            aadharID: aadharvalue,
+            panNo: pannumber,
+            phoneNo: phone,
+            emailId: email,
+            firstname: fname,
+            lastname: lname,
+            dateOfBirth: dob,
+            gender: gender,
+            country: nationality,
+            fatherName: fatherName,
+            pin: pincode,
+            state: state,
+            city: district,
+            annualincome: annualIncome,
+            marital: marital,
+            username: username,
+            password: password
+        }
+        console.log(UserData);
+        await axios({
+            method: 'post',
+            url: 'http://localhost:8081/bankingapp/api/user/register',
+            data: UserData
+        }).then(e => {
+            console.log(e);
+        });
+        await axios({
+            method: 'post',
+            url: "http://localhost:8081/bankingapp/api/account/createnewaccount",
+            data: {
+                username: username,
+                closingBalance: openingBal
+            }
+        }).then(e => {
+            console.log(e);
+            window.alert("Your Account is Successfully Created \n Your Account No. is " + e.data.accountNo);
+            setTimeout(window.location="http://localhost:3000/Dashboard",3000)
+        })
     }
     //form data
     // console.log(UserData);
@@ -169,6 +196,7 @@ function Step1() {
                             <Button style={{ backgroundColor: "#48842c", width: "30%", float: "right" }} onClick={e => nextStep(e)}>Next<AiFillCaretRight /></Button>
                         </div>
                     </div>
+
                 </>
             )
         case 2:
@@ -212,9 +240,9 @@ function Step1() {
                 </>
             )
         case 3:
-            return(
+            return (
                 <>
-                <div className="form-content-box">
+                    <div className="form-content-box">
                         <div className="text-val">
                             Fields marked *(star) are MANDATORY.
                         </div>
@@ -356,7 +384,7 @@ function Step1() {
                                 <label className="label">
                                     Mother's Name
                                 </label>
-                                <input className="form-input" type={"text"} name="MotherName" placeholder="Enter Your Mother's Name" value={motherName} onChange={(e) => MothernameToUpperCase(e) } required />
+                                <input className="form-input" type={"text"} name="MotherName" placeholder="Enter Your Mother's Name" value={motherName} onChange={(e) => MothernameToUpperCase(e)} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
@@ -436,6 +464,12 @@ function Step1() {
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
+                                    Opening Account Balance*
+                                </label>
+                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your Opening Balance" value={openingBal} onChange={(e) => updateOpeningBal(e)} maxLength={"6"} minLength={"6"} required />
+                            </div>
+                            <div className="aadharentry">
+                                <label className="label">
                                     Marital Status*
                                 </label>
                                 <input className="form-input" type={"text"} name="state" placeholder="Enter Your Marital Status" value={marital} onChange={(e) => updateMarital(e)} required />
@@ -495,30 +529,30 @@ function Step1() {
                             Make sure you are available on the choosen date and time.
                             After Submission kindly check your account dashboard for the video conferencing link and other information.
                         </div>
-                        <div style={{display:"flex"}}>
-                            <div style={{width:"60%"}}>
+                        <div style={{ display: "flex" }}>
+                            <div style={{ width: "60%" }}>
 
                                 <form method="post" >
                                     <div className="aadharentry">
-                                        <label className="label" style={{fontSize:"16px"}}>
+                                        <label className="label" style={{ fontSize: "16px" }}>
                                             Choose Date:
                                         </label>
                                         <input className="form-input " type={"date"} name="kycDate" required />
                                     </div>
                                     <div className="aadharentry">
-                                        <label className="label"style={{fontSize:"16px"}}>
+                                        <label className="label" style={{ fontSize: "16px" }}>
                                             Choose Time:
                                         </label>
                                         <input className="form-input" type={"time"} name="kycTime" required />
                                     </div>
                                     <div className="nextbuttonform">
-                                        <Button style={{ backgroundColor: "#48842c", width: "30%" }} >Submit</Button>
+                                        <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={(e) => CreateAccount(e)}>Submit</Button>
                                     </div>
                                 </form>
                             </div>
-                            <div style={{ width:"30%",marginLeft:"10%"}}>
-                                <div style={{width:"60%" ,display:"flex",flexDirection:"column", alignItems:"center", border:"2px solid black", borderRadius:"5px", marginLeft:"30%"}}>
-                                    <h6 style={{textDecoration:"underline"}}> Need Help?</h6>
+                            <div style={{ width: "30%", marginLeft: "10%" }}>
+                                <div style={{ width: "60%", display: "flex", flexDirection: "column", alignItems: "center", border: "2px solid black", borderRadius: "5px", marginLeft: "30%" }}>
+                                    <h6 style={{ textDecoration: "underline" }}> Need Help?</h6>
                                     <a href="/Contact-us">Contact Us</a>
                                     <a href="#">FAQs</a>
                                     <a href="#">Why KYC?</a>
