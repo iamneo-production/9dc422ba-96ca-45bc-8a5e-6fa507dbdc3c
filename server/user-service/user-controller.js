@@ -7,7 +7,7 @@ const log = new Logger('User-Controller');
 const authTokenValidator = require('../middleware/auth-token-validator');
 
 userrouter.post('/register', (req, res) => {
-    let userObj = req.query;
+    let userObj = req.body;
     console.log(req);
     let { error } = userValidator.validateNewUserSchema(userObj);
     if (isNotValidSchema(error, res)) return;

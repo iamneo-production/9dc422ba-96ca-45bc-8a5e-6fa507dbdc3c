@@ -13,15 +13,18 @@ accountrouter.get('/getaccountdetails/:accountno', authTokenValidator, (req, res
         .catch((err) => log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err));
 });
 
-accountrouter.get('/getaccountdetailsbyusername/:username', authTokenValidator, (req, res) => {
-    let username = req.query.username;
+accountrouter.get('/getaccountdetailsbyusername/:username', (req, res) => {
+    console.log(req);
+    let username = req.params.username;
+    console.log(username);
     accountDao.retrieveAccountDetailsByUsername(username, res)
         .then()
         .catch((err) => log.error(`Error in retrieving account details by username ${username}: ` + err));
 });
 
-accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
-    let newAccount = req.query;
+accountrouter.post('/createnewaccount', (req, res) => {
+    console.log(req);
+    let newAccount = req.body;
     let { error } = accountValidator.validateCreateNewAccountSchema(newAccount);
     if (isNotValidSchema(error, res)) return;
     accountDao.createNewAccount(newAccount, res)
