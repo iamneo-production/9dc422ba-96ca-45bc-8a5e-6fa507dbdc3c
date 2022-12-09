@@ -28,7 +28,7 @@ function notValid(err,res){
         log.error(`Schema validation error: ${err.details[0].message}`);
         res.send({
             messageCode: 'VALDERR',
-            message: error.details[0].message
+            message: err.details[0].message
         });
         return true;
     }
