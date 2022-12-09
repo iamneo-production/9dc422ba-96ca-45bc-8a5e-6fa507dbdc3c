@@ -14,7 +14,9 @@ import { PieChart } from "react-minimal-pie-chart";
 import Transactions from "./transactions";
 import Payment from "./payment";
 import BarGraph from "./BarGraph";
-function Dashboard() {
+import axios from 'axios';
+import IssignedIn from "./isSignedIn";
+const Dashboard=()=>{
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
     let piedata =
@@ -64,13 +66,31 @@ function Dashboard() {
     function paymentMode(e) {
         setpayment(1);
     }
+    const [userDataFetch, setuserDataFetch]=useState({});
+    const [accountData, setaccountData]=useState({});
+    const stateData=IssignedIn();
+    useEffect(() => {
+        if(stateData[0]){
+            axios({
+                method:"get",
+                url:"http://localhost:8081/bankingapp/api/account/getaccountdetailsbyusername/"+stateData[3],
+            }).then(e=>{setaccountData(e.data)})
+
+            axios({
+                method:"get",
+                url:"http://localhost:8081/bankingapp/api/user/getuserbyusername/"+stateData[3],
+            }).then(e=>setuserDataFetch(e.data))
+        }
+    }, [stateData[0], stateData[2]]);
     const DisplayTransArray = Transactions.slice(Transactions.length - 7, Transactions.length);
     const [payment, setpayment] = useState(0);
     let count = 1;
+    console.log(userDataFetch, accountData);
     const [graphType, setgraphType] = useState("bar")
     function changeGraphTypetoBar(e) {
         setgraphType('bar');
     }
+
     function changeGraphTypetoLine(e) {
         setgraphType('scatter');
     }
@@ -83,7 +103,7 @@ function Dashboard() {
                     <Row className="user-details-row">
                         <Col md={3} className="title-col-dash">
                             <div className="account-number">
-                                Account No. 423287332823
+                                Account No. {}
                             </div>
                         </Col>
                         <Col md={3} className="title-col-dash">
