@@ -13,14 +13,15 @@ accountrouter.get('/getaccountdetails/:accountno', authTokenValidator, (req, res
         .catch((err) => log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err));
 });
 
-accountrouter.get('/getaccountdetailsbyusername/:username', authTokenValidator, (req, res) => {
-    let username = req.query.username;
+accountrouter.get('/getaccountdetailsbyusername/:username', (req, res) => {
+    console.log(req);
+    let username = req.params.username;
     accountDao.retrieveAccountDetailsByUsername(username, res)
         .then()
         .catch((err) => log.error(`Error in retrieving account details by username ${username}: ` + err));
 });
 
-accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
+accountrouter.post('/createnewaccount',  (req, res) => {
     let newAccount = req.query;
     let { error } = accountValidator.validateCreateNewAccountSchema(newAccount);
     if (isNotValidSchema(error, res)) return;
@@ -29,8 +30,8 @@ accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in creating new account for username ${newAccount.username}: ` + err));
 });
 
-accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
-    let transferAmount = req.query;
+accountrouter.post('/transferamount', (req, res) => {
+    let transferAmount = req.body;
     let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
     if (isNotValidSchema(error, res)) return;
     if (isSameAccountNo(transferAmount.from.accountNo, transferAmount.to.accountNo, res)) return;
@@ -46,8 +47,9 @@ accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in transaction from ${transferAmount.from.accountNo} to ${transferAmount.to.accountNo} of amount ${transferAmount.from.amount}: ` + err));
 });
 
-accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
-    let newPayee = req.query;
+accountrouter.post('/addpayee', (req, res) => {
+    console.log(req);
+    let newPayee = req.body;
     let { error } = accountValidator.validatePayeeSchema(newPayee);
     if (isNotValidSchema(error, res)) return;
     if (isSameAccountNo(newPayee.accountNo, newPayee.payee.accountNo, res)) return;

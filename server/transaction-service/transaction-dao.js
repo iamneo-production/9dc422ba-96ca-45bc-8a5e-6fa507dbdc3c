@@ -3,9 +3,6 @@ const log = new Logger('Transaction-Dao');
 const mongoose = require('mongoose');
 const transactionSchema = require('./transaction-schema-model').mongoTransactionSchema;
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
-// const pdfMake = require('pdfmake/build/pdfmake');
-// const pdfFonts = require('pdfmake/build/vfs_fonts');
-// const createDocumentDefinition = require('./pdf-document-definition');
 const config = require('config');
 
 const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config.host') + config.get('mongodb-config.port') + config.get('mongodb-config.db');
@@ -14,24 +11,23 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAn
     .then(log.info('connected to mongo database....'))
     .catch(err => log.error('unable to connect, please check your connection....' + err));
 
-const logTransactionSummary = async (transactionSummary, response) => {
+const logTransactionSummary = async (req, response) => {
     let newSummary = new TransactionModel({
-        amount: transactionSummary.amount,
-        transferedOn: new Date(transactionSummary.transferedOn),
-        to: transactionSummary.to,
-        from: transactionSummary.from,
-        remark: transactionSummary.remark
+        amount: req.amount,
+        transferedOn: new Date(req.transferedOn),
+        to: req.to,
+        from: req.from,
+        remark: req.remark
     });
-
     await newSummary.save((err, result) => {
         if (err || !result) {
-            log.error(`Error in logging transaction summary of ${transactionSummary}: ` + err);
-            return response.status(400).send({
+            log.error(`Err in making new acc ${req}: ` + err);
+            return response.status(401).send({
                 messageCode: new String(err.errmsg).split(" ")[0],
-                message: 'Unable to log transaction summary from ' + transactionSummary.from + ' to ' + transactionSummary.to
+                message: 'Unable to log transaction summary from ' + req.from + ' to ' + req.to
             });
         }
-        log.info('Logged transaction summary from ' + transactionSummary.from + ' to ' + transactionSummary.to);
+        log.info('Logged transaction summary from ' + req.from + ' to ' + req.to);
         return response.send({
             messageCode: 'TRNSMRLG',
             message: 'Transaction summary has been successfully logged.',
@@ -42,53 +38,35 @@ const logTransactionSummary = async (transactionSummary, response) => {
     });
 }
 
-const getTransactionSummary = async (accountNo, response) => {
-    await retrieveTransactionSummary(accountNo)
+const gettransSumm = async (req, res) => {
+    await retrievetransSumm(req)
         .then((summary) => {
-            return response.send({
+            return res.send({
                 messageCode: 'TRNSMRY',
                 summary: summary
             });
         })
         .catch((err) => {
-            log.error(`Error in retrieving transaction summary for account no. ${accountNo}: ` + err);
+            log.error(`Error in retrieving transSUmm ${req}: ` + err);
             return response.status(400).send({
                 messageCode: new String(err.errmsg).split(" ")[0],
-                message: 'Unable to retrive transaction summary for ' + accountNo
+                message: 'Unable to retrive transaction summary for ' + req
             });
         });
 }
 
-// const generateStatement = async (accountNo, response) => {
-//     const summary = await retrieveTransactionSummary(accountNo);
-//     const docDefinition = await createDocumentDefinition(summary);
-
-//     pdfMake.vfs = pdfFonts.pdfMake.vfs;
-//     const pdfDocument = pdfMake.createPdf(docDefinition);
-
-//     pdfDocument.getBase64((data) => {
-//         const pdfJsonBuffer = Buffer.from(data.toString('utf-8'), 'base86').toJSON();
-//         log.info(`gen statement. ${accountNo} : [${new Date()}] `);
-//         response.send({
-//             statement: accountNo,
-//             buffer: pdfJsonBuffer.data
-//         });
-//     });
-// }
-
-async function retrieveTransactionSummary(accountNo) {
-    return await TransactionModel.find({ from: accountNo })
-        .sort({ transferedOn: -1 })
+async function retrievetransSumm(e) {
+    return await TransactionModel.find({ from: e })
         .then(result => {
             let tempSummary = {};
-            let responseSummary = [];
+            let responseSummary = ["dwdejubcfje"];
             result.forEach(summary => {
-                tempSummary = {};
-                tempSummary.amount = summary.amount;
-                tempSummary.transferedOn = summary.transferedOn;
-                tempSummary.to = summary.to;
-                tempSummary.from = summary.from;
-                tempSummary.remark = summary.remark;
+                temp = {};
+                temp.amount = summary.amount;
+                temp.transferedOn = summary.transferedOn;
+                temp.to = summary.to;
+                temp.from = summary.from;
+                temp.remark = summary.remark;
                 responseSummary.push(tempSummary);
             });
             return responseSummary;
@@ -98,7 +76,8 @@ async function retrieveTransactionSummary(accountNo) {
         });
 }
 
+
 module.exports = {
     logTransactionSummary,
-    getTransactionSummary,
+    gettransSumm,
 }
