@@ -2,8 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-function Step1() {
+import IssignedIn from "./isSignedIn";
+import { Changestatus } from "./isSignedIn";
+function Step1(){
+    const statedata=IssignedIn()
     const [step, setstep] = useState(2);
     //formdata stats
     const [aadharvalue, setaadharvalue] = useState("");
@@ -129,6 +133,11 @@ function Step1() {
     useEffect(() => {
         prevStep();
     }, []);
+    let navigate = useNavigate();
+    function navigateToDashoard(e) {
+        navigate("/Dashboard");
+    }
+
     async function CreateAccount(e) {
         const UserData = {
             aadharID: aadharvalue,
@@ -167,8 +176,7 @@ function Step1() {
         }).then(e => {
             console.log(e);
             window.alert("Your Account is Successfully Created \n Your Account No. is " + e.data.accountNo);
-            setTimeout(window.location="http://localhost:3000/Dashboard",3000)
-        })
+        }).then(()=>statedata[3](username)).then((e)=>Changestatus(e)).then((e) => navigateToDashoard(e));
     }
     //form data
     // console.log(UserData);
@@ -460,13 +468,13 @@ function Step1() {
                                 <label className="label">
                                     Annual Income*
                                 </label>
-                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your Annual Income" value={annualIncome} onChange={(e) => updateAnnualIncome(e)} maxLength={"6"} minLength={"6"} required />
+                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your Annual Income" value={annualIncome} onChange={(e) => updateAnnualIncome(e)} maxLength={"10"} minLength={"6"} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
                                     Opening Account Balance*
                                 </label>
-                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your Opening Balance" value={openingBal} onChange={(e) => updateOpeningBal(e)} maxLength={"6"} minLength={"6"} required />
+                                <input className="form-input " type={"text"} name="pincode" placeholder="Enter Your Opening Balance" value={openingBal} onChange={(e) => updateOpeningBal(e)} maxLength={"10"} minLength={"6"} required />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
@@ -567,4 +575,4 @@ function Step1() {
     }
 
 }
-export default Step1;
+export default Step1
