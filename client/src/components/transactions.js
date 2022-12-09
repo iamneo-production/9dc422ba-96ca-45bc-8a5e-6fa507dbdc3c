@@ -182,7 +182,7 @@ const Transanctions = [
     {
         from:"Kevin",
         transID:634623846286384,
-        amount:2500,
+        amount:4000,
         date:"Dec 07, 2022",
         remark:"moza hi moza",
         isCredited:false,

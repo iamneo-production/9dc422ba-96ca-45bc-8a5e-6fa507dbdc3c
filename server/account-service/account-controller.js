@@ -21,8 +21,9 @@ accountrouter.get('/getaccountdetailsbyusername/:username', (req, res) => {
         .catch((err) => log.error(`Error in retrieving account details by username ${username}: ` + err));
 });
 
-accountrouter.post('/createnewaccount',  (req, res) => {
-    let newAccount = req.query;
+accountrouter.post('/createnewaccount', (req, res) => {
+    console.log(req);
+    let newAccount = req.body;
     let { error } = accountValidator.validateCreateNewAccountSchema(newAccount);
     if (isNotValidSchema(error, res)) return;
     accountDao.createNewAccount(newAccount, res)
