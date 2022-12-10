@@ -145,69 +145,7 @@ const deletePayee = async (accountNo, payee, response) => {
     });
 }
 
-const closeAccount = async (accountNo, response) => {
-    await AccountModel.findOneAndUpdate({ accountNo: accountNo, isClosed: false }, { $set: { closedOn: Date.now(), isClosed: true } }, (err, result) => {
-        if (err || !result) {
-            log.error(`Error in closing account with account no. ${accountNo}: ` + err);
-            return response.status(400).send({
-                messageCode: 'ACCCAE',
-                message: 'Unable to close account with account no. ' + accountNo
-            });
-        }
-        return response.send({
-            messageCode: 'ACCCLD',
-            message: 'Account has been closed with account no. ' + accountNo
-        });
-    });
-}
 
-const openClosedAccount = async (accountNo, response) => {
-    await AccountModel.findOneAndUpdate({ accountNo: accountNo, isClosed: true }, { $set: { closedOn: Date.now(), isClosed: false } }, (err, result) => {
-        if (err || !result) {
-            log.error(`Error in opening closed accountwith account no. ${accountNo}: ` + err);
-            return response.status(400).send({
-                messageCode: 'ACCCLDOPNE',
-                message: 'Unable to open closed account with account no. ' + accountNo
-            });
-        }
-        return response.send({
-            messageCode: 'ACCCLDOPN',
-            message: 'Account has been reopened with account no. ' + accountNo
-        });
-    });
-}
-
-const updateLastActivatedStatus = async (accountNo, response) => {
-    await AccountModel.findOneAndUpdate({ accountNo: accountNo, isClosed: false }, { $set: { lastActive: Date.now() } }, (err, result) => {
-        if (err || !result) {
-            log.error(`Error in updating last activated status for account no. ${accountNo}: ` + err);
-            return response.status(400).send({
-                messageCode: 'ACCLAE',
-                message: 'Unable to update last activated status for account no. ' + accountNo
-            });
-        }
-        return response.send({
-            messageCode: 'ACCLAU',
-            message: 'Updated last activated status for account no. ' + accountNo
-        });
-    });
-}
-
-const retrieveLastActivatedStatus = async (accountNo, response) => {
-    await AccountModel.findOne({ accountNo: accountNo, isClosed: false }, (err, result) => {
-        if (err || !result) {
-            log.error(`Error in retrieving last activated status for account no. ${accountNo}: ` + err);
-            return response.status(400).send({
-                messageCode: 'ACCLAE',
-                message: 'Unable to retrieve last activated status for account no. ' + accountNo
-            });
-        }
-        return response.send({
-            messageCode: 'ACCLAS',
-            lastActive: result.lastActive
-        });
-    });
-}
 
 const transferAmount = async (transferAmount, response, token) => {
     let from = transferAmount.from;

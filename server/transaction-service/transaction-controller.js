@@ -4,45 +4,38 @@ const transactionSummaryValidator = require('./transaction-schema-validator');
 const transactionDao = require('./transaction-dao');
 const Logger = require('../logger/logger');
 const log = new Logger('Transaction-Controller');
-const authTokenValidator = require('../middleware/auth-token-validator');
 
-transactionrouter.post('/logtransactionsummary', authTokenValidator, (req, res) => {
-    let transactionSummary = req.query;
+transactionrouter.post('/logtransactionsummary', (req, res) => {
+    let transactionSummary = req.body;
+    console.log(req);
     let { error } = transactionSummaryValidator.validateTransationSummarySchema(transactionSummary);
-    if (isNotValidSchema(error, res)) return;
-    if (isSameAccountNo(transactionSummary.from, transactionSummary.to, res)) return;
+    if (notValid(error, res)) return;
+    if (sameAcc(transactionSummary.from, transactionSummary.to, res)) return;
     transactionDao.logTransactionSummary(transactionSummary, res)
         .then()
         .catch((err) => log.error(`Error in logging transaction summary of ${transactionSummary}: ` + err));
 });
 
-transactionrouter.get('/transactionsummary/:accountno', authTokenValidator, (req, res) => {
-    let accountNo = req.query.accountno;
-    transactionDao.getTransactionSummary(accountNo, res)
+transactionrouter.get('/transactionsummary/:accountno', (req, res) => {
+    let accountNo = req.body.accountno;
+    transactionDao.gettransSumm(accountNo, res)
         .then()
-        .catch((err) => log.error(`Error in retrieving transaction summary for account no. ${accountNo}: ` + err));
+        .catch((err) => log.error(`Error in getting transSumm. ${accountNo}: ` + err));
 });
 
-transactionrouter.get('/generatestatement/:accountno', authTokenValidator, (req, res) => {
-    let accountNo = req.query.accountno;
-    transactionDao.generateStatement(accountNo, res)
-        .then()
-        .catch((err) => log.error(`Error in generating transaction statement for account no. ${accountNo}: ` + err));
-});
-
-function isNotValidSchema(error, res) {
-    if (error) {
-        log.error(`Schema validation error: ${error.details[0].message}`);
-        res.status(400).send({
+function notValid(err,res){
+    if (err) {
+        log.error(`Schema validation error: ${err.details[0].message}`);
+        res.send({
             messageCode: 'VALDERR',
-            message: error.details[0].message
+            message: err.details[0].message
         });
         return true;
     }
     return false;
 }
 
-function isSameAccountNo(accountNo_1, accountNo_2, res) {
+function sameAcc(accountNo_1, accountNo_2, res) {
     if (accountNo_1 === accountNo_2) {
         log.error(`Transaction cannot be done on same account, from ${accountNo_1} to ${accountNo_2}`);
         res.status(400).send({
