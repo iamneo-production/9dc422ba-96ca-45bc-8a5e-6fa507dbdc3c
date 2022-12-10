@@ -28,7 +28,7 @@ function SignUp() {
                     <Button variant="primary" type="submit" style={{ width: "30%", marginLeft: "35%", fontSize: "20px", backgroundColor: "#2c8894", marginTop: "20px" }}>
                         Sign Up
                     </Button>
-                    {/* <div className="Forget-password" style={{ textAlign: "right", marginRight: "35%", padding: "10px" }}><a href="#">Forget Password? </a> </div> */}
+                    {/* <div className="Forget-password" style={{ textAlign: "right", marginRight: "35%", padding: "10px" }}><a href="/">Forget Password? </a> </div> */}
 
                     <div style={{ display: "flex", marginTop: "20px" }}>
                         <div style={{ width: "13%", height: "2px", marginLeft: "35%", backgroundColor: "black" }}></div>

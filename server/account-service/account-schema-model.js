@@ -5,7 +5,7 @@ const payeeInputSchemaModel = {
     accountNo: Joi.string().min(12).required(),
     payee: {
         firstname: Joi.string().required(),
-        lastname: Joi.string().required(),
+        lastname: Joi.string(),
         accountNo: Joi.string().min(12).required()
     }
 }

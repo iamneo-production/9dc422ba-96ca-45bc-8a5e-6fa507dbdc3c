@@ -81,12 +81,12 @@ function BarGraph(props) {
         ]
     }
     else if(props.duration==="Monthly"){
-        var date=new Date()
-        var today=date.getDate();
+        date=new Date()
+        today=date.getDate();
         const monthArr=[];
         var incomeArr=[];
         var expenseArr=[];
-        var todayDate = date.getMonth() + 1 + "/" + date.getDate()+ "/" + date.getFullYear();
+        todayDate = date.getMonth() + 1 + "/" + date.getDate()+ "/" + date.getFullYear();
         todayDate = new Date(todayDate);
         for(var i=1;i<=today;i++){
             monthArr.push(i);

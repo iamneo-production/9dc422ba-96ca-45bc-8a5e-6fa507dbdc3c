@@ -50,6 +50,7 @@ accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
 });
 
 accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
+    console.log(req)
     let newPayee = req.query;
     let { error } = accountValidator.validatePayeeSchema(newPayee);
     if (isNotValidSchema(error, res)) return;

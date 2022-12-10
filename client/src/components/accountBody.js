@@ -22,7 +22,7 @@ const AccountBody = (props) => {
       <div>
         <div className='accountPage-firstCol'>
           <div style={{ width: "55%" }}>
-            <img className='img' src={props.firstpic} alt={"Picture"}/>
+            <img className='img' src={props.firstpic} alt={"Accountpic"}/>
           </div>
           <div className='firstCol-textContent'>
             <div>
@@ -31,7 +31,7 @@ const AccountBody = (props) => {
             <Button href='/OpenAccount' variant='light' style={{ color: "Red", fontWeight: "bolder", fontSize: "25px", margin: "auto" }}>
               OPEN NOW
             </Button>
-            <a className='TermsandConditions'>
+            <a className='TermsandConditions' href='/'>
               Terms and Conditions<span style={{ color: "red" }}>*</span>
             </a>
           </div>
@@ -40,7 +40,7 @@ const AccountBody = (props) => {
       <div style={{ marginTop: "2%" }}>
         <div className='accountPage-secondCol'>
           <div style={{ width: "50%" }}>
-            <img className='img' src={props.secondpic} alt={"Picture"}/>
+            <img className='img' src={props.secondpic} alt={"Accountpic"}/>
           </div>
           <div className='secondCol-textContent'>
             <div>

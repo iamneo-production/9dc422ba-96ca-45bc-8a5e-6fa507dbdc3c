@@ -16,19 +16,19 @@ function Services() {
 
                     <Container fluid className="grid">
                         <Row className="grid-row">
-                            <Col className="service-col1"><a href="#"> FD</a></Col>
-                            <Col className="service-col2"><a href="#"> INSURANCE</a></Col>
-                            <Col className="service-col3"><a href="#"> RTGS</a></Col>
+                            <Col className="service-col1"><a href="/"> FD</a></Col>
+                            <Col className="service-col2"><a href="/"> INSURANCE</a></Col>
+                            <Col className="service-col3"><a href="/"> RTGS</a></Col>
                         </Row>
                         <Row className="grid-row">
-                            <Col className="service-col1"><a href="#"> GOLD</a></Col>
-                            <Col className="service-col2"><a href="#"> RECHARGE</a></Col>
-                            <Col className="service-col3"><a href="#"> NEFT</a></Col>
+                            <Col className="service-col1"><a href="/"> GOLD</a></Col>
+                            <Col className="service-col2"><a href="/"> RECHARGE</a></Col>
+                            <Col className="service-col3"><a href="/"> NEFT</a></Col>
                         </Row>
                         <Row className="grid-row">
-                            <Col className="service-col1"><a href="#"> LOANS</a></Col>
-                            <Col className="service-col2"><a href="#"> PAYMENTS</a></Col>
-                            <Col className="service-col3"><a href="#"> SIP</a></Col>
+                            <Col className="service-col1"><a href="/"> LOANS</a></Col>
+                            <Col className="service-col2"><a href="/"> PAYMENTS</a></Col>
+                            <Col className="service-col3"><a href="/"> SIP</a></Col>
                         </Row>
                     </Container>
                 </div>
