@@ -15,7 +15,8 @@ import Transactions from "./transactions";
 import Payment from "./payment";
 import BarGraph from "./BarGraph";
 import axios from 'axios';
-const Dashboard=({notOn, setnotOn, data})=>{
+import NotiComp from "./notification_component";
+const Dashboard = ({ notOn, setnotOn, data }) => {
 
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
@@ -66,27 +67,27 @@ const Dashboard=({notOn, setnotOn, data})=>{
     function paymentMode(e) {
         setpayment(1);
     }
-    const [userDataFetch, setuserDataFetch]=useState({});
-    const [accountData, setaccountData]=useState({});
-    const stateData=data;
+    const [userDataFetch, setuserDataFetch] = useState({});
+    const [accountData, setaccountData] = useState({});
+    const stateData = data;
     // console.log(stateData);
     useEffect(() => {
-        if(stateData[0]){
+        if (stateData[0]) {
             axios({
-                method:"get",
-                url:"http://localhost:8081/bankingapp/api/account/getaccountdetailsbyusername/bt20101019",
-            }).then(e=>{setaccountData(e.data.accountDetails)})
+                method: "get",
+                url: "http://localhost:8081/bankingapp/api/account/getaccountdetailsbyusername/bt20101019",
+            }).then(e => { setaccountData(e.data.accountDetails) })
 
             axios({
-                method:"get",
-                url:"http://localhost:8081/bankingapp/api/user/getuserbyusername/bt20101019",
-            }).then(e=>setuserDataFetch(e.data[0]))
+                method: "get",
+                url: "http://localhost:8081/bankingapp/api/user/getuserbyusername/bt20101019",
+            }).then(e => setuserDataFetch(e.data[0]))
         }
     }, [stateData[0], stateData[2]]);
     const DisplayTransArray = Transactions.slice(Transactions.length - 7, Transactions.length);
     const [payment, setpayment] = useState(0);
     let count = 1;
-    console.log(userDataFetch, accountData);
+    console.log(userDataFetch, accountData)
     const [graphType, setgraphType] = useState("bar")
     function changeGraphTypetoBar(e) {
         setgraphType('bar');
@@ -99,9 +100,14 @@ const Dashboard=({notOn, setnotOn, data})=>{
 
         return (
             <>
-                <NavBar />
-                <Container fluid>
-                    <Row className="user-details-row">
+                <NavBar
+                    setnotOn={setnotOn}
+                />
+                <NotiComp
+                    notOn={notOn}
+                />
+                <Container fluid onClick={(e)=>setnotOn({display:"none"})}>
+                    <Row className="user-details-row" >
                         <Col md={3} className="title-col-dash">
                             <div className="account-number">
                                 Account No. 69426942728720
@@ -119,7 +125,7 @@ const Dashboard=({notOn, setnotOn, data})=>{
 
                         </Col>
                         <Col md={3} className="title-col-dash">
-                            <a href={"/editAccountDetails"} style={{fontSize:"16px", fontWeight:"bold"}} >
+                            <a href={"/editAccountDetails"} style={{ fontSize: "16px", fontWeight: "bold" }} >
                                 Edit Account Detail
                             </a>
                         </Col>
@@ -265,7 +271,7 @@ const Dashboard=({notOn, setnotOn, data})=>{
                                                     </div>
                                                     <div style={{ textAlign: "center", width: "auto", margin: "auto" }}>
                                                         <div style={{ fontWeight: "bolder", fontSize: "auto" }}>
-                                                            { "Rs."+piedata[0].value}
+                                                            {"Rs." + piedata[0].value}
                                                         </div>
                                                         <div>
                                                             <div>
@@ -280,7 +286,7 @@ const Dashboard=({notOn, setnotOn, data})=>{
                                                     </div>
                                                     <div style={{ textAlign: "center", width: "100%", margin: "auto" }}>
                                                         <div style={{ fontWeight: "bolder" }}>
-                                                            { "Rs."+piedata[1].value }
+                                                            {"Rs." + piedata[1].value}
                                                         </div>
                                                         <div>
                                                             <div>
@@ -296,19 +302,19 @@ const Dashboard=({notOn, setnotOn, data})=>{
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Daily
                                             <div>
-                                                { "Rs."+(piedata[1].value / 30).toFixed(2)}
+                                                {"Rs." + (piedata[1].value / 30).toFixed(2)}
                                             </div>
                                         </div >
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Weekly
                                             <div>
-                                                { "Rs." +piedata[1].value / 4}
+                                                {"Rs." + piedata[1].value / 4}
                                             </div>
                                         </div>
                                         <div className="expense-over-time" style={{ fontSize: "20px", fontWeight: "bolder", marginTop: "auto" }}>
                                             Monthly
                                             <div>
-                                                { "Rs."+piedata[1].value}
+                                                {"Rs." + piedata[1].value}
                                             </div>
                                         </div>
 
@@ -331,7 +337,7 @@ const Dashboard=({notOn, setnotOn, data})=>{
                                     Account Balance
                                 </div>
                                 <div>
-                                    {"Rs. " +accBalance}
+                                    {"Rs. " + accBalance}
                                 </div>
                             </div>
                             <div style={{ height: "5%" }}></div>
@@ -388,6 +394,8 @@ const Dashboard=({notOn, setnotOn, data})=>{
             <>
                 <Payment
                     backtodash={setpayment}
+                    notOn={notOn}
+                    setnotOn={setnotOn}
                 />
             </>
         )
