@@ -126,56 +126,56 @@ const Transanctions = [
         time:"13:48"
     },
     {
-        from:"Kevin",
+        from:"Hotel",
         transID:634623846286384,
         amount:7000,
         date:"Dec 04, 2022",
-        remark:"moza hi moza",
-        isCredited:true,
+        remark:"Drinks",
+        isCredited:false,
         time:"13:48"
     },
     {
-        from:"Kevin",
+        from:"Ken",
         transID:634623846286384,
         amount:6000,
         date:"Dec 08, 2022",
-        remark:"russian",
+        remark:"Party",
         isCredited:false,
         time:"13:48"
     },
     {
-        from:"Kevin",
+        from:"Rubina",
         transID:634623846286384,
         amount:5000,
         date:"Dec 03, 2022",
-        remark:"moza hi moza",
+        remark:"Cloths",
         isCredited:true,
         time:"13:48"
     },
     {
-        from:"Kevin",
+        from:"Rohan",
         transID:634623846286384,
         amount:10000,
         date:"Dec 05, 2022",
-        remark:"moza hi moza",
+        remark:"Grocery",
         isCredited:false,
         time:"13:48"
     },
     {
-        from:"Kevin",
+        from:"sheldon",
         transID:634623846286384,
         amount:4000,
         date:"Dec 06, 2022",
-        remark:"moza hi moza",
+        remark:"Fruits",
         isCredited:false,
         time:"13:48"
     },
     {
-        from:"Kevin",
+        from:"Manjinder",
         transID:634623846286384,
         amount:3000,
         date:"Dec 07, 2022",
-        remark:"moza hi moza",
+        remark:"Trip",
         isCredited:true,
         time:"13:48"
     },
@@ -184,7 +184,7 @@ const Transanctions = [
         transID:634623846286384,
         amount:4000,
         date:"Dec 07, 2022",
-        remark:"moza hi moza",
+        remark:"Medicine",
         isCredited:false,
         time:"13:50"
     },

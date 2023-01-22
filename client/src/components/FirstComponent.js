@@ -4,10 +4,8 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import IssignedIn from "./isSignedIn";
-import { Changestatus } from "./isSignedIn";
-function Step1(){
-    const statedata=IssignedIn()
+function Step1(props){
+    // const statedata=props.data
     const [step, setstep] = useState(2);
     //formdata stats
     const [aadharvalue, setaadharvalue] = useState("");
@@ -173,10 +171,7 @@ function Step1(){
                 username: username,
                 closingBalance: openingBal
             }
-        }).then(e => {
-            console.log(e);
-            window.alert("Your Account is Successfully Created \n Your Account No. is " + e.data.accountNo);
-        }).then(()=>statedata[3](username)).then((e)=>Changestatus(e)).then((e) => navigateToDashoard(e));
+        }).catch((e)=>navigateToDashoard(e));
     }
     //form data
     // console.log(UserData);
@@ -562,8 +557,8 @@ function Step1(){
                                 <div style={{ width: "60%", display: "flex", flexDirection: "column", alignItems: "center", border: "2px solid black", borderRadius: "5px", marginLeft: "30%" }}>
                                     <h6 style={{ textDecoration: "underline" }}> Need Help?</h6>
                                     <a href="/Contact-us">Contact Us</a>
-                                    <a href="#">FAQs</a>
-                                    <a href="#">Why KYC?</a>
+                                    <a href="/">FAQs</a>
+                                    <a href="/">Why KYC?</a>
                                 </div>
                             </div>
 
@@ -572,6 +567,8 @@ function Step1(){
 
                 </>
             )
+        default:
+            break;
     }
 
 }

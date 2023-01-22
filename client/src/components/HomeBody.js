@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../assests/styling/Home.css"
 import "../assests/styling/GetStartedPopUp.css"
 import Slideshow from "./HomeSlider";
@@ -71,7 +71,7 @@ function HomeBody(props) {
                             <div>
                                 {item.content}
                             </div>
-                            <a href="#">Know More</a>
+                            <a href="/">Know More</a>
                         </div>
                     ))}
                 </div>

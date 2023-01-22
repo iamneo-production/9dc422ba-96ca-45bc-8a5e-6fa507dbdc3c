@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "./Footer";
 import NavBar from "./header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import GoogleButton from 'react-google-button'
 import "../assests/styling/Login.css"
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(props) {
+    let navigate=useNavigate();
+    const [username, setusername]=useState("");
+    const [password, setpassword]=useState("");
+    const val=props.data;
+    function changeUsername(e){
+        setusername(e.target.value);
+    }
+    function changepass(e){
+        setpassword(e.target.value);
+    }
+
+    function setCredentials(e){
+        val[1](true);
+        val[3](username);
+        navigate("/Dashboard")
+    }
     return (
         <>
             <NavBar />
@@ -14,21 +31,21 @@ function Login() {
 
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label className="email-label">Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" className="login-email" required />
+                        <Form.Label className="email-label">Email Username</Form.Label>
+                        <Form.Control type="email" placeholder="Enter your username" className="login-email" onChange={(e)=>changeUsername(e)} required />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label className="password-label">Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" className="password-field"  required />
+                        <Form.Control type="password" placeholder="Password" className="password-field" value={password}  onChange={(e)=>changepass(e)} required />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>
                         <Form.Check type="checkbox" label="Remember Me" />
                     </Form.Group>
-                    <Button variant="primary" type="submit" style={{ width: "30%", marginLeft: "35%", fontSize: "20px", backgroundColor: "#2c8894", marginTop: "20px" }}>
+                    <Button variant="primary" type="submit" style={{ width: "30%", marginLeft: "35%", fontSize: "20px", backgroundColor: "#2c8894", marginTop: "20px" }} onClick={(e)=>setCredentials(e)}>
                         Submit
                     </Button>
-                    <div className="Forget-password" style={{ textAlign: "right", marginRight: "35%", padding: "10px" }}><a href="#">Forget Password? </a> </div>
+                    <div className="Forget-password" style={{ textAlign: "right", marginRight: "35%", padding: "10px" }}><a href="/">Forget Password? </a> </div>
 
                     <div style={{ display: "flex", marginTop: "20px" }}>
                         <div style={{ width: "13%", height: "2px", marginLeft: "35%", backgroundColor: "black" }}></div>

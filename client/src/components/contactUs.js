@@ -30,17 +30,17 @@ function ContactUs() {
                     </div>
                     <div style={{ display: "flex", marginTop: "10%", marginBottom: "5%" }}>
                         <div className="contact-type">
-                            <a href="#" style={{ color: "white" }}>
+                            <a href="/" style={{ color: "white" }}>
                                 Chat <br />with US
                             </a>
                         </div>
                         <div className="contact-type">
-                            <a href="#" style={{ color: "white" }}>
+                            <a href="/" style={{ color: "white" }}>
                                 Request<br /> Callback
                             </a>
                         </div>
                         <div className="contact-type">
-                            <a href="#" style={{ color: "white" }}>
+                            <a href="/" style={{ color: "white" }}>
                                 Connect<br /> with us
                             </a>
                         </div>

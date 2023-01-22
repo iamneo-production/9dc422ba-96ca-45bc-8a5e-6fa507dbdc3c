@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import NavBar from "./header";
 import Footer from "./Footer";
-
+import axios from 'axios';
 const Payment = (props) => {
     const [paymentStep, setpaymentStep] = useState(1);
     const [accountNumber, setaccountNumber] = useState("");
@@ -14,6 +14,19 @@ const Payment = (props) => {
     const [amount, setamount] = useState("");
 
     function nextSteppayment(e) {
+        const userAccNumber="69426942728720";
+        axios({
+            method:"post",
+            url:"http://localhost:8081/bankingapp/api/account/addpayee",
+            data:{
+                accountNo:userAccNumber,
+                payee: {
+                    firstname: senderName,
+                    lastname :"",
+                    accountNo: accountNumber
+                }
+            }
+        }).then(e=>console.log(e.status))
         setpaymentStep(paymentStep + 1);
     }
     function prevStepPayemnt(e) {
@@ -70,6 +83,12 @@ const Payment = (props) => {
                                     </div>
                                     <div className="aadharentry">
                                         <label className="label">
+                                            Name*
+                                        </label>
+                                        <input className="form-input " type={"text"} name="Name" placeholder="Enter Sender's Name" value={senderName} onChange={(e) => updatename(e)} required />
+                                    </div>
+                                    <div className="aadharentry">
+                                        <label className="label">
                                             IFSC*
                                         </label>
                                         <input className="form-input " type={"text"} name="ifsc" placeholder="Enter IFSC COde" value={iFSCcode} onChange={(e) => updateIfsc(e)} minLength={"11"} maxLength={'11'} required />
@@ -88,7 +107,6 @@ const Payment = (props) => {
                     </div>
                 </>)
 
-            break;
         case 2:
             return (
                 <><NavBar />
@@ -99,12 +117,6 @@ const Payment = (props) => {
                                     Fields marked *(star) are MANDATORY.
                                 </div>
                                 <form method="post" >
-                                    <div className="aadharentry">
-                                        <label className="label">
-                                            Name*
-                                        </label>
-                                        <input className="form-input " type={"text"} name="Name" placeholder="Enter Sender's Name" value={senderName} onChange={(e) => updatename(e)} required />
-                                    </div>
                                     <div className="aadharentry">
                                         <label className="label">
                                             Amount*
@@ -131,7 +143,7 @@ const Payment = (props) => {
                         <Footer />
                     </div>
                 </>)
-            break;
+            // break;
         case 3:
             return (
                 <><NavBar />

@@ -6,7 +6,7 @@ import img3 from "../assests/img/slider3.jpg"
 import img4 from "../assests/img/slider4.png"
 import img5 from "../assests/img/slider5.png"
 
-const colors = [img1, img2, img3,img4, img4];
+const colors = [img1, img2, img3,img4, img5];
 const delay = 2500;
 
 function Slideshow() {
@@ -46,6 +46,7 @@ function Slideshow() {
             key={index}
             src={colors[index]}
             style={{ backgroundColor }}
+            alt="sliderpic"
           />
         ))}
       </div>
