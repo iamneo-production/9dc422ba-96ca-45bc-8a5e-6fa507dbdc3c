@@ -5,13 +5,18 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import GoogleButton from 'react-google-button'
 import "../assests/styling/Login.css"
+import NotiComp from "./notification_component";
 
-function SignUp() {
+function SignUp({ notOn, setnotOn }) {
     return (
         <>
-            <NavBar />
-            <div style={{ marginTop: "80px" }}>
-
+            <NavBar
+                setnotOn={setnotOn}
+            />
+            <NotiComp
+                notOn={notOn}
+            />
+            <div style={{ marginTop: "80px" }} onClick={setnotOn({ display: "none" })}>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="email-label">Email address</Form.Label>
@@ -20,7 +25,7 @@ function SignUp() {
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label className="password-label">Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" className="password-field" required />
+                        <Form.Control type="password" placeholder="Password" className="password-field" autoComplete="on" required />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>
                         <Form.Check type="checkbox" label="Remember Me" />
@@ -37,13 +42,13 @@ function SignUp() {
                         </div>
                     </div>
                     <div style={{ width: "100%", marginLeft: "35%", marginTop: "30px", marginBottom: "20px" }}>
-                        <GoogleButton style={{ width: "30%" }} label="Sign Up with Google"/>
+                        <GoogleButton style={{ width: "30%" }} label="Sign Up with Google" />
                     </div>
-                    <div style={{display:"flex", textAlign:"center", width:"100%", marginLeft:"42%", marginBottom:"20px"}}>
-                            <h6>
-                                Already Have an Account? 
-                            </h6>
-                            <a href="/Login"> LOGIN</a>
+                    <div style={{ display: "flex", textAlign: "center", width: "100%", marginLeft: "42%", marginBottom: "20px" }}>
+                        <h6>
+                            Already Have an Account?
+                        </h6>
+                        <a href="/Login"> LOGIN</a>
 
                     </div>
                 </Form>

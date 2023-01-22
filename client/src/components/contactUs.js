@@ -3,10 +3,12 @@ import Footer from "./Footer";
 import NavBar from "./header";
 import "../assests/styling/contact.css"
 import { Button } from "@mui/material";
-function ContactUs() {
+function ContactUs({setnotOn}) {
     return (
         <>
-            <NavBar />
+            <NavBar 
+            setnotOn={setnotOn}
+            />
             <div style={{ width: "100%" }}>
                 <div className="contact-box">
                     <div style={{ padding: "1%" }}>

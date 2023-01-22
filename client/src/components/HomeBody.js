@@ -6,14 +6,13 @@ import Slideshow from "./HomeSlider";
 import { Button } from "react-bootstrap";
 import { BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import Notification from "./notification";
+import NotiComp from "./notification_component";
 
-function HomeBody(props) {
+function HomeBody({notOn,setnotOn}) {
     const style = {
         display: "none",
         opacity: "100%",
     }
-    const notStyle=props.state
     const [isclick, setIsclick] = useState(0);
     const [popUpStyle, setpopUpStyle] = useState(style)
 
@@ -30,7 +29,7 @@ function HomeBody(props) {
     }
 
     function hideNoti(e){
-        props.changeState({display:"none"})
+        setnotOn({display:"none"})
     }
     return (
         <>
@@ -60,22 +59,9 @@ function HomeBody(props) {
                     </div>
                 </div>
             </div>
-
-
-
-
-            <div style={{ width: '20%',position:'absolute', backgroundColor:"white", zIndex: "100", marginLeft:"60%", marginTop:"-110px", border:"2px solid black", display:notStyle.display}}>
-                <div>
-                    {Notification.map(item => (
-                        <div style={{ display: 'flex', fontSize: "14px", width: "100%", border:"0.5px solid grey",padding:"2%" }}>
-                            <div>
-                                {item.content}
-                            </div>
-                            <a href="/">Know More</a>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            <NotiComp
+            notOn={notOn}
+            />
 
             <div style={{ opacity: popUpStyle.opacity }} onClick={e=>hideNoti(e)}>
                 <div style={{ display: "flex" }}>

@@ -43,10 +43,8 @@ function a11yProps(index: number) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
-
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         seterrorMsgstyle("none")
         setValue(newValue);

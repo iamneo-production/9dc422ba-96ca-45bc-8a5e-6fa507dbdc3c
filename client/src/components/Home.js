@@ -1,21 +1,19 @@
 import NavBar from "./header"
 import HomeBody from "./HomeBody";
-import React, { useState } from 'react';
+import React from 'react';
 import Why from "./whyUs";
 import Services from "./services";
 import Footer from "./Footer";
 
-function Home() {
-    const [notOn, setnotOn] = useState({ display: "none" });
+function Home({notOn, setnotOn}) {
     return (
         <>
             <NavBar
-                changeState={setnotOn}
+                setnotOn={setnotOn}
             />
             <HomeBody
-                state={notOn}
-                changeState={setnotOn}
-
+                notOn={notOn}
+                setnotOn={setnotOn}
             />
             <Why />
             <Services />
