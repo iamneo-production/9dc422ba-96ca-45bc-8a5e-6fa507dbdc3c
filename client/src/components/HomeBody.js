@@ -8,7 +8,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import NotiComp from "./notification_component";
 
-function HomeBody({notOn,setnotOn}) {
+function HomeBody({ notOn, setnotOn }) {
     const style = {
         display: "none",
         opacity: "100%",
@@ -28,12 +28,15 @@ function HomeBody({notOn,setnotOn}) {
         setpopUpStyle({ display: "none", opacity: "100%" })
     }
 
-    function hideNoti(e){
-        setnotOn({display:"none"})
+    function hideNoti(e) {
+        setnotOn({ display: "none" })
     }
     return (
         <>
-            <div style={{ width: "100%", height: "100px" }} onClick={e=>hideNoti(e)}></div>
+            <NotiComp
+                notOn={notOn}
+            />
+            <div style={{ width: "100%", height: "100px" }} onClick={e => hideNoti(e)}></div>
             <div className="main-box" style={{ display: popUpStyle.display }}>
                 <div className="content-box">
                     <Link to={"CreateSavingsAccount"} className="GetStartedType">
@@ -59,11 +62,7 @@ function HomeBody({notOn,setnotOn}) {
                     </div>
                 </div>
             </div>
-            <NotiComp
-            notOn={notOn}
-            />
-
-            <div style={{ opacity: popUpStyle.opacity }} onClick={e=>hideNoti(e)}>
+            <div style={{ opacity: popUpStyle.opacity }} onClick={e => hideNoti(e)}>
                 <div style={{ display: "flex" }}>
                     <div style={{ marginLeft: "100px", width: "50%" }}>
                         <div className="greetings-home">
