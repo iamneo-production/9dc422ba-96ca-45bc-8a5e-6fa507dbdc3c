@@ -8,7 +8,7 @@ const config = require('config');
 
 const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config.host') + config.get('mongodb-config.port') + config.get('mongodb-config.db');
 
-var accountNumberBase = 69426942728718;
+var accountNumberBase = 69426942728799;
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(log.info('connected to mongo database....'))
@@ -243,8 +243,4 @@ module.exports = {
     addPayee,
     deletePayee,
     retrievePayeeList,
-    closeAccount,
-    openClosedAccount,
-    updateLastActivatedStatus,
-    retrieveLastActivatedStatus
 }

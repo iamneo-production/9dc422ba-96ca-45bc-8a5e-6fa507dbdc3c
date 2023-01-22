@@ -6,93 +6,99 @@ import Col from "react-bootstrap/Col";
 import NavBar from "./header";
 import Footer from "./Footer";
 import ServiceCard from "./service-card";
-function MainServices() {
+import NotiComp from "./notification_component";
+function MainServices({ notOn, setnotOn }) {
     return (
-        <>
-            <NavBar />
-            <div style={{ height: "100px" }}></div>
-            <div >
-                <h2 className="services-heading">
-                    RBH BANK SERVICES
-                </h2>
-                <div className="Services">
+        <div>
+            <NavBar setnotOn={setnotOn} />
+            <div onClick={() => setnotOn({ display: "none" })}>
+                <div style={{ height: "100px" }}></div>
+                <NotiComp
+                    notOn={notOn}
+                />
+                <div>
+                    <h2 className="services-heading">
+                        RBH BANK SERVICES
+                    </h2>
+                    <div className="Services">
 
-                    <Container fluid className="Service-Grid">
-                        <Row className="grid-row">
-                            <Col className="service-col1 service-card">
-                                <ServiceCard
-                                    title="FD"
-                                    desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                    link="#"
-                                />
-                            </Col>
-                            <Col className="service-col2 service-card">
-                                <ServiceCard
-                                title="INSURANCE"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                            <Col className="service-col3">
-                            <ServiceCard
-                                title="RTGS"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                        </Row>
-                        <Row className="grid-row">
-                            <Col className="service-col1">
-                            <ServiceCard
-                                title="GOLD"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                            <Col className="service-col2">
-                            <ServiceCard
-                                title="RECHARGE"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                            <Col className="service-col3">
-                            <ServiceCard
-                                title="NEFT"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                        </Row>
-                        <Row className="grid-row">
-                            <Col className="service-col1">
-                            <ServiceCard
-                                title="LOANS"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                            <Col className="service-col2">
-                            <ServiceCard
-                                title="PAYMENTS"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                            <Col className="service-col3">
-                            <ServiceCard
-                                title="SIP"
-                                desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
-                                link="#"
-                                />
-                            </Col>
-                        </Row>
-                    </Container>
+                        <Container fluid className="Service-Grid">
+                            <Row className="grid-row">
+                                <Col className="service-col1 service-card">
+                                    <ServiceCard
+                                        title="FD"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                                <Col className="service-col2 service-card">
+                                    <ServiceCard
+                                        title="INSURANCE"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                                <Col className="service-col3">
+                                    <ServiceCard
+                                        title="RTGS"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="grid-row">
+                                <Col className="service-col1">
+                                    <ServiceCard
+                                        title="GOLD"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                                <Col className="service-col2">
+                                    <ServiceCard
+                                        title="RECHARGE"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                                <Col className="service-col3">
+                                    <ServiceCard
+                                        title="NEFT"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="grid-row">
+                                <Col className="service-col1">
+                                    <ServiceCard
+                                        title="LOANS"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                                <Col className="service-col2">
+                                    <ServiceCard
+                                        title="PAYMENTS"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                                <Col className="service-col3">
+                                    <ServiceCard
+                                        title="SIP"
+                                        desc="Lorem ipsum dolor sit amet. Qui suscipit consequuntur aut sequi voluptatem id sint internos est facilis similique sit repellat fugitm eos exercitationem repudiandae sit cumque molestias? Ut voluptatibus"
+                                        link="#"
+                                    />
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
+                    <div style={{ height: "50px" }}></div>
                 </div>
-                <div style={{ height: "50px" }}></div>
             </div>
             <Footer />
-        </>
+        </div>
     )
 
 }

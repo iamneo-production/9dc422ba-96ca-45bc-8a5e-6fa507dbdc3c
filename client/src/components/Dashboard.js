@@ -15,7 +15,8 @@ import Transactions from "./transactions";
 import Payment from "./payment";
 import BarGraph from "./BarGraph";
 import axios from 'axios';
-const Dashboard=(props)=>{
+const Dashboard=({notOn, setnotOn, data})=>{
+
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
     let piedata =
@@ -67,7 +68,7 @@ const Dashboard=(props)=>{
     }
     const [userDataFetch, setuserDataFetch]=useState({});
     const [accountData, setaccountData]=useState({});
-    const stateData=props.data;
+    const stateData=data;
     // console.log(stateData);
     useEffect(() => {
         if(stateData[0]){

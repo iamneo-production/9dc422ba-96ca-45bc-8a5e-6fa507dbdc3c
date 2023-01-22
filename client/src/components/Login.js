@@ -6,43 +6,46 @@ import Form from 'react-bootstrap/Form';
 import GoogleButton from 'react-google-button'
 import "../assests/styling/Login.css"
 import { useNavigate } from "react-router-dom";
+import NotiComp from "./notification_component";
 
-function Login(props) {
-    let navigate=useNavigate();
-    const [username, setusername]=useState("");
-    const [password, setpassword]=useState("");
-    const val=props.data;
-    function changeUsername(e){
+function Login({ data, notOn, setnotOn }) {
+    let navigate = useNavigate();
+    const [username, setusername] = useState("");
+    const [password, setpassword] = useState("");
+    const val = data;
+    function changeUsername(e) {
         setusername(e.target.value);
     }
-    function changepass(e){
+    function changepass(e) {
         setpassword(e.target.value);
     }
 
-    function setCredentials(e){
+    function setCredentials(e) {
         val[1](true);
         val[3](username);
         navigate("/Dashboard")
     }
     return (
         <>
-            <NavBar />
-            <div style={{ marginTop: "80px" }}>
-
+            <NavBar setnotOn={setnotOn} />
+            <div style={{ marginTop: "80px" }} onClick={() => setnotOn({ display: "none" })}>
+                <NotiComp
+                    notOn={notOn}
+                />
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="email-label">Email Username</Form.Label>
-                        <Form.Control type="email" placeholder="Enter your username" className="login-email" onChange={(e)=>changeUsername(e)} required />
+                        <Form.Control type="email" placeholder="Enter your username" className="login-email" onChange={(e) => changeUsername(e)} required />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label className="password-label">Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" className="password-field" value={password}  onChange={(e)=>changepass(e)} required />
+                        <Form.Control type="password" placeholder="Password" className="password-field" value={password} onChange={(e) => changepass(e)} suggested="current-paasword" autoComplete="on" required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>
                         <Form.Check type="checkbox" label="Remember Me" />
                     </Form.Group>
-                    <Button variant="primary" type="submit" style={{ width: "30%", marginLeft: "35%", fontSize: "20px", backgroundColor: "#2c8894", marginTop: "20px" }} onClick={(e)=>setCredentials(e)}>
+                    <Button variant="primary" type="submit" style={{ width: "30%", marginLeft: "35%", fontSize: "20px", backgroundColor: "#2c8894", marginTop: "20px" }} onClick={(e) => setCredentials(e)}>
                         Submit
                     </Button>
                     <div className="Forget-password" style={{ textAlign: "right", marginRight: "35%", padding: "10px" }}><a href="/">Forget Password? </a> </div>
@@ -56,11 +59,11 @@ function Login(props) {
                     <div style={{ width: "100%", marginLeft: "35%", marginTop: "30px", marginBottom: "20px" }}>
                         <GoogleButton style={{ width: "30%" }} />
                     </div>
-                    <div style={{display:"flex", textAlign:"center", width:"100%", marginLeft:"42%", marginBottom:"20px"}}>
-                            <h6>
-                                Need an Account? 
-                            </h6>
-                            <a href="/signup"> Sign Up</a>
+                    <div style={{ display: "flex", textAlign: "center", width: "100%", marginLeft: "42%", marginBottom: "20px" }}>
+                        <h6>
+                            Need an Account?
+                        </h6>
+                        <a href="/signup"> Sign Up</a>
 
                     </div>
                 </Form>
