@@ -28,10 +28,11 @@ function Login({ data, notOn, setnotOn }) {
     return (
         <>
             <NavBar setnotOn={setnotOn} />
-            <div style={{ marginTop: "80px" }} onClick={() => setnotOn({ display: "none" })}>
-                <NotiComp
-                    notOn={notOn}
-                />
+            <NotiComp
+                notOn={notOn}
+            />
+            <div onClick={() => setnotOn({ display: "none" })}>
+                <div style={{ height: "80px" }} ></div>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="email-label">Email Username</Form.Label>
@@ -40,7 +41,7 @@ function Login({ data, notOn, setnotOn }) {
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label className="password-label">Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" className="password-field" value={password} onChange={(e) => changepass(e)} suggested="current-paasword" autoComplete="on" required/>
+                        <Form.Control type="password" placeholder="Password" className="password-field" value={password} onChange={(e) => changepass(e)} suggested="current-paasword" autoComplete="on" required />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>
                         <Form.Check type="checkbox" label="Remember Me" />
