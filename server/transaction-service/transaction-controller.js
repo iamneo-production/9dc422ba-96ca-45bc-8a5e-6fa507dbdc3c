@@ -7,7 +7,7 @@ const log = new Logger('Transaction-Controller');
 
 transactionrouter.post('/logtransactionsummary', (req, res) => {
     let transactionSummary = req.body;
-    console.log(req);
+    // console.log(req);
     let { error } = transactionSummaryValidator.validateTransationSummarySchema(transactionSummary);
     if (notValid(error, res)) return;
     if (sameAcc(transactionSummary.from, transactionSummary.to, res)) return;

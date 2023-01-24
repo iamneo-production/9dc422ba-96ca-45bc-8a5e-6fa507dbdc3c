@@ -8,7 +8,7 @@ const config = require('config');
 
 const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config.host') + config.get('mongodb-config.port') + config.get('mongodb-config.db');
 
-var accountNumberBase = 69426942728799;
+var accountNumberBase = 69426942728700;
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(log.info('connected to mongo database....'))
@@ -48,10 +48,10 @@ const createNewAccount = async (accountDetails, response) => {
 const retrieveAccountDetails = async (accountNo, response) => {
     await AccountModel.findOne({ accountNo: accountNo }, (err, result) => {
         if (err || !result) {
-            log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err);
+            log.error(`Error in retrieving account details by details ${accountNo}: ` + err);
             return response.status(400).send({
                 messageCode: 'ACCRE',
-                message: 'Unable to retrieve account details for account no. ' + accountNo
+                message: 'Unable to retrieve account details with accountNo ' + accountNo
             });
         }
         if (result.isClosed) {

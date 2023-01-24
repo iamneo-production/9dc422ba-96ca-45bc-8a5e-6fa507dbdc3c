@@ -8,7 +8,7 @@ const authTokenValidator = require('../middleware/auth-token-validator');
 
 userrouter.post('/register', (req, res) => {
     let userObj = req.body;
-    console.log(req);
+    // console.log(req);
     let { error } = userValidator.validateNewUserSchema(userObj);
     if (isNotValidSchema(error, res)) return;
     userDao.resgisterNewUser(userObj, res)
@@ -53,8 +53,8 @@ userrouter.post('/updatephoneno', authTokenValidator, (req, res) => {
 });
 
 userrouter.get('/getuserbyusername/:username', (req, res) => {
-    let username = req.params.username;
-    console.log(req);
+    let username = req.body.username;
+    // console.log(req);
     let { error } = userValidator.validateUserByUsernameSchema({ username: username });
     if (isNotValidSchema(error, res)) return;
     userDao.getUserByUsername(username, res)
