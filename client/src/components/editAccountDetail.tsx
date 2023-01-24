@@ -132,7 +132,7 @@ export default function BasicTabs() {
     const [errorMsg, seterrorMsg] = useState("Kindly put all the fields correctly")
     return (
         <>
-            <NavBar />
+            <NavBar setnotOn={""}/>
             <div style={{ height: "50px" }}></div>
             <div style={{ width: "50%", margin: "auto" }}>
 

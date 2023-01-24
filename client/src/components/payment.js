@@ -4,7 +4,8 @@ import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import NavBar from "./header";
 import Footer from "./Footer";
 import axios from 'axios';
-const Payment = (props) => {
+import NotiComp from "./notification_component";
+const Payment = ({ backtodash, notOn, setnotOn }) => {
     const [paymentStep, setpaymentStep] = useState(1);
     const [accountNumber, setaccountNumber] = useState("");
     const [iFSCcode, setiFSCcode] = useState("");
@@ -14,19 +15,19 @@ const Payment = (props) => {
     const [amount, setamount] = useState("");
 
     function nextSteppayment(e) {
-        const userAccNumber="69426942728720";
+        const userAccNumber = "69426942728720";
         axios({
-            method:"post",
-            url:"http://localhost:8081/bankingapp/api/account/addpayee",
-            data:{
-                accountNo:userAccNumber,
+            method: "post",
+            url: "http://localhost:8081/bankingapp/api/account/addpayee",
+            data: {
+                accountNo: userAccNumber,
                 payee: {
                     firstname: senderName,
-                    lastname :"",
+                    lastname: "",
                     accountNo: accountNumber
                 }
             }
-        }).then(e=>console.log(e.status))
+        }).then(e => console.log(e.status))
         setpaymentStep(paymentStep + 1);
     }
     function prevStepPayemnt(e) {
@@ -60,8 +61,11 @@ const Payment = (props) => {
     switch (paymentStep) {
         case 1:
             return (
-                <><NavBar />
-                    <div style={{ width: "100%", height: "auto" }}>
+                <>
+                    <NavBar setnotOn={setnotOn} />
+                    <NotiComp
+                        notOn={notOn} />
+                    <div style={{ width: "100%", height: "auto" }} onClick={() => setnotOn({ display: "none" })}>
                         <div className="form-container-main">
                             <div className="form-content-box">
                                 <div className="text-val">
@@ -109,8 +113,11 @@ const Payment = (props) => {
 
         case 2:
             return (
-                <><NavBar />
-                    <div style={{ width: "100%", height: "auto" }}>
+                <>
+                    <NavBar setnotOn={setnotOn} />
+                    <NotiComp
+                        notOn={notOn} />
+                    <div style={{ width: "100%", height: "auto" }} onClick={() => setnotOn({ display: "none" })}>
                         <div className="form-container-main">
                             <div className="form-content-box">
                                 <div className="text-val">
@@ -143,11 +150,14 @@ const Payment = (props) => {
                         <Footer />
                     </div>
                 </>)
-            // break;
+        // break;
         case 3:
             return (
-                <><NavBar />
-                    <div style={{ width: "100%", height: "auto" }}>
+                <>
+                    <NavBar setnotOn={setnotOn} />
+                    <NotiComp
+                        notOn={notOn} />
+                    <div style={{ width: "100%", height: "auto" }} onClick={() => setnotOn({ display: "none" })}>
                         <div className="form-container-main">
                             <div className="form-content-box">
                                 <div className="text-val">
@@ -171,7 +181,7 @@ const Payment = (props) => {
                                         <div style={{ margin: "30%", width: "30%" }}>
                                             {paymentStep}/3
                                         </div>
-                                        <Button style={{ backgroundColor: "#48842c", width: "100%" }} onClick={e=>{props.backtodash(0)}}>Done</Button>
+                                        <Button style={{ backgroundColor: "#48842c", width: "100%" }} onClick={e => { backtodash(0) }}>Done</Button>
                                     </div>
                                 </form>
 

@@ -6,23 +6,25 @@ const Logger = require('../logger/logger');
 const log = new Logger('Account-Controller');
 const authTokenValidator = require('../middleware/auth-token-validator');
 
-accountrouter.get('/getaccountdetails/:accountno', authTokenValidator, (req, res) => {
-    let accountNo = req.query.accountno;
+accountrouter.get('/getaccountdetails/:accountno', (req, res) => {
+    // console.log({req});
+    let accountNo = req.params.accountno;
+    // console.log({res});
     accountDao.retrieveAccountDetails(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err));
 });
 
 accountrouter.get('/getaccountdetailsbyusername/:username', (req, res) => {
-    console.log(req);
-    let username = req.params.username;
+    // console.log(req);
+    let username = req.body.username;
     accountDao.retrieveAccountDetailsByUsername(username, res)
         .then()
         .catch((err) => log.error(`Error in retrieving account details by username ${username}: ` + err));
 });
 
 accountrouter.post('/createnewaccount', (req, res) => {
-    console.log(req);
+    // console.log(req);
     let newAccount = req.body;
     let { error } = accountValidator.validateCreateNewAccountSchema(newAccount);
     if (isNotValidSchema(error, res)) return;
@@ -32,6 +34,7 @@ accountrouter.post('/createnewaccount', (req, res) => {
 });
 
 accountrouter.post('/transferamount', (req, res) => {
+    console.log({req});
     let transferAmount = req.body;
     let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
     if (isNotValidSchema(error, res)) return;
@@ -49,7 +52,7 @@ accountrouter.post('/transferamount', (req, res) => {
 });
 
 accountrouter.post('/addpayee', (req, res) => {
-    console.log(req);
+    // console.log(req);
     let newPayee = req.body;
     let { error } = accountValidator.validatePayeeSchema(newPayee);
     if (isNotValidSchema(error, res)) return;
@@ -59,14 +62,16 @@ accountrouter.post('/addpayee', (req, res) => {
         .catch((err) => log.error(`Error in adding payee ${newPayee}: ` + err));
 });
 
-accountrouter.get('/getpayees/:accountno', authTokenValidator, (req, res) => {
-    let accountNo = req.query.accountno;
+accountrouter.get('/getpayees/:accountno', (req, res) => {
+    console.log({req});
+    let accountNo = req.query.acc;
+    // console.log({res});
     accountDao.retrievePayeeList(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err));
 });
 
-accountrouter.post('/deletepayee', authTokenValidator, (req, res) => {
+accountrouter.post('/deletepayee', (req, res) => {
     let requestBody = req.query;
     let { error } = accountValidator.validatePayeeSchema(requestBody);
     if (isNotValidSchema(error, res)) return;
@@ -76,28 +81,28 @@ accountrouter.post('/deletepayee', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in deleting payee ${requestBody.payee} for account no. ${requestBody.accountNo}: ` + err));
 });
 
-accountrouter.post('/closeaccount', authTokenValidator, (req, res) => {
+accountrouter.post('/closeaccount', (req, res) => {
     let accountNo = req.query.accountNo;
     accountDao.closeAccount(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in closing account with account no. ${accountNo}: ` + err));
 });
 
-accountrouter.post('/openclosedaccount', authTokenValidator, (req, res) => {
+accountrouter.post('/openclosedaccount', (req, res) => {
     let accountNo = req.query.accountNo;
     accountDao.openClosedAccount(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in opening closed accountwith account no. ${accountNo}: ` + err));
 });
 
-accountrouter.get('/lastactivated/:accountno', authTokenValidator, (req, res) => {
+accountrouter.get('/lastactivated/:accountno', (req, res) => {
     let accountNo = req.query.accountno;
     accountDao.retrieveLastActivatedStatus(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in retrieving last activated status for account no. ${accountNo}: ` + err));
 });
 
-accountrouter.post('/updatelastactivated', authTokenValidator, (req, res) => {
+accountrouter.post('/updatelastactivated', (req, res) => {
     let accountNo = req.query.accountNo;
     accountDao.updateLastActivatedStatus(accountNo, res)
         .then()

@@ -6,17 +6,17 @@ import Form from 'react-bootstrap/Form';
 import GoogleButton from 'react-google-button'
 import "../assests/styling/Login.css"
 import NotiComp from "./notification_component";
-
 function SignUp({ notOn, setnotOn }) {
     return (
         <>
             <NavBar
-                setnotOn={setnotOn}
+            setnotOn={setnotOn}
             />
             <NotiComp
-                notOn={notOn}
+            notOn={notOn}
             />
-            <div style={{ marginTop: "80px" }} onClick={setnotOn({ display: "none" })}>
+            <div onClick={()=>setnotOn({display:"none"})}>
+                <div style={{height:"80px"}}></div>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="email-label">Email address</Form.Label>
