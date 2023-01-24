@@ -5,14 +5,16 @@ import NavBar from './header'
 import firstpic from "../assests/img/salaAccountimg1.jpg"
 import secondpic from "../assests/img/salaaccountimg2.png"
 
-const SalaryAccount = () => {
+const SalaryAccount = ({notOn, setnotOn}) => {
   return (
     <div>
-      <NavBar />
+      <NavBar setnotOn={setnotOn}/>
       <AccountBody 
       accountType="Salary Account"
       firstpic={firstpic}
       secondpic={secondpic}
+      setnotOn={setnotOn}
+      notOn={notOn}
       />
       <Footer/>
     </div>
