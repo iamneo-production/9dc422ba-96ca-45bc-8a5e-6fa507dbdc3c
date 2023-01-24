@@ -11,11 +11,11 @@ function MainServices({ notOn, setnotOn }) {
     return (
         <div>
             <NavBar setnotOn={setnotOn} />
+            <NotiComp
+                notOn={notOn}
+            />
             <div onClick={() => setnotOn({ display: "none" })}>
                 <div style={{ height: "100px" }}></div>
-                <NotiComp
-                    notOn={notOn}
-                />
                 <div>
                     <h2 className="services-heading">
                         RBH BANK SERVICES
