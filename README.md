@@ -79,7 +79,9 @@
 <!-- Frontend -->
 ## Frontend
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+  1. Use Will not be able acess Dashboard untill they login.
+  2. UIDAI Aadhar verification is integrated.
+  3. OTP verification will be soon implemented.
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
