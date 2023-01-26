@@ -16,3 +16,12 @@
     width: 30%;
     margin-left: 35%;
 }
+.create-account-pop{
+    display: flex;
+    text-align: center;
+    width: 100%;
+    margin-left: 42%;
+    margin-bottom: 20px;
+    cursor: pointer;
+    text-decoration: underline;
+}

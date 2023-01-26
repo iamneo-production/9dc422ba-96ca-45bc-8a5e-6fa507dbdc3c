@@ -6,17 +6,49 @@ import Form from 'react-bootstrap/Form';
 import GoogleButton from 'react-google-button'
 import "../assests/styling/Login.css"
 import NotiComp from "./notification_component";
+import { Link } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
+
+
+export const CreateAccountPopup = ({getBackStyle}) => {
+    return (
+            <div className="content-box">
+                <Link to={"/CreateSavingsAccount"} className="GetStartedType">
+                    <Button variant="success" className="GetStartedTypeBtn" >
+                        SAVINGS ACCOUNT
+                    </Button>
+                </Link>
+                <Link to={"/CreateSalaryAccount"} className="GetStartedType">
+
+                    <Button variant="success" className="GetStartedTypeBtn">
+                        SALARY ACCOUNT
+                    </Button>
+                </Link>
+                <Link  to={"/CreateCurrentAccount"} className="GetStartedType">
+
+                    <Button variant="success" className="GetStartedTypeBtn">
+                        CURRENT ACCOUNT
+                    </Button>
+                </Link>
+                <div style={{ fontSize: "20px", fontWeight: "bold", height: "10%", marginRight: "10%", marginLeft: "auto", cursor: "pointer" }} onClick={(e) => getBackStyle(e)}>
+                    <BsArrowLeft />
+                    Back
+                </div>
+            </div>
+    )
+}
+
 function SignUp({ notOn, setnotOn }) {
     return (
         <>
             <NavBar
-            setnotOn={setnotOn}
+                setnotOn={setnotOn}
             />
             <NotiComp
-            notOn={notOn}
+                notOn={notOn}
             />
-            <div onClick={()=>setnotOn({display:"none"})}>
-                <div style={{height:"80px"}}></div>
+            <div onClick={() => setnotOn({ display: "none" })}>
+                <div style={{ height: "80px" }}></div>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="email-label">Email address</Form.Label>
