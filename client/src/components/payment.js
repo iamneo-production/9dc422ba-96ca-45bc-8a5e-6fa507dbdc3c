@@ -3,9 +3,10 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import NavBar from "./header";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import NotiComp from "./notification_component";
-const Payment = ({ backtodash, notOn, setnotOn }) => {
+const Payment = ({ notOn, setnotOn }) => {
     const [paymentStep, setpaymentStep] = useState(1);
     const [accountNumber, setaccountNumber] = useState("");
     const [iFSCcode, setiFSCcode] = useState("");
@@ -16,6 +17,7 @@ const Payment = ({ backtodash, notOn, setnotOn }) => {
 
     function nextSteppayment(e) {
         const userAccNumber = "69426942728720";
+        
         axios({
             method: "post",
             url: "http://localhost:8081/bankingapp/api/account/addpayee",
@@ -181,7 +183,9 @@ const Payment = ({ backtodash, notOn, setnotOn }) => {
                                         <div style={{ margin: "30%", width: "30%" }}>
                                             {paymentStep}/3
                                         </div>
-                                        <Button style={{ backgroundColor: "#48842c", width: "100%" }} onClick={e => { backtodash(0) }}>Done</Button>
+                                        <Link to="/dashboard">
+                                            <Button style={{ backgroundColor: "#48842c", width: "100%" }} >Done</Button>
+                                        </Link>
                                     </div>
                                 </form>
 

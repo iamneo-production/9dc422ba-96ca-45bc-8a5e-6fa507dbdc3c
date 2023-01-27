@@ -17,7 +17,7 @@ accountrouter.get('/getaccountdetails/:accountno', (req, res) => {
 
 accountrouter.get('/getaccountdetailsbyusername/:username', (req, res) => {
     // console.log(req);
-    let username = req.body.username;
+    let username = req.params.username;
     accountDao.retrieveAccountDetailsByUsername(username, res)
         .then()
         .catch((err) => log.error(`Error in retrieving account details by username ${username}: ` + err));

@@ -17,7 +17,7 @@ userrouter.post('/register', (req, res) => {
 });
 
 userrouter.post('/validateuser', (req, res) => {
-    let loginInfo = req.query;
+    let loginInfo = req.body;
     let { error } = userValidator.validateLoginUserSchema(loginInfo);
     if (isNotValidSchema(error, res)) return;
     userDao.validateLoginUser(loginInfo, res)
@@ -53,7 +53,7 @@ userrouter.post('/updatephoneno', authTokenValidator, (req, res) => {
 });
 
 userrouter.get('/getuserbyusername/:username', (req, res) => {
-    let username = req.body.username;
+    let username = req.params.username;
     // console.log(req);
     let { error } = userValidator.validateUserByUsernameSchema({ username: username });
     if (isNotValidSchema(error, res)) return;
