@@ -7,7 +7,7 @@ const TransactionModel = mongoose.model('Transaction', transactionSchema);
 // const pdfFonts = require('pdfmake/build/vfs_fonts');
 const config = require('config');
 
-const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config.host') + config.get('mongodb-config.port') + config.get('mongodb-config.db');
+const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(log.info('connected to mongo database....'))
