@@ -37,10 +37,10 @@ function HomeBody({ notOn, setnotOn }) {
             <div style={{ width: "100%", height: "100px" }} onClick={e => hideNoti(e)}></div>
             <div className="main-box" style={{ display: popUpStyle.display }}>
                 <CreateAccountPopup
-                getBackStyle={getBackStyle}
+                    getBackStyle={getBackStyle}
                 />
             </div>
-            <div style={{ opacity: popUpStyle.opacity }} onClick={e => hideNoti(e)}>
+            <div style={{ opacity: popUpStyle.opacity, zIndex: "1" }} onClick={e => hideNoti(e)}>
                 <div style={{ display: "flex" }}>
                     <div style={{ marginLeft: "100px", width: "50%" }}>
                         <div className="greetings-home">

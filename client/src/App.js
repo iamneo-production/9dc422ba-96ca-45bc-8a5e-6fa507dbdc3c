@@ -42,7 +42,10 @@ function App() {
           <Route exact path="CreateCurrentAccount" element={<CurrentAccount notOn={notOn} setnotOn={setnotOn} />} />
           <Route path="/OpenAccount" element={<CreateAccount
             data={val}
-            notOn={notOn} setnotOn={setnotOn}
+            notOn={notOn} 
+            setnotOn={setnotOn}
+            setloader={setloader}
+            loader={loader}
           />} />
           <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn} />} />
           <Route path="/Contact-us" element={<ContactUs notOn={notOn} setnotOn={setnotOn} />} />
