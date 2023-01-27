@@ -6,7 +6,7 @@ const AccountModel = mongoose.model('Account', accountSchema);
 const axios = require('axios');
 const config = require('config');
 
-const dbUrl = config.get('mongodb-config.protocol') + config.get('mongodb-config.host') + config.get('mongodb-config.port') + config.get('mongodb-config.db');
+const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
 
 var accountNumberBase = 69426942728700;
 
