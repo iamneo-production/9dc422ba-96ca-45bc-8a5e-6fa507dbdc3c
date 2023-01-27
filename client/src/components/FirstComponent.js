@@ -4,7 +4,8 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-function Step1({data, setmsg, setText}) {
+import { Loader } from "./loader";
+function Step1({ data, setmsg, setText, setloader}) {
     // const statedata=props.data
     const [step, setstep] = useState(2);
     //formdata stats
@@ -29,18 +30,18 @@ function Step1({data, setmsg, setText}) {
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
     const [openingBal, setopeningBal] = useState("");
-    const [isValidAadhar, setisValidAadhar]=useState(false);
-    const [isValidAadharcode, setisValidAadharcode]=useState(0);
+    const [isValidAadhar, setisValidAadhar] = useState(false);
+    const [isValidAadharcode, setisValidAadharcode] = useState(0);
 
-    const nextStepIfAadharVerified=(e)=>{
+    const nextStepIfAadharVerified = (e) => {
         e.preventDefault()
-        if(isValidAadhar){
+        if (isValidAadhar) {
             nextStep(e)
-        }else{
+        } else {
             alert("Kindly Validate Your Aadhar First!")
         }
     }
-    const AadharValidator = async ( aadhar, mobile ) => {
+    const AadharValidator = async (aadhar, mobile) => {
 
         // console.log("function is called", aadhar, mobile);
         const encodedParams = new URLSearchParams();
@@ -58,45 +59,47 @@ function Step1({data, setmsg, setText}) {
                 'X-RapidAPI-Host': 'verifyaadhaarnumber.p.rapidapi.com'
             },
             data: encodedParams
-        };    
+        };
         console.log("api is calling");
-        await axios.request(options).then( (response)=>{
-            let mob=""
+        await axios.request(options).then((response) => {
+            let mob = ""
             try {
-                mob=response.data.Succeeded.Uid_Details.Data.mobile_number
+                mob = response.data.Succeeded.Uid_Details.Data.mobile_number
             } catch (error) {
-                mob="XXXXXXXXXX"
+                mob = "XXXXXXXXXX"
             }
             // console.log(mob);
-            if(mob.substring(7,10)===mobile.substring(7,10)){
+            if (mob.substring(7, 10) === mobile.substring(7, 10)) {
                 // console.log("successfull");
                 setisValidAadharcode(200);
-            }else{
+            } else {
                 // console.log("invalid aadhar");
                 setisValidAadharcode(300)
             }
-        }).catch((error)=> {
+        }).catch((error) => {
             setisValidAadharcode(400)
             console.log(error);
         });
     }
-    async function checkAadharValidation(){
-        console.log("aadhar validation checking");
+    async function checkAadharValidation() {
+        setloader("block")
+        // console.log("aadhar validation checking");
         await AadharValidator(aadharvalue, phone)
         console.log(isValidAadharcode);
-        if(isValidAadharcode===200){
+        if (isValidAadharcode === 200) {
             setisValidAadhar(true);
             // console.log("validation done");
-        }else if(isValidAadharcode===300){
+        } else if (isValidAadharcode === 300) {
             setText("There is an error alert — Kindly Enter the Aadhar Associated with provided Mobile number!")
             setmsg("visible")
             console.log("worng mob");
         }
-        else{
+        else {
             setText("There is an error alert — Couldn't process your Aadhar Number. Kindly Try Again!")
             setmsg("visible")
             console.log("validation failed");
         }
+        setloader("none")
     }
 
     //form data update functions
@@ -200,10 +203,10 @@ function Step1({data, setmsg, setText}) {
         prevStep();
     }, []);
     let navigate = useNavigate();
-    function navigateToDashoard(e) {
+    function navigateToDashoard() {
         navigate("/Dashboard");
     }
-    async function CreateAccount(e) {
+    async function CreateUser() {
         const UserData = {
             aadharID: aadharvalue,
             panNo: pannumber,
@@ -231,6 +234,10 @@ function Step1({data, setmsg, setText}) {
         }).then(e => {
             console.log(e);
         });
+
+    }
+    async function CreateAccount(e) {
+        await CreateUser(e)
         await axios({
             method: 'post',
             url: "http://localhost:8081/bankingapp/api/account/createnewaccount",
@@ -238,7 +245,8 @@ function Step1({data, setmsg, setText}) {
                 username: username,
                 closingBalance: openingBal
             }
-        }).catch((e) => navigateToDashoard(e));
+        }).then((e)=>alert("Congratulations Your Account has been Successfully Created!"))
+        .then(()=>navigateToDashoard())
     }
     //form data
     // console.log(UserData);
@@ -246,7 +254,6 @@ function Step1({data, setmsg, setText}) {
         case 2:
             return (
                 <>
-
                     <form onSubmit={e => nextStepIfAadharVerified(e)}>
                         <div className="form-content-box">
                             <div className="text-val">
@@ -261,7 +268,7 @@ function Step1({data, setmsg, setText}) {
                                 <input className="form-input" type={"text"} name="aadharNumber" placeholder="Enter Your Aadhar Number" value={aadharvalue} onChange={(e) => handleAadharChange(e)} maxLength={"12"} minLength={"12"} required />
                             </div>
                             <div style={{ textAlign: "center", padding: "5%" }}>
-                                <Button className="aadharsubmit" onClick={(e)=>checkAadharValidation(e)} >Validate Aadhar</Button>
+                                <Button className="aadharsubmit" onClick={(e) => checkAadharValidation(e)} >Validate Aadhar</Button>
                             </div>
 
                             <div className="nextbuttonform">
@@ -365,7 +372,7 @@ function Step1({data, setmsg, setText}) {
                                 <label className="label">
                                     Middle Name
                                 </label>
-                                <input className="form-input" type={"text"} name="mname" placeholder="Enter Your Middle Name" value={mname} onChange={(e) => MnameToUpperCase(e) && (e)}/>
+                                <input className="form-input" type={"text"} name="mname" placeholder="Enter Your Middle Name" value={mname} onChange={(e) => MnameToUpperCase(e) && (e)} />
                             </div>
                             <div className="aadharentry">
                                 <label className="label">
