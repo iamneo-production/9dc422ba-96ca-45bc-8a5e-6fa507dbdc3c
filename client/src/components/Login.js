@@ -8,9 +8,14 @@ import "../assests/styling/Login.css"
 import { useNavigate } from "react-router-dom";
 import NotiComp from "./notification_component";
 import { CreateAccountPopup } from "./signup";
+import { Loader } from "./loader";
+import axios from "axios";
 
-function Login({ data, notOn, setnotOn }) {
+function Login({ data, notOn, setnotOn, loader, setloader }) {
     let navigate = useNavigate();
+    function navigateToDashoard() {
+        navigate("/Dashboard");
+    }
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
     const val = data;
@@ -21,11 +26,28 @@ function Login({ data, notOn, setnotOn }) {
         setpassword(e.target.value);
     }
 
-    function setCredentials(e) {
-        val[1](true);
-        val[3](username);
-        navigate("/Dashboard")
+    async function setCredentials(e) {
+        // e.preventdefault()
+        setloader("display");
+        await axios.request({
+            method: "post",
+            url: "http://localhost:8081/bankingapp/api/user/validateuser",
+            data: {
+                username: username,
+                password: password
+            }
+        }).then(() => {
+            console.log("succcessfully logged in");
+            val[1](true);
+            val[3](username);
+            setloader("none")
+        }).then(navigateToDashoard)
+            .catch((err) => {
+                alert(err)
+            })
+
     }
+    console.log(val);
     const style = {
         display: "none",
         opacity: "100%",
@@ -47,6 +69,7 @@ function Login({ data, notOn, setnotOn }) {
     return (
         <>
             <NavBar setnotOn={setnotOn} />
+            <Loader loader={loader} />
             <div className="main-box" style={{ display: popUpStyle.display }}>
                 <CreateAccountPopup
                     getBackStyle={getBackStyle}
@@ -58,10 +81,10 @@ function Login({ data, notOn, setnotOn }) {
                 />
                 <div onClick={() => setnotOn({ display: "none" })}>
                     <div style={{ height: "80px" }} ></div>
-                    <Form>
+                    <Form onSubmit={(e) => setCredentials(e)}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="email-label">Email Username</Form.Label>
-                            <Form.Control type="email" placeholder="Enter your username" className="login-email" onChange={(e) => changeUsername(e)} required />
+                            <Form.Control type="text" placeholder="Enter your username" className="login-email" onChange={(e) => changeUsername(e)} required />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -71,7 +94,7 @@ function Login({ data, notOn, setnotOn }) {
                         <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>
                             <Form.Check type="checkbox" label="Remember Me" />
                         </Form.Group>
-                        <Button variant="primary" type="submit" style={{ width: "30%", marginLeft: "35%", fontSize: "20px", backgroundColor: "#2c8894", marginTop: "20px" }} onClick={(e) => setCredentials(e)}>
+                        <Button variant="primary" type="submit" style={{ width: "30%", marginLeft: "35%", fontSize: "20px", backgroundColor: "#2c8894", marginTop: "20px" }}>
                             Submit
                         </Button>
                         <div className="Forget-password" style={{ textAlign: "right", marginRight: "35%", padding: "10px" }}><a href="/">Forget Password? </a> </div>
@@ -87,9 +110,9 @@ function Login({ data, notOn, setnotOn }) {
                         </div>
                         <div className="create-account-pop" onClick={(e) => handleclick(e)}>
                             <h6>
-                                Need an Account?  
+                                Need an Account?
                             </h6>
-                            <div style={{width:"5px"}}></div>
+                            <div style={{ width: "5px" }}></div>
                             <p>Create One.</p>
 
                         </div>
