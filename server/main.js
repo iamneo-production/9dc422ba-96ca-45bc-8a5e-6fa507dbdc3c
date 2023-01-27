@@ -25,6 +25,11 @@ app.use('/bankingapp/api/transaction', transactionservicerouter);
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 
+app.get('/', (req, res) => {
+  res.send('App is running');
+});
+
+
 if (environment === 'development') {
   app.use(morgan('tiny'));
   console.log('Morgan is enabled...');
