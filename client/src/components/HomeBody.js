@@ -3,10 +3,8 @@ import { useState } from "react";
 import "../assests/styling/Home.css"
 import "../assests/styling/GetStartedPopUp.css"
 import Slideshow from "./HomeSlider";
-import { Button } from "react-bootstrap";
-import { BsArrowLeft } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import NotiComp from "./notification_component";
+import { CreateAccountPopup } from "./signup";
 
 function HomeBody({ notOn, setnotOn }) {
     const style = {
@@ -38,29 +36,9 @@ function HomeBody({ notOn, setnotOn }) {
             />
             <div style={{ width: "100%", height: "100px" }} onClick={e => hideNoti(e)}></div>
             <div className="main-box" style={{ display: popUpStyle.display }}>
-                <div className="content-box">
-                    <Link to={"CreateSavingsAccount"} className="GetStartedType">
-                        <Button variant="success" className="GetStartedTypeBtn" >
-                            SAVINGS ACCOUNT
-                        </Button>
-                    </Link>
-                    <Link to={"CreateSalaryAccount"} className="GetStartedType">
-
-                        <Button variant="success" className="GetStartedTypeBtn">
-                            SALARY ACCOUNT
-                        </Button>
-                    </Link>
-                    <Link to={"CreateCurrentAccount"} className="GetStartedType">
-
-                        <Button variant="success" className="GetStartedTypeBtn">
-                            CURRENT ACCOUNT
-                        </Button>
-                    </Link>
-                    <div style={{ fontSize: "20px", fontWeight: "bold", height: "10%", marginRight: "10%", marginLeft: "auto", cursor: "pointer" }} onClick={(e) => getBackStyle(e)}>
-                        <BsArrowLeft />
-                        Back
-                    </div>
-                </div>
+                <CreateAccountPopup
+                getBackStyle={getBackStyle}
+                />
             </div>
             <div style={{ opacity: popUpStyle.opacity }} onClick={e => hideNoti(e)}>
                 <div style={{ display: "flex" }}>

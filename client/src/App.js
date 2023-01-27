@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import SignUp from "./components/signup";
 import MainServices from "./components/Mainservices";
 import Dashboard from "./components/Dashboard";
 import SavingsAccount from "./components/SavingsAccount";
@@ -26,16 +25,17 @@ function App() {
           notOn={notOn}
           setnotOn={setnotOn}
           />} />
-          <Route path="/signup" element={<SignUp notOn={notOn} setnotOn={setnotOn}/>} />
+
+          {/* <Route path="/signup" element={<SignUp notOn={notOn} setnotOn={setnotOn}/>} /> */}
           <Route path="/Services" element={<MainServices notOn={notOn} setnotOn={setnotOn}/>} />
           <Route path="/Dashboard" element={<Dashboard
           data={val}
           notOn={notOn} 
           setnotOn={setnotOn}
           />}/>
-          <Route path="/CreateSavingsAccount" element={<SavingsAccount notOn={notOn} setnotOn={setnotOn}/>}/>
-          <Route path="/CreateSalaryAccount" element={<SalaryAccount notOn={notOn} setnotOn={setnotOn}/>}/>          
-          <Route path="/CreateCurrentAccount" element={<CurrentAccount notOn={notOn} setnotOn={setnotOn}/>}/>
+          <Route exact path="CreateSavingsAccount" element={<SavingsAccount notOn={notOn} setnotOn={setnotOn}/>}/>
+          <Route exact path="CreateSalaryAccount" element={<SalaryAccount notOn={notOn} setnotOn={setnotOn}/>}/>          
+          <Route exact path="CreateCurrentAccount" element={<CurrentAccount notOn={notOn} setnotOn={setnotOn}/>}/>
           <Route path="/OpenAccount" element={<CreateAccount 
           data={val}
           notOn={notOn} setnotOn={setnotOn}
