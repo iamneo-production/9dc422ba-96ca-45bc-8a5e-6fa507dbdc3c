@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Step1 from "./FirstComponent";
 import Footer from "./Footer";
 import NavBar from "./header";
-import { Alert } from "@mui/material";
+import Alert from "@mui/material/Alert";
 import { Loader } from "./loader";
 import "../assests/styling/openAccount.css"
 import NotiComp from "./notification_component";
