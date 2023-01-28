@@ -10,15 +10,16 @@ import NotiComp from "./notification_component";
 import { CreateAccountPopup } from "./signup";
 import { Loader } from "./loader";
 import axios from "axios";
+import { useAuthContext } from "../hooks/useAuthContext";
 
-function Login({ data, notOn, setnotOn, loader, setloader }) {
+function Login({ notOn, setnotOn, loader, setloader }) {
+    const LoginState = useAuthContext();
     let navigate = useNavigate();
     function navigateToDashoard() {
         navigate("/Dashboard");
     }
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
-    const val = data;
     function changeUsername(e) {
         setusername(e.target.value);
     }
@@ -27,8 +28,9 @@ function Login({ data, notOn, setnotOn, loader, setloader }) {
     }
 
     async function setCredentials(e) {
-        // e.preventdefault()
         setloader("display");
+        console.log("login called");
+        e.preventDefault()
         await axios.request({
             method: "post",
             url: "http://localhost:8081/bankingapp/api/user/validateuser",
@@ -38,16 +40,20 @@ function Login({ data, notOn, setnotOn, loader, setloader }) {
             }
         }).then(() => {
             console.log("succcessfully logged in");
-            val[1](true);
-            val[3](username);
+            LoginState.dispatch({
+                type: "LOGIN",
+                payload: username
+            })
             setloader("none")
         }).then(navigateToDashoard)
             .catch((err) => {
+                setloader("none")
                 alert(err)
             })
 
+        setloader("none")
+
     }
-    console.log(val);
     const style = {
         display: "none",
         opacity: "100%",
@@ -69,7 +75,9 @@ function Login({ data, notOn, setnotOn, loader, setloader }) {
     return (
         <>
             <NavBar setnotOn={setnotOn} />
-            <Loader loader={loader} />
+            {loader==="display"&&
+                <Loader loader={loader} />
+            }
             <div className="main-box" style={{ display: popUpStyle.display }}>
                 <CreateAccountPopup
                     getBackStyle={getBackStyle}
