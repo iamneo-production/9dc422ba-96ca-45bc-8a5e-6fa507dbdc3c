@@ -16,9 +16,11 @@ import BarGraph from "./BarGraph";
 import axios from 'axios';
 import NotiComp from "./notification_component";
 import { Alert } from "@mui/lab";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
-const Dashboard = ({ notOn, setnotOn, data }) => {
+const Dashboard = ({ notOn, setnotOn }) => {
 
+    const { username,dispatch } = useAuthContext()
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
     let piedata =
@@ -67,28 +69,25 @@ const Dashboard = ({ notOn, setnotOn, data }) => {
     }, []);
     const [userDataFetch, setuserDataFetch] = useState({});
     const [accountData, setaccountData] = useState({});
-    const stateData = data;
     // console.log(stateData);
     useEffect(() => {
         async function CallApi() {
 
-            if (stateData[0]) {
+            if (username) {
                 setDashboaredEnable({
                     opacity: "100",
                     display: "none"
                 })
                 await axios({
                     method: "get",
-                    url: "http://localhost:8081/bankingapp/api/account/getaccountdetailsbyusername/anujawasthi394",
-                    
+                    url: "https://neobank-backend.vercel.app/bankingapp/api/account/getaccountdetailsbyusername/"+username,
 
-                }).then((res) => { setaccountData(res.data.accountDetails)}).catch((e) => console.log(e));
 
-                await axios.get("http://localhost:8081/bankingapp/api/user/getuserbyusername/anujawasthi394",{
-                    
-                })
-                .then(e => {setuserDataFetch(e.data[0])}).catch((e) => console.log(e));
-            } else if (!stateData[0]) {
+                }).then((res) => { setaccountData(res.data.accountDetails) }).catch((e) => console.log(e));
+
+                await axios.get("https://neobank-backend.vercel.app/bankingapp/api/user/getuserbyusername/"+username)
+                    .then(e => { setuserDataFetch(e.data[0]) }).catch((e) => console.log(e));
+            } else if (!username) {
                 setDashboaredEnable({
                     opacity: "5%",
                     display: "block"
@@ -96,11 +95,11 @@ const Dashboard = ({ notOn, setnotOn, data }) => {
             }
         }
         CallApi();
-    }, []);
+    }, [username]);
     // console.log(stateData);
     const DisplayTransArray = Transactions.slice(Transactions.length - 7, Transactions.length);
     let count = 1;
-    console.log(userDataFetch, accountData)
+    // console.log(userDataFetch, accountData)
     const [graphType, setgraphType] = useState("bar")
     function changeGraphTypetoBar(e) {
         setgraphType('bar');
@@ -136,7 +135,7 @@ const Dashboard = ({ notOn, setnotOn, data }) => {
                     </Col>
                     <Col md={3} className="title-col-dash">
                         <div className="account-holder">
-                            Hello, {userDataFetch.firstname+" "+ userDataFetch.lastname}
+                            Hello, {userDataFetch.firstname + " " + userDataFetch.lastname}
                         </div>
                     </Col>
                     <Col md={3} className="title-col-dash">
