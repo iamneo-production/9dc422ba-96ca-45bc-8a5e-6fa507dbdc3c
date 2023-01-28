@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Loader } from "./loader";
 function Step1({ data, setmsg, setText, setloader}) {
     // const statedata=props.data
     const [step, setstep] = useState(2);
@@ -229,7 +228,7 @@ function Step1({ data, setmsg, setText, setloader}) {
         console.log(UserData);
         await axios({
             method: 'post',
-            url: 'http://localhost:8081/bankingapp/api/user/register',
+            url: 'https://neobank-backend.vercel.app/bankingapp/api/user/register',
             data: UserData
         }).then(e => {
             console.log(e);
@@ -240,7 +239,7 @@ function Step1({ data, setmsg, setText, setloader}) {
         await CreateUser(e)
         await axios({
             method: 'post',
-            url: "http://localhost:8081/bankingapp/api/account/createnewaccount",
+            url: "https://neobank-backend.vercel.app/bankingapp/api/account/createnewaccount",
             data: {
                 username: username,
                 closingBalance: openingBal
