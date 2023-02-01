@@ -9,7 +9,7 @@ const config = require('config');
 
 const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
 
-const secretKey = "1122";
+const secretKey = getJWT();
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(log.info('connected to mongo database....'))
@@ -87,83 +87,6 @@ async function resgisterNewUser(userObj, response) {
     });
 }
 
-async function updatePassword(passwordObj, response) {
-    let condition = {
-        username: passwordObj.username,
-        emailId: passwordObj.emailId,
-        dateOfBirth: passwordObj.dateOfBirth
-    }
-    await UserModel.findOneAndUpdate(condition, { $set: { password: bcrypt.hashSync(passwordObj.password, 10) } }, (err, result) => {
-        if (err) {
-            log.error(`Error in updating password for username ${passwordObj.username}: ` + err);
-            return response.status(400).send({
-                messageCode: new String(err.errmsg).split(" ")[0],
-                message: 'Error in updating password.'
-            });
-        }
-        if (!result || result.nModified === 0) {
-            log.warn('Unable to update password for ' + passwordObj.username);
-            return response.status(404).send({
-                messageCode: 'DETLSNM',
-                message: 'Submitted details don\'t match.'
-            });
-        }
-        log.info('Password has been updated for ' + passwordObj.username);
-        return response.send({
-            messageCode: 'USRPSU',
-            message: 'Your password has been successfully updated.'
-        });
-    });
-}
-
-async function updateEmail(emailObj, response) {
-    await UserModel.findOneAndUpdate({ username: emailObj.username }, { $set: { emailId: emailObj.emailId } }, (err, result) => {
-        if (err) {
-            log.error(`Error in updating email id for username ${emailObj.username}: ` + err);
-            return response.status(400).send({
-                messageCode: new String(err.errmsg).split(" ")[0],
-                message: 'Error in updating email.'
-            });
-        }
-        if (!result || result.nModified === 0) {
-            log.warn('Unable to update email id for ' + emailObj.username);
-            return response.status(404).send({
-                messageCode: 'DETLSNM',
-                message: 'Submitted details don\'t match.'
-            });
-        }
-        log.info('Email Id has been updated for ' + emailObj.username);
-        return response.send({
-            messageCode: 'USRESU',
-            message: 'Your email Id has been successfully updated.'
-        });
-    });
-}
-
-async function updatePhonoNo(phonoNoObj, response) {
-    await UserModel.findOneAndUpdate({ username: phonoNoObj.username }, { $set: { phoneNo: phonoNoObj.phoneNo } }, (err, result) => {
-        if (err) {
-            log.error(`Error in updating phone no. for username ${phonoNoObj.username}: ` + err);
-            return response.status(400).send({
-                messageCode: new String(err.errmsg).split(" ")[0],
-                message: 'Error in updating phone no.'
-            });
-        }
-        if (!result || result.nModified === 0) {
-            log.warn('Unable to update phone no. for ' + phonoNoObj.username);
-            return response.status(404).send({
-                messageCode: 'DETLSNM',
-                message: 'Submitted details don\'t match.'
-            });
-        }
-        log.info('Phone no. has been updated for ' + phonoNoObj.username);
-        return response.send({
-            messageCode: 'USRPHSU',
-            message: 'Your phone no. has been successfully updated.'
-        });
-    });
-}
-
 async function getUserByUsername(username, response) {
     await UserModel.find({ username: username }, (err, result) => {
         if (err) {
@@ -191,13 +114,32 @@ async function getUserByPhoneNo(phoneNo, response) {
         return response.send(result);
     });
 }
+function getJWT() {
+    // console.log("function working");
+    try {
+        var custom_env_variable = {
+            "jwt": {
+                "secretkey": "bankingapp-secretkey"
+            }
+        }
+        const temp = custom_env_variable.jwt.secretkey;
+        console.log({ temp });
+        return temp;
+        // console.log({ config });
+        // return config.get('jwt.secretkey');
+    }
+    catch (err) {
+        console.error(`jwt secret key setting up failed ${err} check logger`);
+        process.exit(0);
+    }
+}
 
 module.exports = {
     validateLoginUser,
     resgisterNewUser,
-    updatePassword,
-    updateEmail,
-    updatePhonoNo,
+    // updatePassword,
+    // updateEmail,
+    // updatePhonoNo,
     getUserByUsername,
     getUserByPhoneNo
 }
