@@ -7,7 +7,7 @@ const log = new Logger('User-Controller');
 const authTokenValidator = require('../middleware/auth-token-validator');
 
 userrouter.post('/register', (req, res) => {
-    let userObj = req.body;
+    let userObj = req.body || req.query;
     let { error } = userValidator.validateNewUserSchema(userObj);
     if (isNotValidSchema(error, res)) return;
     userDao.resgisterNewUser(userObj, res)
@@ -15,6 +15,14 @@ userrouter.post('/register', (req, res) => {
         .catch((err) => log.error(`Error in registering new user with username ${userObj.username}: ` + err));
 });
 
+userrouter.post('/validateuser', (req, res) => {
+    let loginInfo = req.body || req.query;
+    let { error } = userValidator.validateLoginUserSchema(loginInfo);
+    if (isNotValidSchema(error, res)) return;
+    userDao.validateLoginUser(loginInfo, res)
+        .then()
+        .catch((err) => log.error(`Error in login for username ${loginInfo.username}: ` + err));
+});
 
 function isNotValidSchema(error, res) {
     if (error) {
