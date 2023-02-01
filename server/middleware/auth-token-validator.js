@@ -22,11 +22,23 @@ module.exports = function (req, res, next) {
     }
 }
 
+
+
 function getJWT() {
     // console.log("function working");
     try {
-        return config.get('jwt.secretkey');
-    } catch (err) {
+        var custom_env_variable = {
+            "jwt": {
+                "secretkey": "bankingapp-secretkey"
+            }
+        }
+        const temp = custom_env_variable.jwt.secretkey;
+        console.log({ temp });
+        return temp;
+        // console.log({ config });
+        // return config.get('jwt.secretkey');
+    }
+    catch (err) {
         console.error(`jwt secret key setting up failed ${err} check logger`);
         process.exit(0);
     }
