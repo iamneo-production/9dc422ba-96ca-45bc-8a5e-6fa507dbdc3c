@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const secretKey = '1122';
+const secretKey = getJWT();
 
 module.exports = function (req, res, next) {
     const token = req.header('x-auth-token');
     if (!token) {
         return res.status(400).send({
-            message: 'Access denied. Auth token not found.',
+            message: 'Access denied. Authentication token not found.',
             messageCode: 'TKNERR'
         });
     }
@@ -16,8 +16,30 @@ module.exports = function (req, res, next) {
         next();
     } catch (err) {
         return res.status(400).send({
-            message: 'Access denied. Invalid auth token.',
+            message: 'Access denied. Invalid authentication token.',
             messageCode: 'INVTKN'
         });
+    }
+}
+
+
+
+function getJWT() {
+    // console.log("function working");
+    try {
+        var custom_env_variable = {
+            "jwt": {
+                "secretkey": "bankingapp-secretkey"
+            }
+        }
+        const temp = custom_env_variable.jwt.secretkey;
+        console.log({ temp });
+        return temp;
+        // console.log({ config });
+        // return config.get('jwt.secretkey');
+    }
+    catch (err) {
+        console.error(`jwt secret key setting up failed ${err} check logger`);
+        process.exit(0);
     }
 }
