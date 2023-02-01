@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const secretKey = getJWT;
+const secretKey = getJWT();
 
 module.exports = function (req, res, next) {
     const token = req.header('x-auth-token');
@@ -23,5 +23,11 @@ module.exports = function (req, res, next) {
 }
 
 function getJWT() {
-    console.log("function working");
+    // console.log("function working");
+    try {
+        return config.get('jwt.secretkey');
+    } catch (err) {
+        console.error(`jwt secret key setting up failed ${err} check logger`);
+        process.exit(0);
+    }
 }
