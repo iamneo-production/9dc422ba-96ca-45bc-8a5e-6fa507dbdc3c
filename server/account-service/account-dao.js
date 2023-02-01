@@ -8,7 +8,8 @@ const config = require('config');
 
 const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
 
-var accountNumberBase = 69426942728700;
+var accountNumberBase = Math.random() * 10000000000000000;
+console.log({ accountNumberBase });
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
     .then(log.info('connected to mongo database....'))
