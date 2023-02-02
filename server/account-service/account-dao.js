@@ -15,6 +15,12 @@ mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAn
     .then(log.info('connected to mongo database....'))
     .catch(err => log.error('unable to connect, please check your connection....' + err));
 
+
+// const transactionService = config.get('transaction-service-config');
+// const temp = config();
+console.log({ config });
+// console.log({ transactionService });
+
 const createNewAccount = async (accountDetails, response) => {
     let newAccount = new AccountModel({
         username: accountDetails.username,
@@ -218,7 +224,6 @@ async function logTransaction(transferAmount, token) {
         remark: transferAmount.remark
     };
 
-    const transactionService = config.get('transaction-service-config');
 
     await axios({
         method: 'post',

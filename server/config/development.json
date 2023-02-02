@@ -6,5 +6,10 @@
         "port": 8081,
         "base": "/bankingapp/api/transaction",
         "uri": "/logtransactionsummary"
+    },
+    "custom_env_variable": {
+        "jwt": {
+            "secretkey": "bankingapp-secretkey"
+        }
     }
 }
