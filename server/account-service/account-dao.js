@@ -84,5 +84,6 @@ const retrieveAccountDetails = async (accountNo, response) => {
 
 
 module.exports = {
-    createNewAccount
+    createNewAccount,
+    retrieveAccountDetails
 }
