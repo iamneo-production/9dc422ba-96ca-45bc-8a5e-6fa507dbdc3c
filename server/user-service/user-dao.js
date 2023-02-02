@@ -5,7 +5,6 @@ const userSchema = require('./user-schema-model').mongoUserSchema;
 const UserModel = mongoose.model('User', userSchema);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const config = require('config');
 
 const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
 
