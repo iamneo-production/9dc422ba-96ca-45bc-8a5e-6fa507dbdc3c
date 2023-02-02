@@ -58,9 +58,72 @@ const createNewAccount = async (accountDetails, response) => {
         });
     });
 }
+const retrieveAccountDetails = async (accountNo, response) => {
+    await AccountModel.findOne({ accountNo: accountNo }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err);
+            return response.status(400).send({
+                messageCode: 'ACCRE',
+                message: 'Unable to retrieve account details for account no. ' + accountNo
+            });
+        }
+        if (result.isClosed) {
+            return response.send({
+                messageCode: 'ACCCLD',
+                isClosed: result.isClosed,
+                closedOn: result.closedOn
+            });
+        }
+        return response.send({
+            messageCode: 'ACCDTLS',
+            accountDetails: result
+        });
+    });
+}
+
+const retrieveAccountDetailsByUsername = async (username, response) => {
+    await AccountModel.findOne({ username: username }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in retrieving account details by username ${username}: ` + err);
+            return response.status(400).send({
+                messageCode: 'ACCRE',
+                message: 'Unable to retrieve account details with username ' + username
+            });
+        }
+        if (result.isClosed) {
+            return response.send({
+                messageCode: 'ACCCLD',
+                isClosed: result.isClosed,
+                closedOn: result.closedOn
+            });
+        }
+        return response.send({
+            messageCode: 'ACCDTLS',
+            accountDetails: result
+        });
+    });
+}
+const addPayee = async (newPayee, response) => {
+    await AccountModel.findOneAndUpdate({ accountNo: newPayee.accountNo, isClosed: false }, { $addToSet: { payees: newPayee.payee } }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in adding payee ${newPayee}: ` + err)
+            return response.status(400).send({
+                messageCode: 'ACCPAE',
+                message: 'Unable to add payee for account no. ' + newPayee.accountNo
+            });
+        }
+        return response.send({
+            messageCode: 'ACCPA',
+            payee: newPayee.payee
+        });
+    });
+}
 
 
 
 module.exports = {
-    createNewAccount
+    createNewAccount,
+    retrieveAccountDetails,
+    retrieveAccountDetailsByUsername,
+    addPayee
 }

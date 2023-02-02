@@ -27,14 +27,14 @@ module.exports = function (req, res, next) {
 function getJWT() {
     // console.log("function working");
     try {
-        // var custom_env_variable = {
-        //     "jwt": {
-        //         "secretkey": "bankingapp-secretkey"
-        //     }
-        // }
-        // const temp = custom_env_variable.jwt.secretkey;
-        // console.log({ temp });
-        // return temp;
+        var custom_env_variable = {
+            "jwt": {
+                "secretkey": "bankingapp-secretkey"
+            }
+        }
+        const temp = custom_env_variable.jwt.secretkey;
+        console.log({ temp });
+        return temp;
         // console.log({ config.get(custom_env_variable.jwt) });
         // return config.get('jwt.secretkey');
     }
