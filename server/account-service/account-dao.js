@@ -81,9 +81,33 @@ const retrieveAccountDetails = async (accountNo, response) => {
     });
 }
 
+const retrieveAccountDetailsByUsername = async (username, response) => {
+    await AccountModel.findOne({ username: username }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in retrieving account details by username ${username}: ` + err);
+            return response.status(400).send({
+                messageCode: 'ACCRE',
+                message: 'Unable to retrieve account details with username ' + username
+            });
+        }
+        if (result.isClosed) {
+            return response.send({
+                messageCode: 'ACCCLD',
+                isClosed: result.isClosed,
+                closedOn: result.closedOn
+            });
+        }
+        return response.send({
+            messageCode: 'ACCDTLS',
+            accountDetails: result
+        });
+    });
+}
+
 
 
 module.exports = {
     createNewAccount,
-    retrieveAccountDetails
+    retrieveAccountDetails,
+    retrieveAccountDetailsByUsername
 }
