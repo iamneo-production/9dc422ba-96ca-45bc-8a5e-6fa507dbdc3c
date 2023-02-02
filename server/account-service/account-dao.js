@@ -58,6 +58,28 @@ const createNewAccount = async (accountDetails, response) => {
         });
     });
 }
+const retrieveAccountDetails = async (accountNo, response) => {
+    await AccountModel.findOne({ accountNo: accountNo }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err);
+            return response.status(400).send({
+                messageCode: 'ACCRE',
+                message: 'Unable to retrieve account details for account no. ' + accountNo
+            });
+        }
+        if (result.isClosed) {
+            return response.send({
+                messageCode: 'ACCCLD',
+                isClosed: result.isClosed,
+                closedOn: result.closedOn
+            });
+        }
+        return response.send({
+            messageCode: 'ACCDTLS',
+            accountDetails: result
+        });
+    });
+}
 
 
 
