@@ -103,11 +103,27 @@ const retrieveAccountDetailsByUsername = async (username, response) => {
         });
     });
 }
+const addPayee = async (newPayee, response) => {
+    await AccountModel.findOneAndUpdate({ accountNo: newPayee.accountNo, isClosed: false }, { $addToSet: { payees: newPayee.payee } }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in adding payee ${newPayee}: ` + err)
+            return response.status(400).send({
+                messageCode: 'ACCPAE',
+                message: 'Unable to add payee for account no. ' + newPayee.accountNo
+            });
+        }
+        return response.send({
+            messageCode: 'ACCPA',
+            payee: newPayee.payee
+        });
+    });
+}
 
 
 
 module.exports = {
     createNewAccount,
     retrieveAccountDetails,
-    retrieveAccountDetailsByUsername
+    retrieveAccountDetailsByUsername,
+    addPayee
 }

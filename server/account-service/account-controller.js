@@ -31,6 +31,17 @@ accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
 
 //debugging some functions
 
+accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
+    let newPayee = req.body;
+    let { error } = accountValidator.validatePayeeSchema(newPayee);
+    if (isNotValidSchema(error, res)) return;
+    if (isSameAccountNo(newPayee.accountNo, newPayee.payee.accountNo, res)) return;
+    accountDao.addPayee(newPayee, res)
+        .then()
+        .catch((err) => log.error(`Error in adding payee ${newPayee}: ` + err));
+});
+
+
 function isNotValidSchema(error, res) {
     if (error) {
         log.error(`Schema validation error: ${error.details[0].message}`);
