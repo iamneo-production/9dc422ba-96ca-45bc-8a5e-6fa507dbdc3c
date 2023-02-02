@@ -41,6 +41,12 @@ accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in adding payee ${newPayee}: ` + err));
 });
 
+accountrouter.get('/getpayees/:accountno', authTokenValidator, (req, res) => {
+    let accountNo = req.params.accountno;
+    accountDao.retrievePayeeList(accountNo, res)
+        .then()
+        .catch((err) => log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err));
+});
 
 function isNotValidSchema(error, res) {
     if (error) {

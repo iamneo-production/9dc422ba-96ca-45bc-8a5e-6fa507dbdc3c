@@ -119,11 +119,26 @@ const addPayee = async (newPayee, response) => {
     });
 }
 
-
+const retrievePayeeList = async (accountNo, response) => {
+    await AccountModel.findOne({ accountNo: accountNo, isClosed: false }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err)
+            return response.status(400).send({
+                messageCode: 'ACCPLE',
+                message: 'Unable to retrieve payees for account no. ' + accountNo
+            });
+        }
+        return response.send({
+            messageCode: 'ACCPL',
+            payees: result.payees
+        });
+    });
+}
 
 module.exports = {
     createNewAccount,
     retrieveAccountDetails,
     retrieveAccountDetailsByUsername,
-    addPayee
+    addPayee,
+    retrievePayeeList
 }
