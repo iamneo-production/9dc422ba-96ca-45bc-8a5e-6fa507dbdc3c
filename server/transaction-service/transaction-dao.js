@@ -3,9 +3,6 @@ const log = new Logger('Transaction-Dao');
 const mongoose = require('mongoose');
 const transactionSchema = require('./transaction-schema-model').mongoTransactionSchema;
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
-// const pdfMake = require('pdfmake/build/pdfmake');
-// const pdfFonts = require('pdfmake/build/vfs_fonts');
-const config = require('config');
 
 const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
 
@@ -57,22 +54,6 @@ const gettransSumm = async (req, res) => {
         });
 }
 
-// const generateStatement = async (req,res) =>{
-//     const summary = await retrievetransSumm(req);
-//     const doc= await createDocumentDefination(summary);
-
-//     pdfMake
-
-//     pdfDocument.getBase64((data) =>{
-//         const pdJsonBuffer = Buffwer.from(data.toString('utf-8'), 'base64').toJson();
-//         log.info('generating buffer things');
-//         res.send({
-//             state: req,
-//             buffer:pdfjsonBuffer.data
-//         })
-//     })
-// }
-
 async function retrievetransSumm(e) {
     return await TransactionModel.find({ from: e })
         .then(result => {
@@ -98,5 +79,4 @@ async function retrievetransSumm(e) {
 module.exports = {
     logTransactionSummary,
     gettransSumm,
-    // generateStatement
 }
