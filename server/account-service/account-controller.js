@@ -48,6 +48,23 @@ accountrouter.get('/getpayees/:accountno', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err));
 });
 
+accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
+    let transferAmount = req.body;
+    let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
+    if (isNotValidSchema(error, res)) return;
+    if (isSameAccountNo(transferAmount.from.accountNo, transferAmount.to.accountNo, res)) return;
+    if (transferAmount.from.amount !== transferAmount.to.amount) {
+        res.status(400).send({
+            messageCode: 'INVAMNT',
+            message: 'Invalid transaction amount'
+        });
+        return;
+    }
+    accountDao.transferAmount(transferAmount, res, req.header('x-auth-token'))
+        .then()
+        .catch((err) => log.error(`Error in transaction from ${transferAmount.from.accountNo} to ${transferAmount.to.accountNo} of amount ${transferAmount.from.amount}: ` + err));
+});
+
 accountrouter.post('/deletepayee', authTokenValidator, (req, res) => {
     let requestBody = req.body;
     let { error } = accountValidator.validatePayeeSchema(requestBody);

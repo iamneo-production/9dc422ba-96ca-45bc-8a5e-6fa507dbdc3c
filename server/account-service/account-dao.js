@@ -34,10 +34,7 @@ const createNewAccount = async (accountDetails, response) => {
         accountNo: accountNumberBase++,
         closingBalance: accountDetails.closingBalance,
         createdOn: Date.now(),
-        lastActive: Date.now(),
-        payees: [],
-        isClosed: false,
-        closedOn: null
+        payees: []
     });
 
     await newAccount.save((err, result) => {
@@ -67,13 +64,6 @@ const retrieveAccountDetails = async (accountNo, response) => {
                 message: 'Unable to retrieve account details for account no. ' + accountNo
             });
         }
-        if (result.isClosed) {
-            return response.send({
-                messageCode: 'ACCCLD',
-                isClosed: result.isClosed,
-                closedOn: result.closedOn
-            });
-        }
         return response.send({
             messageCode: 'ACCDTLS',
             accountDetails: result
@@ -90,13 +80,6 @@ const retrieveAccountDetailsByUsername = async (username, response) => {
                 message: 'Unable to retrieve account details with username ' + username
             });
         }
-        if (result.isClosed) {
-            return response.send({
-                messageCode: 'ACCCLD',
-                isClosed: result.isClosed,
-                closedOn: result.closedOn
-            });
-        }
         return response.send({
             messageCode: 'ACCDTLS',
             accountDetails: result
@@ -104,7 +87,7 @@ const retrieveAccountDetailsByUsername = async (username, response) => {
     });
 }
 const addPayee = async (newPayee, response) => {
-    await AccountModel.findOneAndUpdate({ accountNo: newPayee.accountNo, isClosed: false }, { $addToSet: { payees: newPayee.payee } }, (err, result) => {
+    await AccountModel.findOneAndUpdate({ accountNo: newPayee.accountNo }, { $addToSet: { payees: newPayee.payee } }, (err, result) => {
         if (err || !result) {
             log.error(`Error in adding payee ${newPayee}: ` + err)
             return response.status(400).send({
@@ -120,7 +103,7 @@ const addPayee = async (newPayee, response) => {
 }
 
 const retrievePayeeList = async (accountNo, response) => {
-    await AccountModel.findOne({ accountNo: accountNo, isClosed: false }, (err, result) => {
+    await AccountModel.findOne({ accountNo: accountNo }, (err, result) => {
         if (err || !result) {
             log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err)
             return response.status(400).send({
@@ -134,6 +117,93 @@ const retrievePayeeList = async (accountNo, response) => {
         });
     });
 }
+const transferAmount = async (transferAmount, response, token) => {
+    let from = transferAmount.from;
+    let to = transferAmount.to;
+    let fromResult = await AccountModel.findOne({ accountNo: from.accountNo }, (fromErr, fromResult) => {
+        if (fromErr || !fromResult) {
+            log.error('Error in retrieving account: ' + fromErr);
+            return response.status(400).send({
+                messageCode: 'ACCRE',
+                message: 'Unable to retrieve account with account no. ' + from.accountNo
+            });
+        }
+    });
+    let fromClosingBalance = parseFloat(fromResult.closingBalance);
+    let transactionAmount = parseFloat(from.amount);
+    if (fromClosingBalance >= transactionAmount) {
+        let toResult = await AccountModel.findOne({ accountNo: to.accountNo }, (toErr, toResult) => {
+            if (toErr || !toResult) {
+                log.error('Error in retrieving account: ' + toErr);
+                return response.status(400).send({
+                    messageCode: 'ACCRE',
+                    message: 'Unable to retrieve account with account no. ' + to.accountNo
+                });
+            }
+        });
+        let toClosingBalance = parseFloat(toResult.closingBalance);
+        await AccountModel.updateOne({ accountNo: to.accountNo }, { $set: { closingBalance: toClosingBalance + transactionAmount } }, (toTransactionErr, toResult) => {
+            if (toTransactionErr || !toResult) {
+                log.error('Error in transaction: ' + toTransactionErr);
+                return response.status(400).send({
+                    messageCode: 'ACCTRANE',
+                    message: 'Unable to retrieve account with account no. ' + to.accountNo
+                });
+            }
+        });
+        await AccountModel.updateOne({ accountNo: from.accountNo }, { $set: { closingBalance: fromClosingBalance - transactionAmount } }, (fromTransactionErr, fromResult) => {
+            if (fromTransactionErr || !fromResult) {
+                log.error('Error in transaction: ' + fromTransactionErr);
+                return response.status(400).send({
+                    messageCode: 'ACCTRANE',
+                    message: 'Unable to retrieve account with account no. ' + from.accountNo
+                });
+            }
+        });
+
+        //calling log trans
+        logTransaction(transferAmount, token);
+        log.info('Transaction completed from ' + from.accountNo + ' to ' + to.accountNo + ' of amount ' + from.amount);
+        return response.send({
+            messageCode: 'ACCTRANC',
+            message: 'Transaction completed from ' + from.accountNo + ' to ' + to.accountNo + ' of amount ' + from.amount
+        });
+    } else {
+        return response.send({
+            messageCode: 'ACCINSF',
+            message: 'Insufficient fund for transaction'
+        });
+    }
+}
+
+async function logTransaction(transferAmount, token) {
+    const date = new Date();
+    const MM = date.getMonth() + 1;
+    const month = MM < 10 ? '0' + MM : MM;
+    const requestBody = {
+        amount: transferAmount.from.amount,
+        from: transferAmount.from.accountNo,
+        to: transferAmount.to.accountNo,
+        transferedOn: date.getFullYear() + '-' + month + '-' + date.getDate(),
+        remark: transferAmount.remark
+    };
+
+    console.log({ date }, { MM }, { month }, { requestBody },);
+    await axios({
+        method: 'post',
+        url: 'http://localhost:8081/bankingapp/api/transaction/logtransactionsummary',
+        data: JSON.stringify(requestBody),
+        headers: {
+            'content-type': 'application/json',
+            'x-auth-token': token
+        }
+    }).then((res) => {
+        console.log(res);
+        log.info(JSON.stringify(res.data));
+    }).catch((err) => {
+        log.error('Unable to call logtransactionsummary service: ' + err);
+    });
+}
 
 const deletePayee = async (accountNo, payee, response) => {
     let removePayee = {
@@ -142,7 +212,7 @@ const deletePayee = async (accountNo, payee, response) => {
         accountNo: payee.accountNo
     }
 
-    await AccountModel.findOneAndUpdate({ accountNo: accountNo, isClosed: false }, { $pull: { payees: removePayee } }, (err, result) => {
+    await AccountModel.findOneAndUpdate({ accountNo: accountNo }, { $pull: { payees: removePayee } }, (err, result) => {
         if (err || !result) {
             log.error(`Error in deleting payee ${payee} for account no. ${accountNo}: ` + err);
             return response.status(400).send({
@@ -163,5 +233,6 @@ module.exports = {
     retrieveAccountDetailsByUsername,
     addPayee,
     retrievePayeeList,
-    deletePayee
+    deletePayee,
+    transferAmount
 }
