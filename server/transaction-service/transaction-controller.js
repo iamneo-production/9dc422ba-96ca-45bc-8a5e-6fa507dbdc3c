@@ -7,7 +7,6 @@ const log = new Logger('Transaction-Controller');
 
 transactionrouter.post('/logtransactionsummary', (req, res) => {
     let transactionSummary = req.body;
-    // console.log(req);
     let { error } = transactionSummaryValidator.validateTransationSummarySchema(transactionSummary);
     if (notValid(error, res)) return;
     if (sameAcc(transactionSummary.from, transactionSummary.to, res)) return;
@@ -23,7 +22,7 @@ transactionrouter.get('/transactionsummary/:accountno', (req, res) => {
         .catch((err) => log.error(`Error in getting transSumm. ${accountNo}: ` + err));
 });
 
-function notValid(err,res){
+function notValid(err, res) {
     if (err) {
         log.error(`Schema validation error: ${err.details[0].message}`);
         res.send({
