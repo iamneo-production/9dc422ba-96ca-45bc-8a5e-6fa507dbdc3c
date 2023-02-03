@@ -48,6 +48,16 @@ accountrouter.get('/getpayees/:accountno', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err));
 });
 
+accountrouter.post('/deletepayee', authTokenValidator, (req, res) => {
+    let requestBody = req.body;
+    let { error } = accountValidator.validatePayeeSchema(requestBody);
+    if (isNotValidSchema(error, res)) return;
+    if (isSameAccountNo(requestBody.accountNo, requestBody.payee.accountNo, res)) return;
+    accountDao.deletePayee(requestBody.accountNo, requestBody.payee, res)
+        .then()
+        .catch((err) => log.error(`Error in deleting payee ${requestBody.payee} for account no. ${requestBody.accountNo}: ` + err));
+});
+
 function isNotValidSchema(error, res) {
     if (error) {
         log.error(`Schema validation error: ${error.details[0].message}`);
