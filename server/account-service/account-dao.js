@@ -3,7 +3,7 @@ const log = new Logger('Account-Dao');
 const mongoose = require('mongoose');
 const accountSchema = require('./account-schema-model').mongoAccountSchema;
 const AccountModel = mongoose.model('Account', accountSchema);
-// const axios = require('axios');
+const axios = require('axios');
 // const config = require('config');
 
 const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
@@ -119,11 +119,49 @@ const addPayee = async (newPayee, response) => {
     });
 }
 
+const retrievePayeeList = async (accountNo, response) => {
+    await AccountModel.findOne({ accountNo: accountNo, isClosed: false }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err)
+            return response.status(400).send({
+                messageCode: 'ACCPLE',
+                message: 'Unable to retrieve payees for account no. ' + accountNo
+            });
+        }
+        return response.send({
+            messageCode: 'ACCPL',
+            payees: result.payees
+        });
+    });
+}
 
+const deletePayee = async (accountNo, payee, response) => {
+    let removePayee = {
+        firstname: payee.firstname,
+        lastname: payee.lastname,
+        accountNo: payee.accountNo
+    }
+
+    await AccountModel.findOneAndUpdate({ accountNo: accountNo, isClosed: false }, { $pull: { payees: removePayee } }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in deleting payee ${payee} for account no. ${accountNo}: ` + err);
+            return response.status(400).send({
+                messageCode: 'ACCPDE',
+                message: 'Unable to delete payee with account no. ' + payee.accountNo
+            });
+        }
+        return response.send({
+            messageCode: 'ACCPDEL',
+            message: 'Payee has been deleted with account no. ' + payee.accountNo
+        });
+    });
+}
 
 module.exports = {
     createNewAccount,
     retrieveAccountDetails,
     retrieveAccountDetailsByUsername,
-    addPayee
+    addPayee,
+    retrievePayeeList,
+    deletePayee
 }
