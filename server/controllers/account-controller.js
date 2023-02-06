@@ -42,7 +42,7 @@ accountrouter.get('/getaccountdetailsbyusername/:username', authTokenValidator, 
 // username is used as a foreign key in this table
 // uses auth token for security
 
-accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
+accountrouter.post('/createnewaccount', authTokenValidator, async (req, res) => {
     console.log({ req });
     let newAccount = req.body;
     // validation for schema using joi
@@ -51,7 +51,7 @@ accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
     if (isNotValidSchema(error, res)) return;
     // here dao function create new account is async coming from dao
     try {
-        accountDao.createNewAccount(newAccount, res);
+        await accountDao.createNewAccount(newAccount, res);
         console.log({ res });
     } catch (error) {
         log.error(`Error in creating new account for username ${newAccount.username}: ` + err);
@@ -66,7 +66,7 @@ accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
 // used for adding a beneficiary's account for transaction
 // usses auth token (jwt for security)
 
-accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
+accountrouter.post('/addpayee', authTokenValidator, async (req, res) => {
     console.log({ req });
     let newPayee = req.body;
     // validation for schema using joi
@@ -76,7 +76,7 @@ accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
     // comes from lib
     if (isSameAccountNo(newPayee.accountNo, newPayee.payee.accountNo, res)) return;
     try {
-        accountDao.addPayee(newPayee, res);
+        await accountDao.addPayee(newPayee, res);
     } catch (error) {
         log.error(`Error in adding payee ${newPayee}: ` + err);
     }
@@ -84,24 +84,33 @@ accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
 
 // get payee for getting details of that particular beneficiary
 
-accountrouter.get('/getpayees/:accountno', authTokenValidator, (req, res) => {
+accountrouter.get('/getpayees/:accountno', authTokenValidator, async (req, res) => {
     console.log({ req });
+    console.log({ res });
     let accountNo = req.params.accountno;
-    // 
-    accountDao.retrievePayeeList(accountNo, res)
-        .then()
-        .catch((err) => log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err));
+    // retrive coming from dao
+    try {
+        await accountDao.retrievePayeeList(accountNo, res);
+        console.log({ res });
+    } catch (error) {
+        log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err);
+    }
 });
 
 // probably the most difficult post function of this server
 // Transfer ammount
 // auth token is used for security
 
-accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
+accountrouter.post('/transferamount', authTokenValidator, async (req, res) => {
+    console.log({ req }, { res });
     let transferAmount = req.body;
+    // schema validation using joi
     let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
     if (isNotValidSchema(error, res)) return;
     if (isSameAccountNo(transferAmount.from.accountNo, transferAmount.to.accountNo, res)) return;
+
+    // before accessing the transfer function from dao
+    // need to check whether the current account have enough closing balance
     if (transferAmount.from.amount !== transferAmount.to.amount) {
         res.status(400).send({
             messageCode: 'INVAMNT',
@@ -109,22 +118,35 @@ accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
         });
         return;
     }
-    accountDao.transferAmount(transferAmount, res, req.header('x-auth-token'))
-        .then()
-        .catch((err) => log.error(`Error in transaction from ${transferAmount.from.accountNo} to ${transferAmount.to.accountNo} of amount ${transferAmount.from.amount}: ` + err));
+
+    // need jwt token for verification and authority of that user
+    // transfer ammount coming from accoun dao
+
+    try {
+        await accountDao.transferAmount(transferAmount, res, req.header('x-auth-token'))
+    } catch (error) {
+        log.error(`Error in transaction from ${transferAmount.from.accountNo} to ${transferAmount.to.accountNo} of amount ${transferAmount.from.amount}: ` + err);
+    }
 });
 
 // deleting a benificary
 // uses jwt token
 
-accountrouter.post('/deletepayee', authTokenValidator, (req, res) => {
+accountrouter.post('/deletepayee', authTokenValidator, async (req, res) => {
+    console.log({ req });
     let requestBody = req.body;
+    // validation of schema using joi from validator
     let { error } = accountValidator.validatePayeeSchema(requestBody);
     if (isNotValidSchema(error, res)) return;
+    // if acc no same with payee acc no then throw err
     if (isSameAccountNo(requestBody.accountNo, requestBody.payee.accountNo, res)) return;
-    accountDao.deletePayee(requestBody.accountNo, requestBody.payee, res)
-        .then()
-        .catch((err) => log.error(`Error in deleting payee ${requestBody.payee} for account no. ${requestBody.accountNo}: ` + err));
+
+    // delete function coming from dao
+    try {
+        await accountDao.deletePayee(requestBody.accountNo, requestBody.payee, res);
+    } catch (error) {
+        log.error(`Error in deleting payee ${requestBody.payee} for account no. ${requestBody.accountNo}: ` + err);
+    }
 });
 
 // lib functions
