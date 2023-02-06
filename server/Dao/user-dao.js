@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config({ path: '../.env' });
 const Logger = require('../logger/logger');
 const log = new Logger('User-Dao-table');
 const mongoose = require('mongoose');
@@ -6,16 +8,28 @@ const UserModel = mongoose.model('User', userSchema);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
 
+// MongoDB URL comes from .env file copy paste the url to make it work in dev mode
+const dbUrl = process.env.MONGO_URL;
+console.log({ dbUrl });
+
+// secret key needs to be same across all dao functions
 const secretKey = getJWT();
 
-mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
-    .then(log.info('connected to mongo database....'))
-    .catch(err => log.error('unable to connect, please check your connection....' + err));
+// Mongoose connection
+try {
+    mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+    log.info('connected to mongo database....');
+} catch (error) {
+    log.error("unable to connect to db" + error)
+}
 
+// Validate function for Login
 async function validateLoginUser(loginInfo, response) {
+    // search in db by username given and when it finds
+    // something with that username trigger the function with err and result
     await UserModel.findOne({ username: loginInfo.username }, (err, result) => {
+        // if there are no results or there is any error then throw err
         if (err || !result) {
             log.error(`Error in finding user with username ${loginInfo.username}: ` + err);
             return response.status(400).send({
@@ -25,6 +39,9 @@ async function validateLoginUser(loginInfo, response) {
             });
         }
 
+        // Now we have the username in result then check its password
+        // for that use bcrypt for decrypting and then comparing it to our db
+        // if there is a amtch then generate a JWT and send it to headers
         if (result && bcrypt.compare(loginInfo.password, result.password)) {
             log.info(loginInfo.username + ' has been validated');
             const jwtToken = jwt.sign({
@@ -38,6 +55,7 @@ async function validateLoginUser(loginInfo, response) {
             });
         }
         else {
+            // else if password does not match then throw something is wrong
             log.warn('Unable to validate ' + loginInfo.username);
             return response.status(404).send({
                 username: loginInfo.username,
@@ -47,6 +65,8 @@ async function validateLoginUser(loginInfo, response) {
         }
     });
 }
+
+// New User register Function
 
 async function resgisterNewUser(userObj, response) {
     let newUser = new UserModel({
@@ -69,7 +89,9 @@ async function resgisterNewUser(userObj, response) {
 
     newUser.password = newUser.encryptPassword();
 
-    await newUser.save((err, result) => {
+    // new user created now save it into the db
+    newUser.save((err, result) => {
+        // if there is any err then throw err else show status 200
         if (err) {
             log.error(`Error in registering new user with username ${userObj.username}: ` + err);
             return response.status(400).send({
@@ -86,8 +108,12 @@ async function resgisterNewUser(userObj, response) {
     });
 }
 
+// get details by username
+
 async function getUserByUsername(username, response) {
+    // search in db and see if there is any username matching with these
     await UserModel.find({ username: username }, (err, result) => {
+        // if there arent any of them then throw err else show details
         if (err) {
             log.error(`Error in retrieving user by username ${username} : ` + err);
             return response.status(404).send({
@@ -100,19 +126,6 @@ async function getUserByUsername(username, response) {
     });
 }
 
-async function getUserByPhoneNo(phoneNo, response) {
-    await UserModel.find({ phoneNo: phoneNo }, (err, result) => {
-        if (err) {
-            log.error(`Error in retrieving user by phone no. ${phoneNo}: ` + err);
-            return response.status(404).send({
-                messageCode: 'USRFE',
-                message: 'No user found by phone no. ' + phoneNo
-            });
-        }
-        log.info('Retrieving user details by phone no. ' + phoneNo);
-        return response.send(result);
-    });
-}
 function getJWT() {
     // console.log("function working");
     try {
@@ -136,6 +149,5 @@ function getJWT() {
 module.exports = {
     validateLoginUser,
     resgisterNewUser,
-    getUserByUsername,
-    getUserByPhoneNo
+    getUserByUsername
 }

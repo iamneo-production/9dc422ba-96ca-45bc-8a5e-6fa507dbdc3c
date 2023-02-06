@@ -4,6 +4,7 @@ const userValidator = require('../validator/user-schema-validator');
 const userDao = require('../Dao/user-dao');
 const Logger = require('../logger/logger');
 const log = new Logger('User-Controller-table');
+const authTokenValidator = require('../middleware/auth-token-validator');
 
 // This table does not require JWR because new register dont need to have a header yet
 // However if update and forgot functionalities are added then it will be required
@@ -48,6 +49,16 @@ userrouter.post('/validateuser', async (req, res) => {
     }
 });
 
+userrouter.get('/getuserbyuserrwg/:username', authTokenValidator, async (req, res) => {
+    console.log({ req });
+    let username = req.params.username;
+
+    try {
+        userDao.getUserByUsername(username, res)
+    } catch (error) {
+        log.error(`Error in retrieving user by username ${username} : ` + err)
+    }
+})
 
 // ------------------->LIB<------------------------------- //
 
