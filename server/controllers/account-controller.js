@@ -7,6 +7,9 @@ const log = new Logger('Account-Controller-table');
 const authTokenValidator = require('../middleware/auth-token-validator');
 
 
+// -----------> http://localhost:3000/account <----------------  //
+
+
 // main get feature that is by account no
 
 accountrouter.get('/getaccountdetails/:accountno', authTokenValidator, async (req, res) => {

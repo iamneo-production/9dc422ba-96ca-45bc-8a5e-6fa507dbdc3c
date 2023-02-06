@@ -14,27 +14,42 @@ const log = new Logger('User-Controller-table');
 
 // Registering the new user int he users table (do not confuse this with new account creation)
 
-userrouter.post('/register', (req, res) => {
+userrouter.post('/register', async (req, res) => {
+    console.log({ req });
     let userObj = req.body || req.query;
+    // joi is used for schema validation
     let { error } = userValidator.validateNewUserSchema(userObj);
     if (isNotValidSchema(error, res)) return;
-    userDao.resgisterNewUser(userObj, res)
-        .then()
-        .catch((err) => log.error(`Error in registering new user with username ${userObj.username}: ` + err));
+    // register function is comeing form dao
+    try {
+        await userDao.resgisterNewUser(userObj, res)
+    } catch (error) {
+        log.error(`Error in registering new user with username ${userObj.username}: ` + err);
+    }
 });
 
 // Manual validation for checking the credentials taken from the client is matching with
 // the db if not then throw err
 // else redirect it to the homepage
 
-userrouter.post('/validateuser', (req, res) => {
+userrouter.post('/validateuser', async (req, res) => {
+    console.log({ req });
     let loginInfo = req.body || req.query;
+    // joi for schema validation
     let { error } = userValidator.validateLoginUserSchema(loginInfo);
     if (isNotValidSchema(error, res)) return;
-    userDao.validateLoginUser(loginInfo, res)
-        .then()
-        .catch((err) => log.error(`Error in login for username ${loginInfo.username}: ` + err));
+
+    // Validation function manually coded no external libraries used
+    // function is coming from dao
+    try {
+        await userDao.validateLoginUser(loginInfo, res);
+    } catch (error) {
+        log.error(`Error in login for username ${loginInfo.username}: ` + err);
+    }
 });
+
+
+// ------------------->LIB<------------------------------- //
 
 function isNotValidSchema(error, res) {
     if (error) {
