@@ -1,7 +1,7 @@
 const Logger = require('../logger/logger');
-const log = new Logger('User-Dao');
+const log = new Logger('User-Dao-table');
 const mongoose = require('mongoose');
-const userSchema = require('./user-schema-model').mongoUserSchema;
+const userSchema = require('../models/user-schema-model').mongoUserSchema;
 const UserModel = mongoose.model('User', userSchema);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -136,9 +136,6 @@ function getJWT() {
 module.exports = {
     validateLoginUser,
     resgisterNewUser,
-    // updatePassword,
-    // updateEmail,
-    // updatePhonoNo,
     getUserByUsername,
     getUserByPhoneNo
 }
