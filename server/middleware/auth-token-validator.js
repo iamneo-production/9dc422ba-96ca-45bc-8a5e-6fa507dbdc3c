@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const secretKey = getJWT();
 
+
 module.exports = function (req, res, next) {
     const token = req.header('x-auth-token');
     if (!token) {
@@ -12,6 +13,7 @@ module.exports = function (req, res, next) {
     }
     try {
         const payload = jwt.verify(token, secretKey);
+        console.log({ payload });
         next();
     } catch (err) {
         return res.status(400).send({
@@ -20,7 +22,6 @@ module.exports = function (req, res, next) {
         });
     }
 }
-
 
 
 function getJWT() {
