@@ -169,8 +169,7 @@ Download the repo and then follow the installation methods given below.
 
 ----------------------
 
-# Talawa Docs
-💬 Join the community on Slack. The link can be found in the `Talawa` [README.md](https://github.com/PalisadoesFoundation/talawa) file.
+A digital banking platform that enables the users to enjoy the banking services digitally without any paper-work along with many of the benefits of a conventional bank.
 
 [![N|Solid](static/img/logos/talawa-logo-200x200.png)](https://github.com/PalisadoesFoundation/talawa-docs)
 
