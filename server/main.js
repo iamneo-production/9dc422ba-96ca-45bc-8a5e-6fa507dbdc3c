@@ -6,7 +6,7 @@ require('dotenv').config()
 
 // console.log(app.get('env'));
 // set env
-const environment = process.env.NODE_ENV || "development";
+const environment = process.env.NODE_ENV || "prod";
 console.log({ environment });
 
 app.use(express.json({ limit: "30mb", extended: true }));
