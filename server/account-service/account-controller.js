@@ -34,7 +34,7 @@ accountrouter.post('/createnewaccount', (req, res) => {
 });
 
 accountrouter.post('/transferamount', (req, res) => {
-    console.log({req});
+    // console.log({req});
     let transferAmount = req.body;
     let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
     if (isNotValidSchema(error, res)) return;
@@ -63,7 +63,7 @@ accountrouter.post('/addpayee', (req, res) => {
 });
 
 accountrouter.get('/getpayees/:accountno', (req, res) => {
-    console.log({req});
+    // console.log({req});
     let accountNo = req.query.acc;
     // console.log({res});
     accountDao.retrievePayeeList(accountNo, res)
