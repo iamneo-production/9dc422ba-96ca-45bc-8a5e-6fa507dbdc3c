@@ -90,7 +90,7 @@ async function resgisterNewUser(userObj, response) {
     newUser.password = newUser.encryptPassword();
 
     // new user created now save it into the db
-    newUser.save((err, result) => {
+    await newUser.save((err, result) => {
         // if there is any err then throw err else show status 200
         if (err) {
             log.error(`Error in registering new user with username ${userObj.username}: ` + err);
@@ -131,7 +131,7 @@ function getJWT() {
     try {
         var custom_env_variable = {
             "jwt": {
-                "secretkey": "bankingapp-secretkey"
+                "secretkey": process.env.JWT_SECRET_KEY
             }
         }
         const temp = custom_env_variable.jwt.secretkey;
