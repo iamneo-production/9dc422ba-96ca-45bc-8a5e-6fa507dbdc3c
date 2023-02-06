@@ -30,7 +30,7 @@ const userservicerouter = require('./controllers/user-controller');
 
 // -----------------> Routes Setup <---------------------------------//
 app.use('/api/user', userservicerouter);
-// app.use('/api/account', accountservicerouter);
+app.use('/api/account', accountservicerouter);
 // app.use('/api/transaction', transactionservicerouter);
 
 
