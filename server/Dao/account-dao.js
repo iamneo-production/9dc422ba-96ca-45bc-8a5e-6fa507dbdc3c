@@ -1,18 +1,39 @@
+const dotenv = require('dotenv');
+dotenv.config({ path: '../.env' });
 const Logger = require('../logger/logger');
 const log = new Logger('Account-Dao');
 const mongoose = require('mongoose');
-const accountSchema = require('./account-schema-model').mongoAccountSchema;
+const accountSchema = require('../models/account-schema-model').mongoAccountSchema;
 const AccountModel = mongoose.model('Account', accountSchema);
 const axios = require('axios');
-const config = require('config');
 
-const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";
+// MongoDB URL comes from .env file copy paste the url to make it work in dev mode
 
-var accountNumberBase = 69426942728700;
+const dbUrl = process.env.MONGO_URL;
+console.log({ dbUrl });
 
-mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false })
-    .then(log.info('connected to mongo database....'))
-    .catch(err => log.error('unable to connect, please check your connection....' + err));
+var accountNumberBase = Math.random() * 10000000000000000n;
+console.log({ accountNumberBase });
+
+// Mongoose connection
+try {
+    mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+    log.info('connected to mongo database....');
+} catch (error) {
+    log.error("unable to connect to db" + error)
+}
+
+// const transactionService = config.get('transaction-service-config');
+// config._get = get();
+// config.get = function (prop) {
+//     if (config.has(prop)) console.log(config._get(prop));;
+//     console.log({ undefined });;
+// }
+// const check = config.has();
+// console.log({ check });
+// const temp = config.get("custom_env_variable.jwt");
+// console.log({ temp });
+// console.log({ transactionService });
 
 const createNewAccount = async (accountDetails, response) => {
     let newAccount = new AccountModel({
@@ -20,14 +41,14 @@ const createNewAccount = async (accountDetails, response) => {
         accountNo: accountNumberBase++,
         closingBalance: accountDetails.closingBalance,
         createdOn: Date.now(),
-        lastActive: Date.now(),
-        payees: [],
-        isClosed: false,
-        closedOn: null
+        payees: []
     });
+
+    // save the new account in the db
 
     await newAccount.save((err, result) => {
         if (err) {
+            // need to dec acc no so that when creating new acc it dosent allot same acc no to multiple accs
             accountNumberBase--;
             log.error(`Error in creating new account for username ${accountDetails.username}: ` + err);
             return response.status(400).send({
@@ -46,19 +67,13 @@ const createNewAccount = async (accountDetails, response) => {
 }
 
 const retrieveAccountDetails = async (accountNo, response) => {
+    // search with acc no in db
     await AccountModel.findOne({ accountNo: accountNo }, (err, result) => {
         if (err || !result) {
-            log.error(`Error in retrieving account details by details ${accountNo}: ` + err);
+            log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err);
             return response.status(400).send({
                 messageCode: 'ACCRE',
-                message: 'Unable to retrieve account details with accountNo ' + accountNo
-            });
-        }
-        if (result.isClosed) {
-            return response.send({
-                messageCode: 'ACCCLD',
-                isClosed: result.isClosed,
-                closedOn: result.closedOn
+                message: 'Unable to retrieve account details for account no. ' + accountNo
             });
         }
         return response.send({
@@ -69,19 +84,13 @@ const retrieveAccountDetails = async (accountNo, response) => {
 }
 
 const retrieveAccountDetailsByUsername = async (username, response) => {
+    //search with username in db
     await AccountModel.findOne({ username: username }, (err, result) => {
         if (err || !result) {
             log.error(`Error in retrieving account details by username ${username}: ` + err);
             return response.status(400).send({
                 messageCode: 'ACCRE',
                 message: 'Unable to retrieve account details with username ' + username
-            });
-        }
-        if (result.isClosed) {
-            return response.send({
-                messageCode: 'ACCCLD',
-                isClosed: result.isClosed,
-                closedOn: result.closedOn
             });
         }
         return response.send({
@@ -91,8 +100,10 @@ const retrieveAccountDetailsByUsername = async (username, response) => {
     });
 }
 
+// adding payee baneficiery
 const addPayee = async (newPayee, response) => {
-    await AccountModel.findOneAndUpdate({ accountNo: newPayee.accountNo, isClosed: false }, { $addToSet: { payees: newPayee.payee } }, (err, result) => {
+    // using findone and update so that we can perform fucntion on it
+    await AccountModel.findOneAndUpdate({ accountNo: newPayee.accountNo }, { $addToSet: { payees: newPayee.payee } }, (err, result) => {
         if (err || !result) {
             log.error(`Error in adding payee ${newPayee}: ` + err)
             return response.status(400).send({
@@ -108,7 +119,9 @@ const addPayee = async (newPayee, response) => {
 }
 
 const retrievePayeeList = async (accountNo, response) => {
-    await AccountModel.findOne({ accountNo: accountNo, isClosed: false }, (err, result) => {
+    // search payye with acc no
+    console.log({ response });
+    await AccountModel.findOne({ accountNo: accountNo }, (err, result) => {
         if (err || !result) {
             log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err)
             return response.status(400).send({
@@ -123,34 +136,15 @@ const retrievePayeeList = async (accountNo, response) => {
     });
 }
 
-const deletePayee = async (accountNo, payee, response) => {
-    let removePayee = {
-        firstname: payee.firstname,
-        lastname: payee.lastname,
-        accountNo: payee.accountNo
-    }
-
-    await AccountModel.findOneAndUpdate({ accountNo: accountNo, isClosed: false }, { $pull: { payees: removePayee } }, (err, result) => {
-        if (err || !result) {
-            log.error(`Error in deleting payee ${payee} for account no. ${accountNo}: ` + err);
-            return response.status(400).send({
-                messageCode: 'ACCPDE',
-                message: 'Unable to delete payee with account no. ' + payee.accountNo
-            });
-        }
-        return response.send({
-            messageCode: 'ACCPDEL',
-            message: 'Payee has been deleted with account no. ' + payee.accountNo
-        });
-    });
-}
-
-
-
+// --------------------------->Transfer Transaction Functionality <------------------------------- //
 const transferAmount = async (transferAmount, response, token) => {
+
+    // need to take from where it is going
+    // where it is going 
+    // how much it is going
     let from = transferAmount.from;
     let to = transferAmount.to;
-    let fromResult = await AccountModel.findOne({ accountNo: from.accountNo, isClosed: false }, (fromErr, fromResult) => {
+    let fromResult = await AccountModel.findOne({ accountNo: from.accountNo }, (fromErr, fromResult) => {
         if (fromErr || !fromResult) {
             log.error('Error in retrieving account: ' + fromErr);
             return response.status(400).send({
@@ -161,8 +155,11 @@ const transferAmount = async (transferAmount, response, token) => {
     });
     let fromClosingBalance = parseFloat(fromResult.closingBalance);
     let transactionAmount = parseFloat(from.amount);
+
+    // checking if balance is greater then the transaction amount
     if (fromClosingBalance >= transactionAmount) {
-        let toResult = await AccountModel.findOne({ accountNo: to.accountNo, isClosed: false }, (toErr, toResult) => {
+        // if it is then find the acc to where the money is to be transacted
+        let toResult = await AccountModel.findOne({ accountNo: to.accountNo }, (toErr, toResult) => {
             if (toErr || !toResult) {
                 log.error('Error in retrieving account: ' + toErr);
                 return response.status(400).send({
@@ -171,7 +168,9 @@ const transferAmount = async (transferAmount, response, token) => {
                 });
             }
         });
+        // now in order to change receivers balance get its current no
         let toClosingBalance = parseFloat(toResult.closingBalance);
+        // now update it accordingly
         await AccountModel.updateOne({ accountNo: to.accountNo }, { $set: { closingBalance: toClosingBalance + transactionAmount } }, (toTransactionErr, toResult) => {
             if (toTransactionErr || !toResult) {
                 log.error('Error in transaction: ' + toTransactionErr);
@@ -181,7 +180,9 @@ const transferAmount = async (transferAmount, response, token) => {
                 });
             }
         });
+        // now need to decrease current balance
         await AccountModel.updateOne({ accountNo: from.accountNo }, { $set: { closingBalance: fromClosingBalance - transactionAmount } }, (fromTransactionErr, fromResult) => {
+            // update current balance according to the trans
             if (fromTransactionErr || !fromResult) {
                 log.error('Error in transaction: ' + fromTransactionErr);
                 return response.status(400).send({
@@ -191,6 +192,7 @@ const transferAmount = async (transferAmount, response, token) => {
             }
         });
 
+        //calling log trans (transaction table)
         logTransaction(transferAmount, token);
         log.info('Transaction completed from ' + from.accountNo + ' to ' + to.accountNo + ' of amount ' + from.amount);
         return response.send({
@@ -205,6 +207,10 @@ const transferAmount = async (transferAmount, response, token) => {
     }
 }
 
+// ------------------------------------------------>End of Transaction<---------------------------------------- //
+
+
+// ---------------------------> log <--------------------------------- //
 async function logTransaction(transferAmount, token) {
     const date = new Date();
     const MM = date.getMonth() + 1;
@@ -217,30 +223,57 @@ async function logTransaction(transferAmount, token) {
         remark: transferAmount.remark
     };
 
-    const transactionService = config.get('transaction-service-config');
-
-    await axios({
-        method: 'post',
-        url: transactionService.protocol + transactionService.host + transactionService.port + transactionService.base + transactionService.uri,
-        data: JSON.stringify(requestBody),
-        headers: {
-            'content-type': 'application/json',
-            'x-auth-token': token
+    // console.log({ date }, { MM }, { month }, { requestBody },);
+    try {
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3000/api/transaction/logtransactionsummary',
+            data: JSON.stringify(requestBody),
+            headers: {
+                'content-type': 'application/json',
+                'x-auth-token': token
+            }
+        })
+        const test = (res) => {
+            console.log(res);
+            log.info(JSON.stringify(res.data));
         }
-    }).then((res) => {
-        log.info(JSON.stringify(res.data));
-    }).catch((err) => {
+        test();
+    } catch (error) {
         log.error('Unable to call logtransactionsummary service: ' + err);
-    });
+    }
 }
 
+// deleting the payee beenficiary
+
+const deletePayee = async (accountNo, payee, response) => {
+    let removePayee = {
+        firstname: payee.firstname,
+        lastname: payee.lastname,
+        accountNo: payee.accountNo
+    }
+    //using simple find and update so that we can simple search it by acc no and update it accordingly
+    await AccountModel.findOneAndUpdate({ accountNo: accountNo }, { $pull: { payees: removePayee } }, (err, result) => {
+        if (err || !result) {
+            log.error(`Error in deleting payee ${payee} for account no. ${accountNo}: ` + err);
+            return response.status(400).send({
+                messageCode: 'ACCPDE',
+                message: 'Unable to delete payee with account no. ' + payee.accountNo
+            });
+        }
+        return response.send({
+            messageCode: 'ACCPDEL',
+            message: 'Payee has been deleted with account no. ' + payee.accountNo
+        });
+    });
+}
 
 module.exports = {
     createNewAccount,
     retrieveAccountDetails,
     retrieveAccountDetailsByUsername,
-    transferAmount,
     addPayee,
-    deletePayee,
     retrievePayeeList,
+    deletePayee,
+    transferAmount
 }

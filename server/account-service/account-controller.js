@@ -132,5 +132,3 @@ function isSameAccountNo(accountNo_1, accountNo_2, res) {
     }
     return false;
 }
-
-module.exports = accountrouter;

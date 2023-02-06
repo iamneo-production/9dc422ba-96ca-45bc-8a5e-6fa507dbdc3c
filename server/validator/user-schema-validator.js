@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const userSchemaModel = require('./user-schema-model');
+const userSchemaModel = require('../models/user-schema-model');
 
 const validateLoginUserSchema = (loginUser) => {
     return Joi.validate(loginUser, userSchemaModel.loginUserInputSchemaModel);
