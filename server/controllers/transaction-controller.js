@@ -1,7 +1,7 @@
 const express = require('express');
 const transactionrouter = express.Router();
-const transactionSummaryValidator = require('./transaction-schema-validator');
-const transactionDao = require('./transaction-dao');
+const transactionSummaryValidator = require('../validator/transaction-schema-validator');
+const transactionDao = require('../Dao/transaction-dao');
 const Logger = require('../logger/logger');
 const log = new Logger('Transaction-Controller');
 

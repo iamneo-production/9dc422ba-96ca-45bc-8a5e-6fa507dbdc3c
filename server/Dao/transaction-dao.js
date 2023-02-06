@@ -1,7 +1,7 @@
 const Logger = require('../logger/logger');
 const log = new Logger('Transaction-Dao');
 const mongoose = require('mongoose');
-const transactionSchema = require('./transaction-schema-model').mongoTransactionSchema;
+const transactionSchema = require('../models/transaction-schema-model').mongoTransactionSchema;
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
 
 const dbUrl = "mongodb+srv://ayush:ayush@cluster0.qrfvug8.mongodb.net/test";

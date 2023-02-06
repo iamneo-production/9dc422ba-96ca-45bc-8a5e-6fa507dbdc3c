@@ -1,7 +1,7 @@
 const Logger = require('../logger/logger');
 const log = new Logger('Account-Dao');
 const mongoose = require('mongoose');
-const accountSchema = require('./account-schema-model').mongoAccountSchema;
+const accountSchema = require('../models/account-schema-model').mongoAccountSchema;
 const AccountModel = mongoose.model('Account', accountSchema);
 const axios = require('axios');
 // const config = require('config');

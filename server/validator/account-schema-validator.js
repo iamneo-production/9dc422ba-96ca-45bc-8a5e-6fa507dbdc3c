@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const accountSchemaModel = require('./account-schema-model');
+const accountSchemaModel = require('../models/account-schema-model');
 
 const validateCreateNewAccountSchema = (newAccount) => {
     return Joi.validate(newAccount, accountSchemaModel.newAccountInputSchemaModel);
