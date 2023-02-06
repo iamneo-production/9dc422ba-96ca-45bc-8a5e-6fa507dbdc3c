@@ -1,7 +1,7 @@
 const express = require('express');
 const accountrouter = express.Router();
 const accountValidator = require('./account-schema-validator');
-const accountDao = require('./account-dao');
+const accountDao = require('../Dao/account-dao');
 const Logger = require('../logger/logger');
 const log = new Logger('Account-Controller');
 const authTokenValidator = require('../middleware/auth-token-validator');
