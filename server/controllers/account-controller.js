@@ -27,7 +27,8 @@ accountrouter.get('/getaccountdetails/:accountno', authTokenValidator, async (re
 
 // get the details by username
 accountrouter.get('/getaccountdetailsbyusername/:username', authTokenValidator, async (req, res) => {
-    console.log({ req });
+    // console.log({ req });
+    console.log(req.params.username);
     let username = req.params.username;
     console.log({ username });
     try {

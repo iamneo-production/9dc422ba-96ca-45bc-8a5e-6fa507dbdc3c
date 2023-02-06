@@ -25,7 +25,7 @@ app.use(function (req, res, next) {
 // -----------------> Routes <-----------------------------------//
 
 const userservicerouter = require('./controllers/user-controller');
-// const accountservicerouter = require('./controllers/account-controller');
+const accountservicerouter = require('./controllers/account-controller');
 // const transactionservicerouter = require('./controllers/transaction-controller');
 
 // -----------------> Routes Setup <---------------------------------//
