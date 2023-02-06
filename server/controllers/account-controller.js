@@ -5,7 +5,8 @@ const accountDao = require('../Dao/account-dao');
 const Logger = require('../logger/logger');
 const log = new Logger('Account-Controller-table');
 const authTokenValidator = require('../middleware/auth-token-validator');
-
+const notValidSchema = require('../lib/notValidSchema');
+const isSameAccountNo = require('../lib/sameAccountNo');
 
 // -----------> http://localhost:3000/account <----------------  //
 
@@ -52,7 +53,7 @@ accountrouter.post('/createnewaccount', authTokenValidator, async (req, res) => 
     // validation for schema using joi
     let { error } = accountValidator.validateCreateNewAccountSchema(newAccount);
     // not valid function from lib
-    if (isNotValidSchema(error, res)) return;
+    if (notValidSchema(error, res)) return;
     // here dao function create new account is async coming from dao
     try {
         await accountDao.createNewAccount(newAccount, res);
@@ -75,7 +76,7 @@ accountrouter.post('/addpayee', authTokenValidator, async (req, res) => {
     let newPayee = req.body;
     // validation for schema using joi
     let { error } = accountValidator.validatePayeeSchema(newPayee);
-    if (isNotValidSchema(error, res)) return;
+    if (notValidSchema(error, res)) return;
     // if given beneficiarry already exists
     // comes from lib
     if (isSameAccountNo(newPayee.accountNo, newPayee.payee.accountNo, res)) return;
@@ -110,7 +111,7 @@ accountrouter.post('/transferamount', authTokenValidator, async (req, res) => {
     let transferAmount = req.body;
     // schema validation using joi
     let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
-    if (isNotValidSchema(error, res)) return;
+    if (notValidSchema(error, res)) return;
     if (isSameAccountNo(transferAmount.from.accountNo, transferAmount.to.accountNo, res)) return;
 
     // before accessing the transfer function from dao
@@ -141,7 +142,7 @@ accountrouter.post('/deletepayee', authTokenValidator, async (req, res) => {
     let requestBody = req.body;
     // validation of schema using joi from validator
     let { error } = accountValidator.validatePayeeSchema(requestBody);
-    if (isNotValidSchema(error, res)) return;
+    if (notValidSchema(error, res)) return;
     // if acc no same with payee acc no then throw err
     if (isSameAccountNo(requestBody.accountNo, requestBody.payee.accountNo, res)) return;
 
@@ -155,28 +156,8 @@ accountrouter.post('/deletepayee', authTokenValidator, async (req, res) => {
 
 // lib functions
 // ------------------------->LIB <------------------------------------- //
-function isNotValidSchema(error, res) {
-    if (error) {
-        log.error(`Schema validation error: ${error.details[0].message}`);
-        res.status(400).send({
-            messageCode: 'VALDERR',
-            message: error.details[0].message
-        });
-        return true;
-    }
-    return false;
-}
+// notValidSchema isSameAccountNo
 
-function isSameAccountNo(accountNo_1, accountNo_2, res) {
-    if (accountNo_1 === accountNo_2) {
-        log.error(`Transaction cannot be done on same account, from ${accountNo_1} to ${accountNo_2}`);
-        res.status(400).send({
-            messageCode: 'INVOPR',
-            message: 'Operation cannot be done on same account no.'
-        });
-        return true;
-    }
-    return false;
-}
+
 
 module.exports = accountrouter;
