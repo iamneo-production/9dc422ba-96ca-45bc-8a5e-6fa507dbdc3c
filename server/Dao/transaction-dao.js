@@ -42,7 +42,7 @@ const gettransSumm = async (req, res) => {
         .then((summary) => {
             return res.send({
                 messageCode: 'TRNSMRY',
-                summary: summary
+                summary: { summary }
             });
         })
         .catch((err) => {
