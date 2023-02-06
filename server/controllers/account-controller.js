@@ -1,52 +1,101 @@
 const express = require('express');
 const accountrouter = express.Router();
-const accountValidator = require('./account-schema-validator');
+const accountValidator = require('../validator/account-schema-validator');
 const accountDao = require('../Dao/account-dao');
 const Logger = require('../logger/logger');
-const log = new Logger('Account-Controller');
+const log = new Logger('Account-Controller-table');
 const authTokenValidator = require('../middleware/auth-token-validator');
 
-accountrouter.get('/getaccountdetails/:accountno', authTokenValidator, (req, res) => {
+
+// main get feature that is by account no
+
+accountrouter.get('/getaccountdetails/:accountno', authTokenValidator, async (req, res) => {
+    console.log({ req });
     let accountNo = req.params.accountno;
-    accountDao.retrieveAccountDetails(accountNo, res)
-        .then()
-        .catch((err) => log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err));
+    try {
+        // retrieve details comes from dao
+        await accountDao.retrieveAccountDetails(accountNo, res);
+        console.log({ res });
+    } catch (error) {
+        log.error(`Error in retrieving account details by account no. ${accountNo}: ` + err);
+    }
 });
 
-accountrouter.get('/getaccountdetailsbyusername/:username', authTokenValidator, (req, res) => {
+
+// get the details by username
+accountrouter.get('/getaccountdetailsbyusername/:username', authTokenValidator, async (req, res) => {
+    console.log({ req });
     let username = req.params.username;
-    accountDao.retrieveAccountDetailsByUsername(username, res)
-        .then()
-        .catch((err) => log.error(`Error in retrieving account details by username ${username}: ` + err));
+    console.log({ username });
+    try {
+        // retrive function comes from dao
+        await accountDao.retrieveAccountDetailsByUsername(username, res)
+        console.log({ res });
+    } catch (error) {
+        log.error(`Error in retrieving account details by username ${username}: ` + err);
+    }
 });
+
+
+// the most basic and yet the most crucial function in this table
+// creating new account works only after new user has been created in user table cuz
+// username is used as a foreign key in this table
+// uses auth token for security
 
 accountrouter.post('/createnewaccount', authTokenValidator, (req, res) => {
+    console.log({ req });
     let newAccount = req.body;
+    // validation for schema using joi
     let { error } = accountValidator.validateCreateNewAccountSchema(newAccount);
+    // not valid function from lib
     if (isNotValidSchema(error, res)) return;
-    accountDao.createNewAccount(newAccount, res)
-        .then()
-        .catch((err) => log.error(`Error in creating new account for username ${newAccount.username}: ` + err));
+    // here dao function create new account is async coming from dao
+    try {
+        accountDao.createNewAccount(newAccount, res);
+        console.log({ res });
+    } catch (error) {
+        log.error(`Error in creating new account for username ${newAccount.username}: ` + err);
+    }
 });
 
 //debugging some functions
+// will be adding testing scripts of jest very soon
+
+
+// after creating new account the second post function is add payee
+// used for adding a beneficiary's account for transaction
+// usses auth token (jwt for security)
 
 accountrouter.post('/addpayee', authTokenValidator, (req, res) => {
+    console.log({ req });
     let newPayee = req.body;
+    // validation for schema using joi
     let { error } = accountValidator.validatePayeeSchema(newPayee);
     if (isNotValidSchema(error, res)) return;
+    // if given beneficiarry already exists
+    // comes from lib
     if (isSameAccountNo(newPayee.accountNo, newPayee.payee.accountNo, res)) return;
-    accountDao.addPayee(newPayee, res)
-        .then()
-        .catch((err) => log.error(`Error in adding payee ${newPayee}: ` + err));
+    try {
+        accountDao.addPayee(newPayee, res);
+    } catch (error) {
+        log.error(`Error in adding payee ${newPayee}: ` + err);
+    }
 });
 
+// get payee for getting details of that particular beneficiary
+
 accountrouter.get('/getpayees/:accountno', authTokenValidator, (req, res) => {
+    console.log({ req });
     let accountNo = req.params.accountno;
+    // 
     accountDao.retrievePayeeList(accountNo, res)
         .then()
         .catch((err) => log.error(`Error in retrieving payee list for account no. ${accountNo}: ` + err));
 });
+
+// probably the most difficult post function of this server
+// Transfer ammount
+// auth token is used for security
 
 accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
     let transferAmount = req.body;
@@ -65,6 +114,9 @@ accountrouter.post('/transferamount', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in transaction from ${transferAmount.from.accountNo} to ${transferAmount.to.accountNo} of amount ${transferAmount.from.amount}: ` + err));
 });
 
+// deleting a benificary
+// uses jwt token
+
 accountrouter.post('/deletepayee', authTokenValidator, (req, res) => {
     let requestBody = req.body;
     let { error } = accountValidator.validatePayeeSchema(requestBody);
@@ -75,6 +127,8 @@ accountrouter.post('/deletepayee', authTokenValidator, (req, res) => {
         .catch((err) => log.error(`Error in deleting payee ${requestBody.payee} for account no. ${requestBody.accountNo}: ` + err));
 });
 
+// lib functions
+// ------------------------->LIB <------------------------------------- //
 function isNotValidSchema(error, res) {
     if (error) {
         log.error(`Schema validation error: ${error.details[0].message}`);
