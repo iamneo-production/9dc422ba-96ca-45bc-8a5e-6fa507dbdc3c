@@ -5,6 +5,7 @@ const userDao = require('../Dao/user-dao');
 const Logger = require('../logger/logger');
 const log = new Logger('User-Controller-table');
 const authTokenValidator = require('../middleware/auth-token-validator');
+const isNotValidSchema = require('../lib/notValidSchema')
 
 // This table does not require JWR because new register dont need to have a header yet
 // However if update and forgot functionalities are added then it will be required
@@ -61,17 +62,7 @@ userrouter.get('/getuserbyuserrwg/:username', authTokenValidator, async (req, re
 })
 
 // ------------------->LIB<------------------------------- //
+// isNotValidSchema 
 
-function isNotValidSchema(error, res) {
-    if (error) {
-        log.error(`Schema validation error: ${error.details[0].message}`);
-        res.status(400).send({
-            messageCode: 'VALDERR',
-            message: error.details[0].message
-        });
-        return true;
-    }
-    return false;
-}
 
 module.exports = userrouter;

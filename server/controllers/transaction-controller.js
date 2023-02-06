@@ -4,6 +4,8 @@ const transactionSummaryValidator = require('../validator/transaction-schema-val
 const transactionDao = require('../Dao/transaction-dao');
 const Logger = require('../logger/logger');
 const log = new Logger('Transaction-Controller-table');
+const notValid = require('../lib/notValid');
+const sameAcc = require('../lib/sameAccount')
 
 // -----------> http://localhost:3000/transaction <----------------  //
 
@@ -46,29 +48,6 @@ transactionrouter.get('/trasanctionsummary/:accountno', (req, res) => {
 });
 
 // ----------------------------------->LIB<----------------------------------- //
-
-function notValid(err, res) {
-    if (err) {
-        log.error(`Schema validation error: ${err.details[0].message}`);
-        res.send({
-            messageCode: 'VALDERR',
-            message: err.details[0].message
-        });
-        return true;
-    }
-    return false;
-}
-
-function sameAcc(accountNo_1, accountNo_2, res) {
-    if (accountNo_1 === accountNo_2) {
-        log.error(`Transaction cannot be done on same account, from ${accountNo_1} to ${accountNo_2}`);
-        res.status(400).send({
-            messageCode: 'INVOPR',
-            message: 'Operation cannot be done on same account no.'
-        });
-        return true;
-    }
-    return false;
-}
+// notValid and sameAccount
 
 module.exports = transactionrouter;
