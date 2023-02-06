@@ -25,13 +25,13 @@ app.use(function (req, res, next) {
 // -----------------> Routes <-----------------------------------//
 
 const userservicerouter = require('./controllers/user-controller');
-const accountservicerouter = require('./controllers/account-controller');
-const transactionservicerouter = require('./controllers/transaction-controller');
+// const accountservicerouter = require('./controllers/account-controller');
+// const transactionservicerouter = require('./controllers/transaction-controller');
 
 // -----------------> Routes Setup <---------------------------------//
 app.use('/api/user', userservicerouter);
-app.use('/api/account', accountservicerouter);
-app.use('/api/transaction', transactionservicerouter);
+// app.use('/api/account', accountservicerouter);
+// app.use('/api/transaction', transactionservicerouter);
 
 
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
