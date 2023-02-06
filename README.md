@@ -84,13 +84,13 @@ The main root file for the server is index.js, which connects to three main rout
  This API is for creating a simple banking application developed in Node JS and secured by JWT token.
 - It includes three independent services
   1. User-Service
-  1. Account-Service
-  1. Transaction-Service
+  2. Account-Service
+  3. Transaction-Service
 - The User-Service takes care of handling user related information.
-- the Account-Service takes care of handling account related information.
+- The Account-Service takes care of handling account related information.
 - The User-Service takes care of handling user related information.
 - The Transaction-Service takes care of handling transaction related information.
-- I will be adding the low level designs of this seperately very soon.
+- We will be adding the low level designs of this seperately very soon.
 
 ## User Service
 The user-service allows users to register with RBH Bank and provides a validate function for login. The service also includes several GET and UPDATE requests. During login, a JSON Web Token (JWT) is generated and used as a header for the account-service.
@@ -104,7 +104,7 @@ The transaction-service includes two functions: trans summary and log summary. T
 <!-- Frontend -->
 ## Frontend
 
-  1. Use Will not be able acess Dashboard untill they login.
+  1. Users will not be able acess Dashboard untill they login.
   2. UIDAI Aadhar verification is integrated.
   3. OTP verification will be soon implemented.
   
@@ -113,9 +113,9 @@ The transaction-service includes two functions: trans summary and log summary. T
 ## Backend
 
 The backend is created on Express. It has 3 features for now.
-   1. New Account creationg
-   2. Account Validation and other basic user services
-   3. Transactional services (NEFT type of tranfer technique)
+   1. New Account creation.
+   2. Account Validation and other basic user services.
+   3. Transactional services (NEFT type of tranfer technique).
 - The transactional services includes normal banking transactions between users, Account balance, Account validation, New account creation etc.
 
 <p align="right"><a href="#readme-top">back to top</a></p>
