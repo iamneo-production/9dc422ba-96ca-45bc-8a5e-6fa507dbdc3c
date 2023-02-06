@@ -53,7 +53,7 @@ accountrouter.post('/createnewaccount', authTokenValidator, async (req, res) => 
     // validation for schema using joi
     let { error } = accountValidator.validateCreateNewAccountSchema(newAccount);
     // not valid function from lib
-    if (notValidSchema(error, res)) return;
+    if (notValidSchema.isNotValidSchema(error, res)) return;
     // here dao function create new account is async coming from dao
     try {
         await accountDao.createNewAccount(newAccount, res);
@@ -76,10 +76,10 @@ accountrouter.post('/addpayee', authTokenValidator, async (req, res) => {
     let newPayee = req.body;
     // validation for schema using joi
     let { error } = accountValidator.validatePayeeSchema(newPayee);
-    if (notValidSchema(error, res)) return;
+    if (notValidSchema.isNotValidSchema(error, res)) return;
     // if given beneficiarry already exists
     // comes from lib
-    if (isSameAccountNo(newPayee.accountNo, newPayee.payee.accountNo, res)) return;
+    if (isSameAccountNo.isSameAccountNo(newPayee.accountNo, newPayee.payee.accountNo, res)) return;
     try {
         await accountDao.addPayee(newPayee, res);
     } catch (error) {
@@ -111,8 +111,8 @@ accountrouter.post('/transferamount', authTokenValidator, async (req, res) => {
     let transferAmount = req.body;
     // schema validation using joi
     let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
-    if (notValidSchema(error, res)) return;
-    if (isSameAccountNo(transferAmount.from.accountNo, transferAmount.to.accountNo, res)) return;
+    if (notValidSchema.isNotValidSchema(error, res)) return;
+    if (isSameAccountNo.isSameAccountNo(transferAmount.from.accountNo, transferAmount.to.accountNo, res)) return;
 
     // before accessing the transfer function from dao
     // need to check whether the current account have enough closing balance
@@ -142,9 +142,9 @@ accountrouter.post('/deletepayee', authTokenValidator, async (req, res) => {
     let requestBody = req.body;
     // validation of schema using joi from validator
     let { error } = accountValidator.validatePayeeSchema(requestBody);
-    if (notValidSchema(error, res)) return;
+    if (notValidSchema.isNotValidSchema(error, res)) return;
     // if acc no same with payee acc no then throw err
-    if (isSameAccountNo(requestBody.accountNo, requestBody.payee.accountNo, res)) return;
+    if (isSameAccountNo.isSameAccountNo(requestBody.accountNo, requestBody.payee.accountNo, res)) return;
 
     // delete function coming from dao
     try {

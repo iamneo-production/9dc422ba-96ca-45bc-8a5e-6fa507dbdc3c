@@ -20,9 +20,9 @@ transactionrouter.post('/logtransactionsummary', async (req, res) => {
     let transactionSummary = req.body;
     // validate schema from joi in the validator
     let { error } = transactionSummaryValidator.validateTransationSummarySchema(transactionSummary);
-    if (notValid(error, res)) return;
+    if (notValid.notValid(error, res)) return;
     // need to check whether summary is being asked for diff acc
-    if (sameAcc(transactionSummary.from, transactionSummary.to, res)) return;
+    if (sameAcc.sameAcc(transactionSummary.from, transactionSummary.to, res)) return;
 
     // log trans comes from dao
     try {
