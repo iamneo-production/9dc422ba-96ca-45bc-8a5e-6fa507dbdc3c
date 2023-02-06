@@ -21,7 +21,7 @@ userrouter.post('/register', async (req, res) => {
     let userObj = req.body || req.query;
     // joi is used for schema validation
     let { error } = userValidator.validateNewUserSchema(userObj);
-    if (isNotValidSchema(error, res)) return;
+    if (isNotValidSchema.isNotValidSchema(error, res)) return;
     // register function is comeing form dao
     try {
         await userDao.resgisterNewUser(userObj, res)
@@ -39,7 +39,7 @@ userrouter.post('/validateuser', async (req, res) => {
     let loginInfo = req.body || req.query;
     // joi for schema validation
     let { error } = userValidator.validateLoginUserSchema(loginInfo);
-    if (isNotValidSchema(error, res)) return;
+    if (isNotValidSchema.isNotValidSchema(error, res)) return;
 
     // Validation function manually coded no external libraries used
     // function is coming from dao
