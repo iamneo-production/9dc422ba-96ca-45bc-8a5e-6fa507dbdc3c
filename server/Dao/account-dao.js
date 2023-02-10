@@ -17,7 +17,7 @@ console.log({ accountNumberBase });
 
 // Mongoose connection
 try {
-    mongoose.connect(dbUrl, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+    mongoose.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
     log.info('connected to mongo database....');
 } catch (error) {
     log.error("unable to connect to db" + error)

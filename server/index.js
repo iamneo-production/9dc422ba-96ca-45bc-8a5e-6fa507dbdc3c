@@ -9,6 +9,11 @@ require('dotenv').config()
 const environment = process.env.NODE_ENV || "prod";
 console.log({ environment });
 
+// Whitelisdty
+const whitelist = [
+  '*'
+];
+
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
@@ -16,10 +21,18 @@ const bodyParser = require('body-parser');
 
 // some basic header for auth
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
-  res.header("Access-Control-Expose-Headers", "x-auth-token");
-  next();
+  const origin = req.get('referer');
+  const isWhitelisted = whitelist.find((w) => origin && origin.includes(w));
+  if (isWhitelisted) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
+    res.header("Access-Control-Expose-Headers", "x-auth-token");
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+  }
+  if (req.method === 'OPTIONS') res.sendStatus(200);
+  else next();
 });
 
 // -----------------> Routes <-----------------------------------//

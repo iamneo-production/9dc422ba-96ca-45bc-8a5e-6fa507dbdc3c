@@ -44,7 +44,7 @@
     <li><a href="#backend">Backend</a></li>
     <li><a href="#description">Description</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#howtouse">How to use</a></li>
+    <li><a href="#installation">How to use</a></li>
   </ol>
 </details>
 
@@ -57,49 +57,26 @@
 
 ----------------------
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+<p align="right"><a href="#readme-top">back to top</a></p>
 
-## Technologies used
-
-* [![React][React.js]][React-url] -> One of the most popular front-end javascript library.
-* [![Express][Express.js]][Express-url] -> A Nodejs module to develop Restfull APIs. Here I have used it for developing Restfull APIs.
-* [![MongoDB][MongoDB]][MongoDB-url] ->  One of the most popular database.
-* [![JWT][JWT]][JWT-url] ->  A Nodejs module to generate JWT token and to verify the provided token. Here I have used to it generate JWT token on successful login and to verify each endpoint at the time of request.
-* [![JOI][JOI]][JOI-url] ->  A Nodejs module to validate schemas. Here I have used it to validate the request body as input.
-* [![Morgan][Morgan]][Morgan-url] ->  A Nodejs module to log http request and respone. Here I have used it for development purpose.
-* [![B-crypt][B-crypt]][Bcrypt-url] ->  A Nodejs module to encrypt and decrypt. Here I have used it to encrypt the user password at the time of registering and compare it at the time of login.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ----------------------
 
-<!-- Frontend -->
-## Frontend
+## RBH Bank - A Digital Neobank
+RBH Bank is a digital bank built using Node.js, MongoDB, and Express. This application implements a user-service, account-service, and transaction-service to provide a complete banking experience.
 
-  1. Use Will not be able acess Dashboard untill they login.
-  2. UIDAI Aadhar verification is integrated.
-  3. OTP verification will be soon implemented.
+## Installation
+To install the RBH Bank, follow these steps:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+- Clone the repository
+- cd into the server directory
+- Run npm i to install dependencies
+- Start the server using nodemon index.js
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-----------------------
-
-<!-- backend -->
-## Backend
-
-The backend is created on Express. It has 3 features for now.
-   1. New Account creationg
-   2. Account Validation and other basic user services
-   3. Transactional services (NEFT type of tranfer technique)
-- The transactional services includes normal banking transactions between users, Account balance, Account validation, New account creation etc.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-----------------------
+## File Structure
+The main root file for the server is index.js, which connects to three main routes: user-service, account-service, and transaction-service.
 
 <!-- Description -->
 ## Description
@@ -107,17 +84,41 @@ The backend is created on Express. It has 3 features for now.
  This API is for creating a simple banking application developed in Node JS and secured by JWT token.
 - It includes three independent services
   1. User-Service
-  1. Account-Service
-  1. Transaction-Service
+  2. Account-Service
+  3. Transaction-Service
 - The User-Service takes care of handling user related information.
-- the Account-Service takes care of handling account related information.
+- The Account-Service takes care of handling account related information.
 - The User-Service takes care of handling user related information.
 - The Transaction-Service takes care of handling transaction related information.
-- I will be adding the low level designs of this seperately very soon.
+- We will be adding the low level designs of this seperately very soon.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## User Service
+The user-service allows users to register with RBH Bank and provides a validate function for login. The service also includes several GET and UPDATE requests. During login, a JSON Web Token (JWT) is generated and used as a header for the account-service.
 
-----------------------
+## Account Service
+The account-service allows users to create a new account and includes functions such as createnewaccount, getaccountdetailsbyusername, getaccountdetails, addpayee, getpayees, and transferamount. The addpayee function is used to add a beneficiary for making payments. The username is used as a foreign key in the user table and the JWT token is used for security.
+
+## Transaction Service
+The transaction-service includes two functions: trans summary and log summary. Trans summary provides a transaction summary with remarks after the transaction.
+
+<!-- Frontend -->
+## Frontend
+
+  1. Users will not be able acess Dashboard untill they login.
+  2. UIDAI Aadhar verification is integrated.
+  3. OTP verification will be soon implemented.
+  
+  
+<!-- backend -->
+## Backend
+
+The backend is created on Express. It has 3 features for now.
+   1. New Account creation.
+   2. Account Validation and other basic user services.
+   3. Transactional services (NEFT type of tranfer technique).
+- The transactional services includes normal banking transactions between users, Account balance, Account validation, New account creation etc.
+
+<p align="right"><a href="#readme-top">back to top</a></p>
 
 
 <!-- Roadmap -->
@@ -134,40 +135,23 @@ The backend is created on Express. It has 3 features for now.
 
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-----------------------
-
-
-
-<!-- How to use -->
-## How to use
-
-Download the repo and then follow the installation methods given below.
+## Tech Stack
+The following technologies were used to build RBH Bank:
 
 
-### Backend
+* [![React][React.js]][React-url] -> One of the most popular front-end javascript library.
+* [![Express][Express.js]][Express-url] -> A Nodejs module to develop Restfull APIs. Here I have used it for developing Restfull APIs.
+* [![MongoDB][MongoDB]][MongoDB-url] ->  One of the most popular database.
+* [![JWT][JWT]][JWT-url] ->  A Nodejs module to generate JWT token and to verify the provided token. Here I have used to it generate JWT token on successful login and to verify each endpoint at the time of request.
+* [![JOI][JOI]][JOI-url] ->  A Nodejs module to validate schemas. Here I have used it to validate the request body as input.
+* [![Morgan][Morgan]][Morgan-url] ->  A Nodejs module to log http request and respone. Here I have used it for development purpose.
+* [![B-crypt][B-crypt]][Bcrypt-url] ->  A Nodejs module to encrypt and decrypt. Here I have used it to encrypt the user password at the time of registering and compare it at the time of login.
 
-###### Step 1 - Cd over to the folder
-###### Step 2 - npm i
-###### Step 3 - Set the environment variable.
-###### Step 4 - Make sure to connect your MongoDB server is running on the same environment.
-###### Step 5 - Nodemon index.js
+## Contributing
+If you would like to contribute to RBH Bank, please reach out to the development team.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-----------------------
-
-
-### Frontend
-
-###### Step 1 - Cd over to the folder
-###### Step 2 - npm i
-###### Step 3 - npm start
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-----------------------
+<p align="right"><a href="#readme-top">back to top</a></p>
 
 
 
