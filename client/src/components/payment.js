@@ -48,7 +48,7 @@ const Payment = ({ notOn, setnotOn, loader, setloader }) => {
         const [firstname, lastname] = senderName.split(" ");
         await axios({
             method: "post",
-            url: "https://neobank-backend.vercel.app/bankingapp/api/account/addpayee",
+            url: "https://neobank2.vercel.app/bankingapp/api/account/addpayee",
             data: {
                 accountNo: userAccNumber,
                 payee: {
@@ -116,28 +116,31 @@ const Payment = ({ notOn, setnotOn, loader, setloader }) => {
                 setloader("display")
                 let date = new Date()
                 date = date.toISOString().substring(0, 10)
-                await axios.post("https://neobank-backend.vercel.app/bankingapp/api/account/transferamount", {
-                    data
-                })
-                    .then((res) => console.log(res))
-                    .then(() => {
-                        alert("Payment Successful")
-                        setTimeout(() => navigatetoDashboard(), 2000)
+                await axios.all([
+                    axios.post("https://neobank-backend.vercel.app/bankingapp/api/account/transferamount", {
+                        data
                     })
-                    .catch(e => { console.log(e); })
-                await axios.post(`http://localhost:8081/bankingapp/api/transaction/logTransactionSummary`, {
-                    data: {
-                        amount: amount,
-                        transferedOn: date,
-                        to: accountNumber,
-                        from: userAccNumber,
-                        remark: remark
-                    }
-                }).then((res) => {
-                    setloader("none");
-                    console.log(res)
-                }).catch((err) => console.log(err)
-                )
+                        .then((res) => console.log(res))
+                        .then(() => {
+                            alert("Payment Successful")
+                            setTimeout(() => navigatetoDashboard(), 2000)
+                        })
+                        .catch(e => { console.log(e); }),
+
+                    axios.post(`http://localhost:8081/bankingapp/api/transaction/logTransactionSummary`, {
+                        data: {
+                            amount: amount,
+                            transferedOn: date,
+                            to: accountNumber,
+                            from: userAccNumber,
+                            remark: remark
+                        }
+                    }).then((res) => {
+                        setloader("none");
+                        console.log(res)
+                    }).catch((err) => console.log(err)
+                    )
+                ])
             }
         }
         transaction()

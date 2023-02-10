@@ -18,9 +18,10 @@ import NotiComp from "./notification_component";
 import { Alert } from "@mui/lab";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
+import { useUserDetails } from "../apis/userAndAccountDetails";
 const Dashboard = ({ notOn, setnotOn }) => {
 
-    const { username,dispatch } = useAuthContext()
+    const { username } = useAuthContext()
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
     let piedata =
@@ -67,8 +68,10 @@ const Dashboard = ({ notOn, setnotOn }) => {
         setexpense(exp);
         setaccBalance(amt);
     }, []);
+    
     const [userDataFetch, setuserDataFetch] = useState({});
     const [accountData, setaccountData] = useState({});
+    useUserDetails(setaccountData,setuserDataFetch);
     // console.log(stateData);
     useEffect(() => {
         async function CallApi() {
@@ -77,16 +80,7 @@ const Dashboard = ({ notOn, setnotOn }) => {
                 setDashboaredEnable({
                     opacity: "100",
                     display: "none"
-                })
-                await axios({
-                    method: "get",
-                    url: "https://neobank-backend.vercel.app/bankingapp/api/account/getaccountdetailsbyusername/"+username,
-
-
-                }).then((res) => { setaccountData(res.data.accountDetails) }).catch((e) => console.log(e));
-
-                await axios.get("https://neobank-backend.vercel.app/bankingapp/api/user/getuserbyusername/"+username)
-                    .then(e => { setuserDataFetch(e.data[0]) }).catch((e) => console.log(e));
+                }) 
             } else if (!username) {
                 setDashboaredEnable({
                     opacity: "5%",

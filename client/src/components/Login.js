@@ -33,10 +33,13 @@ function Login({ notOn, setnotOn, loader, setloader }) {
         e.preventDefault()
         await axios.request({
             method: "post",
-            url: "http://localhost:8081/bankingapp/api/user/validateuser",
+            url: "https://neobank2.vercel.app/bankingapp/api/user/validateuser",
             data: {
                 username: username,
                 password: password
+            },
+            headers: {
+                "Access-Control-Allow-Origin": "*"
             }
         }).then(() => {
             console.log("succcessfully logged in");
@@ -75,7 +78,7 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     return (
         <>
             <NavBar setnotOn={setnotOn} />
-            {loader==="display"&&
+            {loader === "display" &&
                 <Loader loader={loader} />
             }
             <div className="main-box" style={{ display: popUpStyle.display }}>

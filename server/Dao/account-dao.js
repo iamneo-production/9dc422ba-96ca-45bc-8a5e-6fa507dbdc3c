@@ -12,7 +12,7 @@ const axios = require('axios');
 const dbUrl = process.env.MONGO_URL;
 console.log({ dbUrl });
 
-var accountNumberBase = Math.random() * 10000000000000000n;
+var accountNumberBase = Math.random() * 10000000000000000;
 console.log({ accountNumberBase });
 
 // Mongoose connection
