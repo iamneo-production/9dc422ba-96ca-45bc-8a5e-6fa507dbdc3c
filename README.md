@@ -74,8 +74,7 @@
 
 
 
-
-![Server Demo pic](../../../Screenshot%202023-02-11%20142945.png)
+![Server Demo pic](https://user-images.githubusercontent.com/77238801/218259508-a04d01fe-a037-4439-8c79-172e1501dc9d.png)
 
 Here are some of the key features of the Web App:
 * Very user friendly User interface.
