@@ -2,11 +2,15 @@
 <a name="readme-top"></a>
 
 [![Contributors][contributors-shield]][contributors-url]
+[![Ayush][linkedin-shield2]][contributors-url2]
+[![Anuj][linkedin-shield1]][contributors-url1]
+[![Prakhar][linkedin-shield3]][contributors-url3]
+[![Sanket][linkedin-shield4]][contributors-url4]
+
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
+<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
 
 <!-- PROJECT LOGO -->
@@ -61,13 +65,17 @@
 </details>
 
 
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](../Screenshot%202023-02-11%20142945.png)
 
-RBH Bank is a digital bank built using Node.js, MongoDB, and Express. This application implements a user-service, account-service, and transaction-service to provide a complete banking experience.
+ **RBH Bank is a digital bank built using Node.js, MongoDB, and Express. This application implements a user-service, account-service, and transaction-service to provide a complete banking experience.**
+
+
+
+
+
+![Server Demo pic](../../../Screenshot%202023-02-11%20142945.png)
 
 Here are some of the key features of the Web App:
 * Very user friendly User interface.
@@ -96,14 +104,14 @@ This web app is divided into frontend (client) and backend (server or apis).
 * [![JQuery][JQuery.com]][JQuery-url]
 
 #### Backend Tech used
-* [![Express][Expressjs]][Express-url]
-* [![Node][Nodejs]][Node-url]
+* [![Express.js][Express.js]][Express-url]
+* [![Node][Node]][Node-url]
 * [![Morgan][Morgan]][Morgan-url]
 * [![MongoDB][MongoDB]][MongoDB-url]
 * [![JWT][JWT]][JWT-url]
 * [![JOI][JOI]][JOI-url]
-* [![JEST][JEST]][JEST-url]
-* [![Bcrypt][Bcrypt]][Bcrypt-url]
+* [![Jest][Jest]][JEST-url]
+* [![B-crypt][B-crypt]][Bcrypt-url]
 * [![Vercel][Vercel]][Vercel-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -248,7 +256,10 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## Workflow
 
-Coming Soon ...
+
+[![Canva][canva-shield]][canva-url]
+
+More Coming Soon ...
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -257,9 +268,16 @@ Coming Soon ...
 <!-- CONTACT -->
 ## Contact
 
-Ayush Bhai Mehta - [![LinkedIn][linkedin-shield]][linkedin-url] - [![Gmail][gmail-shield]][email-url]
+[![Ayush][Ayush]][Ayush-url][![LinkedIn][linkedin-shield]][linkedin-url][![Gmail][Gmail]][Gmail-url]
 
-Project Link: [![Github][github-shield]][github-url] 
+[![Anuj][Anuj]][Anuj-url][![LinkedIn][linkedin-shield]][linkedin-url][![Gmail][Gmail]][Gmail-url]
+
+[![Sanket][Sanket]][Sanket-url][![LinkedIn][linkedin-shield]][linkedin-url][![Gmail][Gmail]][Gmail-url]
+
+[![Prakhar][Prakhar]][Prakhar-url][![LinkedIn][linkedin-shield]][linkedin-url][![Gmail][Gmail]][Gmail-url]
+
+
+[![Project-Link][Project-Link]][Prakhar-url][![Github][Github]][Github-url] 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -273,14 +291,21 @@ Coming Soon...
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/iamneo-production/9dc422ba-96ca-45bc-8a5e-6fa507dbdc3c/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[linkedin-shield1]: https://img.shields.io/static/v1?label=&message=Anuj&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield2]: https://img.shields.io/static/v1?label=&message=Ayush&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield3]: https://img.shields.io/static/v1?label=&message=Prakhar&color=black&style=for-the-badge&logo=linkedin
+[linkedin-shield4]: https://img.shields.io/static/v1?label=&message=Sanket&color=black&style=for-the-badge&logo=linkedin
+[contributors-url1]: https://www.linkedin.com/in/awasthi-anuj/
+[contributors-url2]: https://www.linkedin.com/in/ayush-mehta-6997a4235/
+[contributors-url3]: https://www.linkedin.com/in/prakhartomar53/
+[contributors-url4]: https://www.linkedin.com/in/sanket-kumar-singh-b698191b8/
+[contributors-shield]: https://img.shields.io/static/v1?label=&message=Contributors&color=black&style=for-the-badge&logo=contributors
+[contributors-url]: https://img.shields.io/badge/Contributors-0769AD?style=for-the-badge&Contributors&logoColor=white
+[forks-shield]: https://img.shields.io/badge/issues-12open-0769AD?style=for-the-badge&issues=12&logoColor=white
 [forks-url]: https://github.com/iamneo-production/9dc422ba-96ca-45bc-8a5e-6fa507dbdc3c/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/badge/stars-5-0769AD?style=for-the-badge&stars&logoColor=white
 [stars-url]: https://github.com/iamneo-production/9dc422ba-96ca-45bc-8a5e-6fa507dbdc3c/pulls
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/badge/Pull_Request-70merged-0769AD?style=for-the-badge&Pullrequest&logoColor=white
 [issues-url]: https://github.com/iamneo-production/9dc422ba-96ca-45bc-8a5e-6fa507dbdc3c/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/ayushbhaimehta/
@@ -304,17 +329,44 @@ Coming Soon...
 [github-url]: https://github.com/iamneo-production/9dc422ba-96ca-45bc-8a5e-6fa507dbdc3c
 [email-url]: https://github.com/iamneo-production/9dc422ba-96ca-45bc-8a5e-6fa507dbdc3c
 [github-url]: https://github.com/iamneo-production/9dc422ba-96ca-45bc-8a5e-6fa507dbdc3c
-
+[Express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
+[Express-url]: https://expressjs.com/
+[MongoDB]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]: https://www.mongodb.com/
+[JWT]: https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink
+[JWT-url]: https://jwt.io/
+[JOI]: https://img.shields.io/badge/joi-%23121011.svg?style=for-the-badge&logo=joi&logoColor=white
+[JOI-url]: https://joi.dev/
+[Morgan]: https://img.shields.io/badge/Morgan-563D7C?style=for-the-badge&logo=morgan&logoColor=white
+[Morgan-url]: https://www.npmjs.com/package/morgan
+[B-crypt]: https://img.shields.io/badge/Bcrypt-0769AD?style=for-the-badge&logo=bcrypt&logoColor=white
+[Bcrypt-url]: https://www.npmjs.com/package/bcryptjs
+[Node]:https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[Node-url]: https://nodejs.org/dist/latest-v18.x/docs/api/
+[Jest]:https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
+[Jest-url]:https://jestjs.io/docs/api
+[Vercel]:https://img.shields.io/badge/vercel-%23121011.svg?style=for-the-badge&logo=vercel&logoColor=white
+[Vercel-url]:https://vercel.com/docs
+[Gmail]:https://img.shields.io/badge/gmail-%23121011.svg?style=for-the-badge&logo=gmail&logoColor=white
+[Gmail-url]:mailto:ayushmehta0620@gmail.com
+[Ayush]:https://img.shields.io/badge/Ayush-20232A?style=for-the-badge&logo=Ayush&logoColor=61DAFB
+[Ayush-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
+[Anuj]:https://img.shields.io/badge/Anuj-DD0031?style=for-the-badge&logo=Anuj&logoColor=white
+[Sanket]:https://img.shields.io/badge/Sanket-4EA94B?style=for-the-badge&logo=Sanket&logoColor=white
+[Prakhar]:https://img.shields.io/badge/Prakhar-563D7C?style=for-the-badge&logo=Prakhar&logoColor=white
+[Anuj-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
+[Sanket-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
+[Prakhar-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
+[Github]:https://img.shields.io/badge/Github-4A4A55?style=for-the-badge&logo=github&logoColor=61DAFB
+[Github-url]:https://github.com/ayushbhaimehta/NEo-Bank
+[Project-Link]:https://img.shields.io/badge/ProjectLink-0769AD?style=for-the-badge&logo=ProjectLink&logoColor=white
+[Project-Link-url]:https://github.com/ayushbhaimehta/NEo-Bank
 <!-- <a name="readme-top"></a>
 
 
-[![Anuj][linkedin-shield1]][contributors-url1]
-[![Ayush][linkedin-shield2]][contributors-url2]
-[![Prakhar][linkedin-shield3]][contributors-url3]
-[![Sanket][linkedin-shield4]][contributors-url4]
 
-## The Project Presentation
-[![Canva][canva-shield]][canva-url]
+
+
 -----------------------------------------------------------------------------------
 
 <!-- PROJECT LOGO -->
@@ -438,7 +490,7 @@ The backend is created on Express. It has 3 features for now.
 <div display="flex" justify-content="center">
 <img src="https://user-images.githubusercontent.com/77981888/201920424-7c2c4a68-a4f6-4a1a-87f3-72d4134b9ef7.jpeg"  width="800" height="300" />
 
-</div> --> -->
+</div> --> 
 
 
 
@@ -464,30 +516,8 @@ If you would like to contribute to RBH Bank, please reach out to the development
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[linkedin-shield1]: https://img.shields.io/static/v1?label=&message=Anuj&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield2]: https://img.shields.io/static/v1?label=&message=Ayush&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield3]: https://img.shields.io/static/v1?label=&message=Prakhar&color=black&style=for-the-badge&logo=linkedin
-[linkedin-shield4]: https://img.shields.io/static/v1?label=&message=Sanket&color=black&style=for-the-badge&logo=linkedin
-[canva-shield]: https://img.shields.io/static/v1?label=&message=Click-Here&color=black&style=for-the-badge&logo=Canva
-[contributors-url1]: https://www.linkedin.com/in/awasthi-anuj/
-[contributors-url2]: https://www.linkedin.com/in/ayush-mehta-6997a4235/
-[contributors-url3]: https://www.linkedin.com/in/prakhartomar53/
-[contributors-url4]: https://www.linkedin.com/in/sanket-kumar-singh-b698191b8/
-[canva-url]: https://www.canva.com/design/DAFTILlf_XE/UVbaZyQnBFmsyjjHRuuNgQ/view?utm_content=DAFTILlf_XE&utm_campaign=designshare&utm_medium=link&utm_source=publishpresent -->
+
+[canva-shield]: https://img.shields.io/static/v1?label=&message=Presentation&color=black&style=for-the-badge&logo=Canva
+[canva-url]: https://www.canva.com/design/DAFTILlf_XE/UVbaZyQnBFmsyjjHRuuNgQ/view?utm_content=DAFTILlf_XE&utm_campaign=designshare&utm_medium=link&utm_source=publishpresent
 
 
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
-[Express-url]: https://expressjs.com/
-[MongoDB]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
-[MongoDB-url]: https://www.mongodb.com/
-[JWT]: https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink
-[JWT-url]: https://jwt.io/
-[JOI]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[JOI-url]: https://joi.dev/
-[Morgan]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Morgan-url]: https://www.npmjs.com/package/morgan
-[B-crypt]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[Bcrypt-url]: https://www.npmjs.com/package/bcryptjs -->
-# -->
