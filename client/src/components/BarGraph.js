@@ -1,10 +1,10 @@
 import React from "react";
 import Transanctions from "./transactions";
 import Plot from 'react-plotly.js'
-function BarGraph(props) {
+function BarGraph({duration, type}) {
     let data = { data: [] }
     // console.log(props.type);
-    if (props.duration === "Annualy") {
+    if (duration === "Annualy") {
         const monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         const monthDataExpense = [];
         const monthDataIncome = [];
@@ -27,17 +27,17 @@ function BarGraph(props) {
             x: monthArr,
             y: monthDataIncome,
             name: "Income",
-            type: props.type
+            type: type
 
         },
         {
             x: monthArr,
             y: monthDataExpense,
             name: "Expense",
-            type: props.type
+            type: type
         }
         ]
-    } else if (props.duration === "Weekly") {
+    } else if (duration === "Weekly") {
         var weekArr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         var date = new Date();
         var today = date.getDay();
@@ -69,18 +69,18 @@ function BarGraph(props) {
             x: weekArr,
             y: incomeArr,
             name: "Income",
-            type: props.type
+            type: type
 
         },
         {
             x: weekArr,
             y: expenseArr,
             name: "Expense",
-            type:props.type
+            type:type
         }
         ]
     }
-    else if(props.duration==="Monthly"){
+    else if(duration==="Monthly"){
         date=new Date()
         today=date.getDate();
         const monthArr=[];
@@ -110,14 +110,14 @@ function BarGraph(props) {
             x: monthArr,
             y: incomeArr,
             name: "Income",
-            type: props.type
+            type: type
 
         },
         {
             x: monthArr,
             y: expenseArr,
             name: "Expense",
-            type: props.type
+            type: type
         }
         ]
 

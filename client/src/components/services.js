@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 function Services() {
     return (
-        <>
+        <div data-testid="service-test">
             <div style={{ height: "100px" }}></div>
             <div >
 
@@ -34,7 +34,7 @@ function Services() {
                 </div>
                 <div style={{height:"50px"}}></div>
             </div>
-        </>
+        </div>
     )
 
 }

@@ -15,7 +15,6 @@ import { useAuthContext } from "./hooks/useAuthContext";
 function App() {
   const { username, dispatch } = useAuthContext()
   const storedUsername = window.localStorage.getItem("username")
-  // console.log("local storage data: ", storedUsername);
   useEffect(() => {
     if (storedUsername!=null) {
       dispatch({
@@ -23,7 +22,7 @@ function App() {
         payload: storedUsername
       })
     }
-  }, [username])
+  }, [dispatch, storedUsername, username])
 
 
   const [loader, setloader] = useState("none")
@@ -58,7 +57,7 @@ function App() {
           />} />
           <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn} loader={loader} setloader={setloader}/>} />
           <Route path="/Contact-us" element={<ContactUs notOn={notOn} setnotOn={setnotOn} />} />
-          <Route path="/editAccountDetails" element={<EditUserDetails notOn={notOn} setnotOn={setnotOn} />} />
+          <Route path="/editAccountDetails" element={<EditUserDetails />} />
         </Routes>
       </BrowserRouter>
 
