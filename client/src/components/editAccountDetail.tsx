@@ -131,7 +131,7 @@ export default function BasicTabs() {
     const [errorMsgstyle, seterrorMsgstyle] = useState("none")
     const [errorMsg, seterrorMsg] = useState("Kindly put all the fields correctly")
     return (
-        <>
+        <div data-testid="editAccountDetails">
             <NavBar setnotOn={""}/>
             <div style={{ height: "50px" }}></div>
             <div style={{ width: "50%", margin: "auto" }}>
@@ -193,6 +193,6 @@ export default function BasicTabs() {
             </div>
             <div style={{ height: "50px" }}></div>
             <Footer />
-        </>
+        </div>
     );
 }

@@ -1,17 +1,18 @@
 import React from "react";
 
 function ServiceCard(props){
+    const {title, desc, link}=props.testProps
     return(
         <>
-        <div className="service-card-boundary">
+        <div className="service-card-boundary" data-testid="service-card">
             <h4 className="service-title">
-                {props.title}
+                {title}
             </h4>
             <p className="service-desc">
-                {props.desc}
+                {desc}
             </p>
             <div  className="service-link">
-            <a href={props.link}>
+            <a href={link}>
                 Click Here
             </a>
             </div>

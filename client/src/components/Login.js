@@ -11,7 +11,7 @@ import { CreateAccountPopup } from "./signup";
 import { Loader } from "./loader";
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
-
+import { ValidateUser } from "../apis/userAndAccountDetails";
 function Login({ notOn, setnotOn, loader, setloader }) {
     const LoginState = useAuthContext();
     let navigate = useNavigate();
@@ -26,19 +26,10 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     function changepass(e) {
         setpassword(e.target.value);
     }
-
     async function setCredentials(e) {
         setloader("display");
-        console.log("login called");
         e.preventDefault()
-        await axios.request({
-            method: "post",
-            url: "http://localhost:8081/bankingapp/api/user/validateuser",
-            data: {
-                username: username,
-                password: password
-            }
-        }).then(() => {
+        await ValidateUser({username,password}).then(() => {
             console.log("succcessfully logged in");
             LoginState.dispatch({
                 type: "LOGIN",
@@ -75,7 +66,7 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     return (
         <>
             <NavBar setnotOn={setnotOn} />
-            {loader==="display"&&
+            {loader === "display" &&
                 <Loader loader={loader} />
             }
             <div className="main-box" style={{ display: popUpStyle.display }}>
