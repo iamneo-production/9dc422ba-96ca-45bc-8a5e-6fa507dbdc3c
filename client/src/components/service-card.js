@@ -1,7 +1,7 @@
 import React from "react";
 
 function ServiceCard(props){
-    const {title, desc, link}=props.testProps
+    const {title, desc, link}= props.testprops? props.testprops:props; 
     return(
         <>
         <div className="service-card-boundary" data-testid="service-card">
