@@ -352,13 +352,13 @@ Coming Soon...
 [Vercel]:https://img.shields.io/badge/vercel-%23121011.svg?style=for-the-badge&logo=vercel&logoColor=white
 [Vercel-url]:https://vercel.com/docs
 [Gmail]:https://img.shields.io/badge/gmail-%23121011.svg?style=for-the-badge&logo=gmail&logoColor=white
-[Gmail-url]:mailto:ayushmehta0620@gmail.com
+[Gmail-url]:mailto:awasthianuj394@gmail.com
 [Ayush]:https://img.shields.io/badge/Ayush-20232A?style=for-the-badge&logo=Ayush&logoColor=61DAFB
 [Ayush-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
 [Anuj]:https://img.shields.io/badge/Anuj-DD0031?style=for-the-badge&logo=Anuj&logoColor=white
 [Sanket]:https://img.shields.io/badge/Sanket-4EA94B?style=for-the-badge&logo=Sanket&logoColor=white
 [Prakhar]:https://img.shields.io/badge/Prakhar-563D7C?style=for-the-badge&logo=Prakhar&logoColor=white
-[Anuj-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
+[Anuj-url]:https://user-images.githubusercontent.com/77981888/233767857-d37af74d-cf62-40e5-a6e8-dda7a921e7f6.jpg
 [Sanket-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
 [Prakhar-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
 [Github]:https://img.shields.io/badge/Github-4A4A55?style=for-the-badge&logo=github&logoColor=61DAFB
@@ -366,7 +366,6 @@ Coming Soon...
 [Project-Link]:https://img.shields.io/badge/ProjectLink-0769AD?style=for-the-badge&logo=ProjectLink&logoColor=white
 [Project-Link-url]:https://github.com/ayushbhaimehta/NEo-Bank
 <!-- <a name="readme-top"></a>
-
 
 
 
