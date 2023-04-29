@@ -276,7 +276,7 @@ More Coming Soon ...
 
 [![Anuj][Anuj]][Anuj-url][![LinkedIn][linkedin-shield]][linkedin-url][![Gmail][Gmail]][Gmail-url]
 
-[![Sanket][Sanket]][Sanket-url][![LinkedIn][linkedin-shield]][linkedin-url][![Gmail][Gmail]][Gmail-url]
+[![Sanket][Sanket]][Sanket-url][![LinkedIn][linkedin-shield]][contributors-url4][![Gmail][Gmail]][Gmail-url-sanket]
 
 [![Prakhar][Prakhar]][Prakhar-url][![LinkedIn][linkedin-shield]][linkedin-url][![Gmail][Gmail]][Gmail-url]
 
@@ -353,13 +353,14 @@ Coming Soon...
 [Vercel-url]:https://vercel.com/docs
 [Gmail]:https://img.shields.io/badge/gmail-%23121011.svg?style=for-the-badge&logo=gmail&logoColor=white
 [Gmail-url]:mailto:awasthianuj394@gmail.com
+[Gmail-url-sanket]:mailto:imsanketsingh@gmail.com
 [Ayush]:https://img.shields.io/badge/Ayush-20232A?style=for-the-badge&logo=Ayush&logoColor=61DAFB
 [Ayush-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
 [Anuj]:https://img.shields.io/badge/Anuj-DD0031?style=for-the-badge&logo=Anuj&logoColor=white
 [Sanket]:https://img.shields.io/badge/Sanket-4EA94B?style=for-the-badge&logo=Sanket&logoColor=white
 [Prakhar]:https://img.shields.io/badge/Prakhar-563D7C?style=for-the-badge&logo=Prakhar&logoColor=white
 [Anuj-url]:https://user-images.githubusercontent.com/77981888/233767857-d37af74d-cf62-40e5-a6e8-dda7a921e7f6.jpg
-[Sanket-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
+[Sanket-url]:https://user-images.githubusercontent.com/77242965/235302273-f8f98a50-7782-49ad-80a8-762bde44bee7.jpg
 [Prakhar-url]:https://avatars.githubusercontent.com/u/77238801?s=400&u=e8e4e22dda235142e1e5e2d6ac75737759f8b41d&v=4
 [Github]:https://img.shields.io/badge/Github-4A4A55?style=for-the-badge&logo=github&logoColor=61DAFB
 [Github-url]:https://github.com/ayushbhaimehta/NEo-Bank
