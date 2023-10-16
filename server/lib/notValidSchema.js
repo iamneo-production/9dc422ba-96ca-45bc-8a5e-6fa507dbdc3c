@@ -1,3 +1,7 @@
+const Logger = require('../logger/logger');
+const log = new Logger('LIB');
+
+
 function isNotValidSchema(error, res) {
     if (error) {
         log.error(`Schema validation error: ${error.details[0].message}`);
