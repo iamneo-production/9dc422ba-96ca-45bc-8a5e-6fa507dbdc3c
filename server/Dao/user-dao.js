@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 
 
 // MongoDB URL comes from .env file copy paste the url to make it work in dev mode
-const dbUrl = process.env.MONGO_URL;
+const dbUrl = "mongodb+srv://bhai:bhai@cluster0.jikoqbw.mongodb.net/";
 console.log({ dbUrl });
 
 // secret key needs to be same across all dao functions
