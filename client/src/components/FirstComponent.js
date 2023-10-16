@@ -228,7 +228,7 @@ function Step1({ data, setmsg, setText, setloader}) {
         console.log(UserData);
         await axios({
             method: 'post',
-            url: 'https://neobank-backend.vercel.app/bankingapp/api/user/register',
+            url: 'https://n-eo-bank.vercel.app/api/user/register',
             data: UserData
         }).then(e => {
             console.log(e);
@@ -239,7 +239,7 @@ function Step1({ data, setmsg, setText, setloader}) {
         await CreateUser(e)
         await axios({
             method: 'post',
-            url: "https://neobank-backend.vercel.app/bankingapp/api/account/createnewaccount",
+            url: "https://n-eo-bank.vercel.app/api/account/createnewaccount",
             data: {
                 username: username,
                 closingBalance: openingBal

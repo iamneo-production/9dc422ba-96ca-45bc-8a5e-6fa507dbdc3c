@@ -42,7 +42,7 @@ function ReviewSlider() {
 
   return (
     <article className="review">
-      <div style={{backgroundColor:"#f0ecec"}}>
+      <div style={{ backgroundColor: "#f0ecec" }}>
 
         <div className="img-container">
           <img src={image} alt={name} className="person-img" />
