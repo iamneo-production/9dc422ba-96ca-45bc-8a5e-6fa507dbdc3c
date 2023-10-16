@@ -13,7 +13,6 @@ import { BsArrowRightSquareFill, BsCashCoin } from "react-icons/bs"
 import { PieChart } from "react-minimal-pie-chart";
 import Transactions from "./transactions";
 import BarGraph from "./BarGraph";
-import axios from 'axios';
 import NotiComp from "./notification_component";
 import { Alert } from "@mui/lab";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -68,10 +67,10 @@ const Dashboard = ({ notOn, setnotOn }) => {
         setexpense(exp);
         setaccBalance(amt);
     }, []);
-    
+
     const [userDataFetch, setuserDataFetch] = useState({});
     const [accountData, setaccountData] = useState({});
-    useUserDetails(setaccountData,setuserDataFetch);
+    useUserDetails(setaccountData, setuserDataFetch);
     // console.log(stateData);
     useEffect(() => {
         async function CallApi() {
@@ -80,7 +79,7 @@ const Dashboard = ({ notOn, setnotOn }) => {
                 setDashboaredEnable({
                     opacity: "100",
                     display: "none"
-                }) 
+                })
             } else if (!username) {
                 setDashboaredEnable({
                     opacity: "5%",
