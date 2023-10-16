@@ -14,7 +14,7 @@ const dbUrl = "mongodb+srv://bhai:bhai@cluster0.jikoqbw.mongodb.net/";
 console.log({ dbUrl });
 
 // secret key needs to be same across all dao functions
-const secretKey = getJWT();
+const secretKey = "1122";
 
 // Mongoose connection
 try {
