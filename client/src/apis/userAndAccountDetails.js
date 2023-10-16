@@ -1,13 +1,10 @@
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
-const baseUrl = "https://neobank2.vercel.app/api/"
+const baseUrl = "https://n-eo-bank.vercel.app/api/"
 export async function ValidateUser(props) {
     console.log(props);
-    return await axios({
-        method: "post",
-        url: `${baseUrl}user/validateuser`,
-        data: props
-    })
+    return await axios.post(
+        `${baseUrl}/user/validateuser`,props)
 }
 
 export async function useUserDetails({ setaccountData, setuserDataFetch }) {
