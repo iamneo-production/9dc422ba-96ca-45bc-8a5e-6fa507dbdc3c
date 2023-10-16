@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Step1 from "./FirstComponent";
 import Footer from "./Footer";
 import NavBar from "./header";
@@ -12,6 +12,7 @@ function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
     if (errmsg === "visible") {
         setTimeout(() => seterrmsg("hidden"), 3000)
     }
+
     return (
         <>
             <NavBar setnotOn={setnotOn} />
