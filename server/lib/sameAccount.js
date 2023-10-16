@@ -1,3 +1,7 @@
+const Logger = require('../logger/logger');
+const log = new Logger('LIB');
+
+
 function sameAcc(accountNo_1, accountNo_2, res) {
     if (accountNo_1 === accountNo_2) {
         log.error(`Transaction cannot be done on same account, from ${accountNo_1} to ${accountNo_2}`);
