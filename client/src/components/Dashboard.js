@@ -68,12 +68,13 @@ const Dashboard = ({ notOn, setnotOn }) => {
         setaccBalance(amt);
     }, []);
 
-    const [userDataFetch, setuserDataFetch] = useState({});
-    const [accountData, setaccountData] = useState({});
+    const [userDataFetch, setUserDataFetch] = useState({});
+    const [accountData, setAccountData] = useState({});
+    useUserDetails(setAccountData, setUserDataFetch);
     // console.log(stateData);
     useUserDetails(setaccountData, setuserDataFetch).then(() => {
         console.log("fetched successfully");
-    }).catch(()=>{
+    }).catch(() => {
         "logged error"
     })
     useEffect(() => {
