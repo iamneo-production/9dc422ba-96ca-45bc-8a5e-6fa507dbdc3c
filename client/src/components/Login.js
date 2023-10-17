@@ -9,9 +9,11 @@ import { useNavigate } from "react-router-dom";
 import NotiComp from "./notification_component";
 import { CreateAccountPopup } from "./signup";
 import { Loader } from "./loader";
-import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { ValidateUser } from "../apis/userAndAccountDetails";
+
+import { BiShow } from 'react-icons/bi'
+import { BiHide } from "react-icons/bi";
 function Login({ notOn, setnotOn, loader, setloader }) {
     const LoginState = useAuthContext();
     let navigate = useNavigate();
@@ -20,6 +22,16 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     }
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
+    const [showpass, setshowpass] = useState("password");
+    const PassLogo = showpass === "text" ? BiHide : BiShow;
+
+    const handlePass = () => {
+        if (showpass === "password") {
+            setshowpass("text");
+        } else {
+            setshowpass("password");
+        }
+    }
     function changeUsername(e) {
         setusername(e.target.value);
     }
@@ -29,7 +41,7 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     async function setCredentials(e) {
         setloader("display");
         e.preventDefault()
-        await ValidateUser({username,password}).then(() => {
+        await ValidateUser({ username, password }).then(() => {
             console.log("succcessfully logged in");
             LoginState.dispatch({
                 type: "LOGIN",
@@ -39,7 +51,8 @@ function Login({ notOn, setnotOn, loader, setloader }) {
         }).then(navigateToDashoard)
             .catch((err) => {
                 setloader("none")
-                alert(err)
+                console.log(err);
+                alert(err);
             })
 
         setloader("none")
@@ -88,7 +101,10 @@ function Login({ notOn, setnotOn, loader, setloader }) {
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label className="password-label">Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" className="password-field" value={password} onChange={(e) => changepass(e)} suggested="current-paasword" autoComplete="on" required />
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <Form.Control type={showpass} placeholder="Password" className="password-field" value={password} onChange={(e) => changepass(e)} suggested="current-paasword" autoComplete="on" required />
+                                <PassLogo onClick={() => handlePass()} size={20} />
+                            </div>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>
                             <Form.Check type="checkbox" label="Remember Me" />
