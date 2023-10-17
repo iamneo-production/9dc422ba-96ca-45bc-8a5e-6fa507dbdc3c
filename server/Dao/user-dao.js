@@ -50,6 +50,7 @@ async function validateLoginUser(loginInfo, response) {
 
             return response.header('x-auth-token', jwtToken).send({
                 username: loginInfo.username,
+                'x-auth-token': jwtToken,
                 messageCode: 'USRV',
                 message: 'Valid credential.'
             });
