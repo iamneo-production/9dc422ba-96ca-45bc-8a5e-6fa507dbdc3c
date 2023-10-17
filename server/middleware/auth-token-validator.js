@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const secretKey = getJWT();
+const secretKey = "1122";
 
 
 module.exports = function (req, res, next) {
