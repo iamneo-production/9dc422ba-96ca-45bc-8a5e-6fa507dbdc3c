@@ -68,9 +68,9 @@ const Dashboard = ({ notOn, setnotOn }) => {
         setaccBalance(amt);
     }, []);
 
-    const [userDataFetch, setuserDataFetch] = useState({});
-    const [accountData, setaccountData] = useState({});
-    useUserDetails(setaccountData, setuserDataFetch);
+    const [userDataFetch, setUserDataFetch] = useState({});
+    const [accountData, setAccountData] = useState({});
+    useUserDetails(setAccountData, setUserDataFetch);
     // console.log(stateData);
     useEffect(() => {
         async function CallApi() {
