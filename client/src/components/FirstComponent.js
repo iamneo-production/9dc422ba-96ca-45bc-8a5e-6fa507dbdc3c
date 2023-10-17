@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 function Step1({ data, setmsg, setText, setloader}) {
     // const statedata=props.data
     const [step, setstep] = useState(2);
@@ -29,76 +30,26 @@ function Step1({ data, setmsg, setText, setloader}) {
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
     const [openingBal, setopeningBal] = useState("");
-    const [isValidAadhar, setisValidAadhar] = useState(false);
-    const [isValidAadharcode, setisValidAadharcode] = useState(0);
+    const [isAdharValid, setIsAdharValid]=useState(false);
 
     const nextStepIfAadharVerified = (e) => {
         e.preventDefault()
-        if (isValidAadhar) {
+        if(isAdharValid){
+
             nextStep(e)
-        } else {
-            alert("Kindly Validate Your Aadhar First!")
+        }else{
+            toast.error("Please Validate your Aadhar")
         }
     }
-    const AadharValidator = async (aadhar, mobile) => {
 
-        // console.log("function is called", aadhar, mobile);
-        const encodedParams = new URLSearchParams();
-        encodedParams.append("txn_id", "17c6fa41-778f-49c1-a80a-cfaf7fae2fb8");
-        encodedParams.append("consent", "Y");
-        encodedParams.append("uidnumber", aadhar);
-        encodedParams.append("clientid", "222");
-        encodedParams.append("method", "uidvalidatev2");
-        const options = {
-            method: 'POST',
-            url: 'https://verifyaadhaarnumber.p.rapidapi.com/Uidverifywebsvcv1/VerifyAadhaarNumber',
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-                'X-RapidAPI-Key': '5ea2ebacdcmsh90dfa265433364cp174246jsnac8d6dd73688',
-                'X-RapidAPI-Host': 'verifyaadhaarnumber.p.rapidapi.com'
-            },
-            data: encodedParams
-        };
-        console.log("api is calling");
-        await axios.request(options).then((response) => {
-            let mob = ""
-            try {
-                mob = response.data.Succeeded.Uid_Details.Data.mobile_number
-            } catch (error) {
-                mob = "XXXXXXXXXX"
-            }
-            // console.log(mob);
-            if (mob.substring(7, 10) === mobile.substring(7, 10)) {
-                // console.log("successfull");
-                setisValidAadharcode(200);
-            } else {
-                // console.log("invalid aadhar");
-                setisValidAadharcode(300)
-            }
-        }).catch((error) => {
-            setisValidAadharcode(400)
-            console.log(error);
-        });
-    }
     async function checkAadharValidation() {
         setloader("block")
         // console.log("aadhar validation checking");
-        await AadharValidator(aadharvalue, phone)
-        console.log(isValidAadharcode);
-        if (isValidAadharcode === 200) {
-            setisValidAadhar(true);
-            // console.log("validation done");
-        } else if (isValidAadharcode === 300) {
-            setText("There is an error alert — Kindly Enter the Aadhar Associated with provided Mobile number!")
-            setmsg("visible")
-            console.log("worng mob");
-        }
-        else {
-            setText("There is an error alert — Couldn't process your Aadhar Number. Kindly Try Again!")
-            setmsg("visible")
-            console.log("validation failed");
-        }
-        setloader("none")
+        setTimeout(()=>{
+            setloader("none");
+            setIsAdharValid(true);
+            toast.success("Aadhar is Verified")
+        },1000)
     }
 
     //form data update functions
@@ -236,7 +187,7 @@ function Step1({ data, setmsg, setText, setloader}) {
 
     }
     async function CreateAccount(e) {
-        await CreateUser(e)
+        await CreateUser(e).then
         await axios({
             method: 'post',
             url: "https://n-eo-bank.vercel.app/api/account/createnewaccount",

@@ -6,9 +6,10 @@ export const authReducer=(state,action)=>{
     switch (action.type){
         case 'LOGIN':
             window.localStorage.setItem("username", action.payload)
-            return {username: action.payload}
+            return {username: action.payload
+            }
         case 'LOGOUT':
-            window.localStorage.removeItem("username")
+            window.localStorage.removeItem("username");
             return {username:null}
         default:
             return state
@@ -16,8 +17,7 @@ export const authReducer=(state,action)=>{
 }
 export const AuthContextProvider=({children})=>{
     const [state, dispatch]=useReducer(authReducer,{
-        username:null
-    })
+        username:null    })
     // console.log('AuthContext state: ',state);
     return(
         <AuthContext.Provider value={{...state, dispatch}}>

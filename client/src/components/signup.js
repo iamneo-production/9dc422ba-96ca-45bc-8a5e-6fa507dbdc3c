@@ -12,7 +12,7 @@ import { BsArrowLeft } from "react-icons/bs";
 
 export const CreateAccountPopup = ({getBackStyle}) => {
     return (
-            <div className="content-box">
+            <div className="content-box" style={{overflowX:"hidden"}}>
                 <Link to={"/CreateSavingsAccount"} className="GetStartedType">
                     <Button variant="success" className="GetStartedTypeBtn" >
                         SAVINGS ACCOUNT

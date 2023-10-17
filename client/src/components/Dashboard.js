@@ -72,10 +72,16 @@ const Dashboard = ({ notOn, setnotOn }) => {
     const [accountData, setAccountData] = useState({});
     useUserDetails(setAccountData, setUserDataFetch);
     // console.log(stateData);
+    useUserDetails(setaccountData, setuserDataFetch).then(() => {
+        console.log("fetched successfully");
+    }).catch(() => {
+        "logged error"
+    })
     useEffect(() => {
         async function CallApi() {
-
+            console.log(username, "useEffect");
             if (username) {
+
                 setDashboaredEnable({
                     opacity: "100",
                     display: "none"
