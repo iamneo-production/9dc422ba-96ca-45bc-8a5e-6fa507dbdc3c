@@ -41,11 +41,12 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     async function setCredentials(e) {
         setloader("display");
         e.preventDefault()
-        await ValidateUser({ username, password }).then(() => {
-            console.log("succcessfully logged in");
+        await ValidateUser( username, password ).then((res) => {
+            console.log(res,"succcessfully logged in");
+
             LoginState.dispatch({
                 type: "LOGIN",
-                payload: username
+                payload: username,
             })
             setloader("none")
         }).then(navigateToDashoard)
