@@ -35,7 +35,8 @@ userrouter.post('/register', async (req, res) => {
 // else redirect it to the homepage
 
 userrouter.post('/validateuser', async (req, res) => {
-    console.log({ req });
+    // console.log({ req });
+    console.log(req.body);
     let loginInfo = req.body || req.query;
     // joi for schema validation
     let { error } = userValidator.validateLoginUserSchema(loginInfo);
