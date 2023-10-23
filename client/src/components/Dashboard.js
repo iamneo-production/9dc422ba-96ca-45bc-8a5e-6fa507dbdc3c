@@ -72,7 +72,7 @@ const Dashboard = ({ notOn, setnotOn }) => {
     const [accountData, setAccountData] = useState({});
     useUserDetails(setAccountData, setUserDataFetch);
     // console.log(stateData);
-    useUserDetails(setaccountData, setuserDataFetch).then(() => {
+    useUserDetails(setAccountData, setUserDataFetch).then(() => {
         console.log("fetched successfully");
     }).catch(() => {
         "logged error"
