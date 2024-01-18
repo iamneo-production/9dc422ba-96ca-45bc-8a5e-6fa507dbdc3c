@@ -16,21 +16,21 @@ const newAccountInputSchemaModel = {
 }
 
 const transferAmountSchemaModel = {
-    from:Joi.object({
+    from: {
         accountNo: Joi.string().min(12).required(),
         amount: Joi.string().required()
-    }).required(),
-    to:Joi.object({
+    },
+    to: {
         accountNo: Joi.string().min(12).required(),
         amount: Joi.string()
-    }).required(),
+    },
     remark: Joi.string().required()
 
 }
 
 const mongoAccountSchema = new mongoose.Schema({
     username: { type: String, unique: true },
-    accountNo: {type: String, unique: true},
+    accountNo: { type: String, unique: true },
     closingBalance: String,
     createdOn: Date,
     lastActive: Date,
