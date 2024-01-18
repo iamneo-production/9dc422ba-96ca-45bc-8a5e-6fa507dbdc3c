@@ -13,7 +13,7 @@ const axios = require('axios');
 const dbUrl = "mongodb+srv://bhai:bhai@cluster0.jikoqbw.mongodb.net/";
 console.log({ dbUrl });
 
-var accountNumberBase = Math.random() * 10000000000000000;
+var accountNumberBase = Math.random() * 100000000000000000;
 console.log({ accountNumberBase });
 
 // Mongoose connection
@@ -50,7 +50,7 @@ const createNewAccount = async (accountDetails, response) => {
     await newAccount.save((err, result) => {
         if (err) {
             // need to dec acc no so that when creating new acc it dosent allot same acc no to multiple accs
-            accountNumberBase--;
+            // accountNumberBase--;
             log.error(`Error in creating new account for username ${accountDetails.username}: ` + err);
             return response.status(400).send({
                 messageCode: new String(err.errmsg).split(" ")[0],
@@ -228,7 +228,7 @@ async function logTransaction(transferAmount, token) {
     try {
         await axios({
             method: 'post',
-            url: 'http://localhost:3000/api/transaction/logtransactionsummary',
+            url: 'https://n-eo-bank.vercel.app/api/transaction/logtransactionsummary',
             data: JSON.stringify(requestBody),
             headers: {
                 'content-type': 'application/json',
