@@ -25,8 +25,6 @@ const registerInputUserSchemaModel = {
     aadharID: Joi.string(),
     panNo: Joi.string(),
     gender: Joi.string(),
-    annualincome: Joi.string(),
-    marital: Joi.string().min(3),
 }
 
 const updatePasswordInputSchemaModel = {

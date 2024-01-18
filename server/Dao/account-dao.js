@@ -10,7 +10,7 @@ const axios = require('axios');
 // MongoDB URL comes from .env file copy paste the url to make it work in dev mode
 // "mongodb+srv://bhai:bhai@cluster0.jikoqbw.mongodb.net/"
 
-const dbUrl = "mongodb+srv://bhai:bhai@cluster0.jikoqbw.mongodb.net/";
+const dbUrl = "mongodb+srv://anuj:anuj@neobankanuj.car0yym.mongodb.net/";
 console.log({ dbUrl });
 
 var accountNumberBase = Math.random() * 100000000000000000;
@@ -50,7 +50,7 @@ const createNewAccount = async (accountDetails, response) => {
     await newAccount.save((err, result) => {
         if (err) {
             // need to dec acc no so that when creating new acc it dosent allot same acc no to multiple accs
-            // accountNumberBase--;
+            accountNumberBase++;
             log.error(`Error in creating new account for username ${accountDetails.username}: ` + err);
             return response.status(400).send({
                 messageCode: new String(err.errmsg).split(" ")[0],
@@ -241,7 +241,7 @@ async function logTransaction(transferAmount, token) {
         }
         test();
     } catch (error) {
-        log.error('Unable to call logtransactionsummary service: ' + err);
+        log.error('Unable to call logtransactionsummary service: ' + error);
     }
 }
 

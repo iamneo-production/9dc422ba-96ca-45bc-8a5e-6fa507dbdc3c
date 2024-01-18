@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 
 
 // MongoDB URL comes from .env file copy paste the url to make it work in dev mode
-const dbUrl = "mongodb+srv://bhai:bhai@cluster0.jikoqbw.mongodb.net/";
+const dbUrl = "mongodb+srv://anuj:anuj@neobankanuj.car0yym.mongodb.net/";
 console.log({ dbUrl });
 
 // secret key needs to be same across all dao functions
@@ -26,6 +26,7 @@ try {
 
 // Validate function for Login
 async function validateLoginUser(loginInfo, response) {
+    console.log(loginInfo);
     // search in db by username given and when it finds
     // something with that username trigger the function with err and result
     await UserModel.findOne({ username: loginInfo.username }, (err, result) => {
