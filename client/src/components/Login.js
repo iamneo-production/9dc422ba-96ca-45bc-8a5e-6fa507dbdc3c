@@ -38,15 +38,18 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     function changepass(e) {
         setpassword(e.target.value);
     }
-    async function setCredentials(e) {
+    const setCredentials = async (e) => {
         setloader("display");
         e.preventDefault()
-        await ValidateUser( username, password ).then((res) => {
-            console.log(res,"succcessfully logged in");
+        await ValidateUser(username, password).then((res) => {
+            console.log(res, "succcessfully logged in");
 
             LoginState.dispatch({
                 type: "LOGIN",
-                payload: username,
+                payload: {
+                    username: username,
+                    authToken: res.headers('x-auth-token')
+                },
             })
             setloader("none")
         }).then(navigateToDashoard)

@@ -1,39 +1,37 @@
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 const baseUrl = "https://n-eo-bank.vercel.app/api/"
-export async function ValidateUser(props) {
-    console.log({ props });
-    // const send = JSON.stringify(props)
+export const ValidateUser = async ({ username, password }) => {
+    console.log(username, password);
     return axios({
         method: 'POST',
-        mode: 'no-cors',
-        url: "https://n-eo-bank.vercel.app/api/user/validateuser",
+        mode: 'cors',
+        url: `${baseUrl}/user/validateuser`,
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
         },
         data: {
-            username: props.username,
-            password: props.password
+            username: username,
+            password: password
         }
     }).then(response => { console.log(response); })
         .catch(err => console.log(err));
 }
 
-export async function useUserDetails(setAccountData, setUserDataFetch) {
-    const { username } = useAuthContext();
-    const token = "";
+export const useUserDetails = async (setAccountData, setUserDataFetch) => {
+    const { username, authToken } = useAuthContext();
     let res1;
     let res2;
     await axios.all([
         await axios({
             method: 'GET',
             mode: 'no-cors',
-            url: `https://n-eo-bank.vercel.app/api/account/getaccountdetailsbyusername/${username}`,
+            url: `${baseUrl}account/getaccountdetailsbyusername/${username}`,
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "x-auth-token": ""
+                "x-auth-token": authToken
             }
         }).then(response => {
             // console.log({ response });
@@ -41,18 +39,10 @@ export async function useUserDetails(setAccountData, setUserDataFetch) {
         }).catch(err => console.log(err)),
 
 
-        // axios({
-        //     method: "get",
-        //     mode: 'no-cors',
-        //     url: `${baseUrl}account/getaccountdetailsbyusername/${username}`,
-        // }).then((res) => {
-        //     console.log({ res });
-        //     setaccountData(res.data.accountDetails)
-        // }).catch((e) => console.log(e)),
         await axios({
             method: 'GET',
             mode: 'no-cors',
-            url: `https://n-eo-bank.vercel.app/api/user/getuserbyuserrwg/${username}`,
+            url: `${baseUrl}user/getuserbyuserrwg/${username}`,
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
