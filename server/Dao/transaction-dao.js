@@ -9,7 +9,7 @@ const TransactionModel = mongoose.model('Transaction', transactionSchema);
 
 // MongoDB URL comes from .env file copy paste the url to make it work in dev mode
 
-const dbUrl = "mongodb+srv://bhai:bhai@cluster0.jikoqbw.mongodb.net/";
+const dbUrl = "mongodb+srv://anuj:anuj@neobankanuj.car0yym.mongodb.net/";
 console.log({ dbUrl });
 
 // Mongoose connection

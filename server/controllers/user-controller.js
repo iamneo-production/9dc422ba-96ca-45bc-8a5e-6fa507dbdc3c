@@ -18,7 +18,7 @@ const isNotValidSchema = require('../lib/notValidSchema')
 
 userrouter.post('/register', async (req, res) => {
     console.log({ req });
-    let userObj = req.body || req.query;
+    let userObj = req.body;
     // joi is used for schema validation
     let { error } = userValidator.validateNewUserSchema(userObj);
     if (isNotValidSchema.isNotValidSchema(error, res)) return;
