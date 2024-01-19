@@ -2,7 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const Logger = require('../logger/logger');
 const log = new Logger('User-Schema-Model');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const loginUserInputSchemaModel = {
     username: Joi.string().min(3).required(),
