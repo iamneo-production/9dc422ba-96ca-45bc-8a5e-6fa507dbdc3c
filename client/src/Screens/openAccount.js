@@ -19,8 +19,8 @@ function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
             <NotiComp
                 notOn={notOn}
             />
-            <Loader
-                loader={loader} />
+            {loader === 'display' && <Loader
+                loader={loader} />}
             <div style={{ width: "100%", height: "45px", marginTop: "5px", visibility: errmsg }}>
                 <Alert style={{ width: "20%", float: "right", marginRight: "2%" }} variant="filled" severity="error">{errmsgText}</Alert>
             </div>
@@ -32,6 +32,7 @@ function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
                         setText={seterrmsgText}
                         data={data}
                         setloader={setloader}
+                        loader={loader}
                     />
                 </div>
             </div>
