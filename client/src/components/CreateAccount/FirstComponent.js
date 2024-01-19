@@ -5,7 +5,10 @@ import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-function Step1({ data, setmsg, setText, setloader}) {
+import { ValidateUser } from "../../apis/validateUser";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { Loader } from "../Global/loader";
+function Step1({ data, setmsg, setText, setloader, loader }) {
     // const statedata=props.data
     const [step, setstep] = useState(2);
     //formdata stats
@@ -30,14 +33,14 @@ function Step1({ data, setmsg, setText, setloader}) {
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
     const [openingBal, setopeningBal] = useState("");
-    const [isAdharValid, setIsAdharValid]=useState(false);
+    const [isAdharValid, setIsAdharValid] = useState(false);
 
     const nextStepIfAadharVerified = (e) => {
         e.preventDefault()
-        if(isAdharValid){
+        if (isAdharValid) {
 
             nextStep(e)
-        }else{
+        } else {
             toast.error("Please Validate your Aadhar")
         }
     }
@@ -45,11 +48,11 @@ function Step1({ data, setmsg, setText, setloader}) {
     async function checkAadharValidation() {
         setloader("block")
         // console.log("aadhar validation checking");
-        setTimeout(()=>{
+        setTimeout(() => {
             setloader("none");
             setIsAdharValid(true);
             toast.success("Aadhar is Verified")
-        },1000)
+        }, 1000)
     }
 
     //form data update functions
@@ -158,45 +161,68 @@ function Step1({ data, setmsg, setText, setloader}) {
     }
     async function CreateUser() {
         const UserData = {
-            aadharID: aadharvalue,
-            panNo: pannumber,
-            phoneNo: phone,
-            emailId: email,
             firstname: fname,
             lastname: lname,
-            dateOfBirth: dob,
-            gender: gender,
-            country: nationality,
             fatherName: fatherName,
-            pin: pincode,
-            state: state,
-            city: district,
-            annualincome: annualIncome,
-            marital: marital,
+            emailId: email,
+            dateOfBirth: dob,
             username: username,
-            password: password
+            password: password,
+            phoneNo: phone,
+            city: district,
+            state: state,
+            country: nationality,
+            pin: pincode,
+            aadharID: aadharvalue,
+            panNo: pannumber,
+            gender: gender,
         }
         console.log(UserData);
-        await axios({
+        const res = await axios({
             method: 'post',
             url: 'https://n-eo-bank.vercel.app/api/user/register',
             data: UserData
-        }).then(e => {
-            console.log(e);
-        });
-
+        })
+        console.log(res);
+        alert('Your Account has been created Successfully');
     }
+    const { dispatch } = useAuthContext()
+
     async function CreateAccount(e) {
-        await CreateUser(e).then
-        await axios({
-            method: 'post',
-            url: "https://n-eo-bank.vercel.app/api/account/createnewaccount",
-            data: {
-                username: username,
-                closingBalance: openingBal
-            }
-        }).then((e)=>alert("Congratulations Your Account has been Successfully Created!"))
-        .then(()=>navigateToDashoard())
+        e.preventDefault();
+        try {
+            setloader("display");
+
+            await CreateUser(e);
+            const res = await ValidateUser(username, password)
+            dispatch({
+                type: "LOGIN",
+                payload: {
+                    username: username,
+                    authToken: res.data['x-auth-token']
+                },
+            })
+
+            console.log("succcessfully logged in");
+            await axios({
+                method: 'post',
+                url: "https://n-eo-bank.vercel.app/api/account/createnewaccount",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-auth-token": res.data['x-auth-token']
+                },
+                data: {
+                    "username": username,
+                    "closingBalance": openingBal
+                }
+            }).then((e) => alert("Congratulations Your Account has been Successfully Created!"))
+
+            setloader("none")
+            navigateToDashoard()
+        }
+        catch (err) {
+            alert("Something Went Wrong! ", err)
+        }
     }
     //form data
     // console.log(UserData);
@@ -546,6 +572,11 @@ function Step1({ data, setmsg, setText, setloader}) {
         case 9:
             return (
                 <>
+                    {loader === "display" &&
+                        <Loader
+                            loader={loader}
+                        />
+                    }
                     <div className="form-content-box">
                         <div className="KYCtext">
                             KYC is a standard due diligence process used by financial institutions and other financial services companies to assess and monitor customer risk and verify a customer’s identity. KYC ensures that a customer is who they say they are.
