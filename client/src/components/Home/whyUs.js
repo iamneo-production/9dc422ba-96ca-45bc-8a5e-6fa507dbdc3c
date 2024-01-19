@@ -1,10 +1,10 @@
 import React from "react";
-import "../assests/styling/why.css"
+import "../../assests/styling/why.css"
 function Why() {
     return (
         <>
             <div style={{ height: "100px" }}></div>
-            <div style={{textAlign:"center", width:"80%", marginLeft:"10%"}}>
+            <div style={{ textAlign: "center", width: "80%", marginLeft: "10%" }}>
                 <h2 className="why-title">Why RBH Bank</h2>
                 <p className="why-text">
                     Lorem ipsum dolor sit amet. Id inventore fugiat ut distinctio excepturi ad ullam dolor ut magni iste hic laudantium eligendi non porro velit? Ea voluptas quos ab aperiam facilis non fugit itaque aut eius soluta in dolorem consequatur vel omnis error?

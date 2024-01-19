@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import MainServices from "./components/Mainservices";
-import Dashboard from "./components/Dashboard";
-import SavingsAccount from "./components/SavingsAccount";
-import SalaryAccount from "./components/SalaryAccount";
-import CurrentAccount from "./components/currentAccount";
-import CreateAccount from "./components/openAccount";
-import ContactUs from "./components/contactUs";
+import Home from "./Screens/Home";
+import Login from "./Screens/Login";
+import MainServices from "./Screens/Mainservices";
+import Dashboard from "./Screens/Dashboard";
+import SavingsAccount from "./Screens/SavingsAccount";
+import SalaryAccount from "./Screens/SalaryAccount";
+import CurrentAccount from "./Screens/currentAccount";
+import CreateAccount from "./Screens/openAccount";
+import ContactUs from "./Screens/contactUs";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import EditUserDetails from "./components/editAccountDetail.tsx";
-import Payment from "./components/payment";
+import EditUserDetails from "./Screens/editAccountDetail";
+import Payment from "./Screens/payment";
 import { useAuthContext } from "./hooks/useAuthContext";
 function App() {
   const { username, dispatch } = useAuthContext()
   const storedUsername = window.localStorage.getItem("username")
   useEffect(() => {
-    if (storedUsername!=null) {
+    if (storedUsername != null) {
       dispatch({
         type: "LOGIN",
         payload: storedUsername
@@ -55,7 +55,7 @@ function App() {
             setloader={setloader}
             loader={loader}
           />} />
-          <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn} loader={loader} setloader={setloader}/>} />
+          <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn} loader={loader} setloader={setloader} />} />
           <Route path="/Contact-us" element={<ContactUs notOn={notOn} setnotOn={setnotOn} />} />
           <Route path="/editAccountDetails" element={<EditUserDetails />} />
         </Routes>

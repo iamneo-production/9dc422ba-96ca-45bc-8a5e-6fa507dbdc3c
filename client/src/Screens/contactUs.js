@@ -1,9 +1,9 @@
 import React from "react";
-import Footer from "./Footer";
-import NavBar from "./header";
+import Footer from "../components/Global/Footer";
+import NavBar from "../components/Global/header";
 import "../assests/styling/contact.css"
 import { Button } from "@mui/material";
-import NotiComp from "./notification_component";
+import NotiComp from "../components/Global/notification_component";
 function ContactUs({ notOn, setnotOn }) {
     return (
         <>
@@ -13,7 +13,7 @@ function ContactUs({ notOn, setnotOn }) {
             <NotiComp
                 notOn={notOn}
             />
-            <div style={{padding:"3%"}} onClick={() => setnotOn({ display: "none" })}>
+            <div style={{ padding: "3%" }} onClick={() => setnotOn({ display: "none" })}>
                 <div className="contact-box" >
                     <div style={{ padding: "1%" }}>
                         <h1 style={{ fontSize: "60px", fontWeight: "bolder" }}>

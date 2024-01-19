@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Footer from "./Footer";
-import NavBar from "./header";
+import Footer from "../components/Global/Footer";
+import NavBar from "../components/Global/header";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import GoogleButton from 'react-google-button'
 import "../assests/styling/Login.css"
 import { useNavigate } from "react-router-dom";
-import NotiComp from "./notification_component";
-import { CreateAccountPopup } from "./signup";
-import { Loader } from "./loader";
+import NotiComp from "../components/Global/notification_component";
+import { CreateAccountPopup } from "../components/Accounts/CreateAccountPopUp";
+import { Loader } from "../components/Global/loader";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { ValidateUser } from "../apis/userAndAccountDetails";
 
@@ -41,23 +41,20 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     const setCredentials = async (e) => {
         setloader("display");
         e.preventDefault()
-        await ValidateUser(username, password).then((res) => {
-            console.log(res, "succcessfully logged in");
+        const res = await ValidateUser(username, password)
+        console.log("succcessfully logged in");
 
-            LoginState.dispatch({
-                type: "LOGIN",
-                payload: {
-                    username: username,
-                    authToken: res.headers('x-auth-token')
-                },
-            })
-            setloader("none")
-        }).then(navigateToDashoard)
-            .catch((err) => {
-                setloader("none")
-                console.log(err);
-                alert(err);
-            })
+        console.log(username, res.data['x-auth-token']);
+
+        LoginState.dispatch({
+            type: "LOGIN",
+            payload: {
+                username: username,
+                authToken: res.data['x-auth-token']
+            },
+        })
+        setloader("none")
+        navigateToDashoard()
 
         setloader("none")
 

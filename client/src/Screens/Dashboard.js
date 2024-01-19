@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Footer from "./Footer";
-import NavBar from "./header";
+import Footer from "../components/Global/Footer";
+import NavBar from "../components/Global/header";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai"
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import "../assests/styling/Dashboard.css"
 import { GoGraph } from "react-icons/go"
 import { VscGraphLine } from "react-icons/vsc"
-import { BsArrowRightSquareFill, BsCashCoin } from "react-icons/bs"
+import { BsArrowRightSquareFill } from "react-icons/bs"
 import { PieChart } from "react-minimal-pie-chart";
-import Transactions from "./transactions";
-import BarGraph from "./BarGraph";
-import NotiComp from "./notification_component";
-import { Alert } from "@mui/lab";
+import Transactions from "../assests/data/transactions";
+import BarGraph from "../components/Dashboard/BarGraph";
+import NotiComp from "../components/Global/notification_component";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import { useUserDetails } from "../apis/userAndAccountDetails";
+import AccessAlert from "../components/Dashboard/AccessAlert";
 const Dashboard = ({ notOn, setnotOn }) => {
 
     const { username } = useAuthContext()
@@ -113,15 +113,9 @@ const Dashboard = ({ notOn, setnotOn }) => {
             <NavBar
                 setnotOn={setnotOn}
             />
-            <div style={{ display: dashboardEnable.display, position: "fixed", zIndex: "100", width: "100%", height: "500px" }}>
-                <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Alert style={{ width: "300px", height: "200px" }} variant="filled" severity="info">
-                        <Link to={"/login"} style={{ color: "white", fontSize: "30px" }}>
-                            To Check your Dashboard Kindly Login
-                        </Link>
-                    </Alert>
-                </div>
-            </div>
+            <AccessAlert
+                dashboardEnable={dashboardEnable}
+            />
             <NotiComp
                 notOn={notOn}
             />

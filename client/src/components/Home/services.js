@@ -1,5 +1,5 @@
 import React from "react";
-import "../assests/styling/why.css"
+import "../../assests/styling/why.css"
 import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -32,7 +32,7 @@ function Services() {
                         </Row>
                     </Container>
                 </div>
-                <div style={{height:"50px"}}></div>
+                <div style={{ height: "50px" }}></div>
             </div>
         </div>
     )

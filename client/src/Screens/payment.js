@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
-import NavBar from "./header";
-import Footer from "./Footer";
+import NavBar from "../components/Global/header";
+import Footer from "../components/Global/Footer";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import NotiComp from "./notification_component";
+import NotiComp from "../components/Global/notification_component";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { Loader } from "./loader";
+import { Loader } from "../components/Global/loader";
 const Payment = ({ notOn, setnotOn, loader, setloader }) => {
     const { username } = useAuthContext();
     const [userAccNumber, setuserAccNumber] = useState("");

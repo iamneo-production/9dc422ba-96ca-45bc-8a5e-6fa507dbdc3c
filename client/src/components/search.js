@@ -22,7 +22,7 @@ export default function App() {
         </div>
       </div>
 
-      {
+      {/* {
         words
           .filter((word) => {
             if (search === "") {
@@ -46,7 +46,7 @@ export default function App() {
               </div>
             );
           })
-      }
+      } */}
     </div>
   );
 }

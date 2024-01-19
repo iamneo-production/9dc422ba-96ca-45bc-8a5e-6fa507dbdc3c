@@ -4,8 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import NavBar from './header.js';
-import Footer from './Footer';
+import NavBar from '../components/Global/header';
+import Footer from '../components/Global/Footer';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import '../assests/styling/error.css'
@@ -132,7 +132,7 @@ export default function BasicTabs() {
     const [errorMsg, seterrorMsg] = useState("Kindly put all the fields correctly")
     return (
         <div data-testid="editAccountDetails">
-            <NavBar setnotOn={""}/>
+            <NavBar setnotOn={""} />
             <div style={{ height: "50px" }}></div>
             <div style={{ width: "50%", margin: "auto" }}>
 

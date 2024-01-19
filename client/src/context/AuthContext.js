@@ -6,15 +6,16 @@ export const authReducer = (state, action) => {
     switch (action.type) {
         case 'LOGIN':
             window.localStorage.setItem("username", action.payload.username)
-            window.localStorage.setItem("username", action.payload.authToken)
+            window.localStorage.setItem("authToken", action.payload.authToken)
 
             return {
-                username: action.payload,
+                username: action.payload.username,
                 authToken: action.payload.authToken
 
             }
         case 'LOGOUT':
             window.localStorage.removeItem("username");
+            window.localStorage.removeItem("authToken")
             return { username: null, authToken: null }
         default:
             return state
