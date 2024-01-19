@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Step1 from "./FirstComponent";
-import Footer from "./Footer";
-import NavBar from "./header";
+import React, { useState } from "react";
+import Step1 from "../components/CreateAccount/FirstComponent";
+import Footer from "../components/Global/Footer";
+import NavBar from "../components/Global/header";
 import Alert from "@mui/material/Alert";
-import { Loader } from "./loader";
+import { Loader } from "../components/Global/loader";
 import "../assests/styling/openAccount.css"
-import NotiComp from "./notification_component";
+import NotiComp from "../components/Global/notification_component";
 function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
     const [errmsg, seterrmsg] = useState("hidden");
     const [errmsgText, seterrmsgText] = useState("")
@@ -19,8 +19,8 @@ function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
             <NotiComp
                 notOn={notOn}
             />
-            <Loader 
-            loader={loader}/>
+            <Loader
+                loader={loader} />
             <div style={{ width: "100%", height: "45px", marginTop: "5px", visibility: errmsg }}>
                 <Alert style={{ width: "20%", float: "right", marginRight: "2%" }} variant="filled" severity="error">{errmsgText}</Alert>
             </div>

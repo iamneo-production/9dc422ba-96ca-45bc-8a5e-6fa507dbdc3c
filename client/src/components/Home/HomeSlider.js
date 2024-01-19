@@ -1,10 +1,10 @@
 import React from "react";
-import "../assests/styling/slideshow.css"
-import img1 from "../assests/img/slider1.png"
-import img2 from "../assests/img/slider2.jpg"
-import img3 from "../assests/img/slider3.jpg"
-import img4 from "../assests/img/slider4.png"
-import img5 from "../assests/img/slider5.png"
+import "../../assests/styling/slideshow.css"
+import img1 from "../../assests/img/slider1.png"
+import img2 from "../../assests/img/slider2.jpg"
+import img3 from "../../assests/img/slider3.jpg"
+import img4 from "../../assests/img/slider4.png"
+import img5 from "../../assests/img/slider5.png"
 
 const colors = [img1, img2, img3, img4, img5];
 const delay = 2500;
@@ -47,7 +47,7 @@ function Slideshow() {
             data-testid="sliderimage"
             key={index}
             src={colors[index]}
-            style={{ backgroundColor:"grey" }}
+            style={{ backgroundColor: "grey" }}
             alt="sliderpic"
           />
         ))}

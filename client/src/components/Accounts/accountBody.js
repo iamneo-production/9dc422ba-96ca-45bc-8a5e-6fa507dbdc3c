@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import "../assests/styling/AccountBody.css"
-import NotiComp from './notification_component'
+import "../../assests/styling/AccountBody.css"
+import NotiComp from '../Global/notification_component'
 import ReviewSlider from './reviewSlider'
 
 
@@ -9,12 +9,12 @@ const AccountBody = (props) => {
   var acctype = props.accountType;
   const words = acctype.split(" ");
   acctype = acctype.toUpperCase();
-  const {notOn, setnotOn}=props
+  const { notOn, setnotOn } = props
   return (
     <div>
-      <NotiComp 
-      notOn={notOn}/>
-      <div onClick={()=>setnotOn({display:"none"})}>
+      <NotiComp
+        notOn={notOn} />
+      <div onClick={() => setnotOn({ display: "none" })}>
         <div >
           <div >
             <div className='get-started-container'>

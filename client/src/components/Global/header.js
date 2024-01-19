@@ -4,9 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Noty from "./Noty";
 import { AiOutlineSearch } from "react-icons/ai";
-import logo from "../assests/img/logo.png"
-import "../assests/styling/header.css"
-import { useAuthContext } from '../hooks/useAuthContext';
+import logo from "../../assests/img/logo.png"
+import "../../assests/styling/header.css"
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 function NavBar({ setnotOn }) {
     const { username, dispatch } = useAuthContext()
@@ -30,9 +30,9 @@ function NavBar({ setnotOn }) {
                             <Nav.Link href="/Login" style={{ marginLeft: "15px" }}>Login/SignUp</Nav.Link>
                         }
                         <Nav.Link href='#link' style={{ marginLeft: "20px" }} onClick={e => setnotOncheck(e)} ><Noty width={"20px"} color={"#122C34"} /></Nav.Link>
-                        <Nav.Link href="/Contact-us" style={{   width: "150px", marginLeft: "50px" }} className="contact-van-icon"><div style={{height:"80%",borderRadius: "5px",pad:"auto" , border: "2px groove black", boxShadow: "1px 1px 1px grey"}}>Contact us</div></Nav.Link>
+                        <Nav.Link href="/Contact-us" style={{ width: "150px", marginLeft: "50px" }} className="contact-van-icon"><div style={{ height: "80%", borderRadius: "5px", pad: "auto", border: "2px groove black", boxShadow: "1px 1px 1px grey" }}>Contact us</div></Nav.Link>
 
-                        <Nav.Link href="#link" style={{ border: "2px solid black",display:"flex", justifyContent:"center",borderRadius: "5px", width: '35px',height:"35px", alignItems: "centre",padding:"0px", boxShadow: "1px 1px 1px grey" }} className="search-nav-icon"><AiOutlineSearch size={30} /></Nav.Link>
+                        <Nav.Link href="#link" style={{ border: "2px solid black", display: "flex", justifyContent: "center", borderRadius: "5px", width: '35px', height: "35px", alignItems: "centre", padding: "0px", boxShadow: "1px 1px 1px grey" }} className="search-nav-icon"><AiOutlineSearch size={30} /></Nav.Link>
 
 
                         {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">

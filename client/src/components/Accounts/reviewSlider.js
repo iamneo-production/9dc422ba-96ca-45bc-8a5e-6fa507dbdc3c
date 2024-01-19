@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import people from './data';
+import people from '../../assests/data/data';
 import { Button } from 'react-bootstrap';
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa';
-import "../assests/styling/reviewSlider.css"
+import "../../assests/styling/reviewSlider.css"
 
 function ReviewSlider() {
   const [index, setIndex] = useState(0);

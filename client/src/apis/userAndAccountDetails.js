@@ -1,23 +1,19 @@
 import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 const baseUrl = "https://n-eo-bank.vercel.app/api/"
-export const ValidateUser = async ({ username, password }) => {
+export const ValidateUser = async (username, password) => {
     console.log(username, password);
-    return axios({
+    return await axios({
         method: 'POST',
-        mode: 'cors',
-        url: `${baseUrl}/user/validateuser`,
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
+
+        url: `https://n-eo-bank.vercel.app/api/user/validateuser`,
         data: {
             username: username,
             password: password
         }
-    }).then(response => { console.log(response); })
-        .catch(err => console.log(err));
+    })
 }
+
 
 export const useUserDetails = async (setAccountData, setUserDataFetch) => {
     const { username, authToken } = useAuthContext();

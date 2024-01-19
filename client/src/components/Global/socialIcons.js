@@ -6,7 +6,7 @@ import {
   faTwitter,
   faInstagram
 } from "@fortawesome/free-brands-svg-icons";
-import "../assests/styling/socialFlow.css"
+import "../../assests/styling/socialFlow.css"
 export default function SocialFlow() {
   return (
     <div>

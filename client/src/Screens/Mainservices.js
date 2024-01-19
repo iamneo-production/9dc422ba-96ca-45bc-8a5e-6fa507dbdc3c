@@ -3,10 +3,10 @@ import "../assests/styling/services.css"
 import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import NavBar from "./header";
-import Footer from "./Footer";
-import ServiceCard from "./service-card";
-import NotiComp from "./notification_component";
+import NavBar from "../components/Global/header";
+import Footer from "../components/Global/Footer";
+import ServiceCard from "../components/service/service-card";
+import NotiComp from "../components/Global/notification_component";
 function MainServices({ notOn, setnotOn }) {
     return (
         <div>

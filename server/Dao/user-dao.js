@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 const userSchema = require('../models/user-schema-model').mongoUserSchema;
 const UserModel = mongoose.model('User', userSchema);
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs')
 
 
 // MongoDB URL comes from .env file copy paste the url to make it work in dev mode

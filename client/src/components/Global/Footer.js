@@ -1,5 +1,5 @@
 import React from "react";
-import "../assests/styling/Footer.css"
+import "../../assests/styling/Footer.css"
 import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -64,9 +64,9 @@ function Footer() {
                         <Col className="col1"><a href="/"> Mobile Banking</a></Col>
                         <Col className="col2"><a href="/"> </a></Col>
                         <Col className="col3"><a href="/"> Fraud Prevention</a></Col>
-                        <Col className="col4"><a href="/"> 
-                      
-                        <SocialFlow/>
+                        <Col className="col4"><a href="/">
+
+                            <SocialFlow />
                         </a></Col>
                     </Row>
                 </Container>

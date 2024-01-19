@@ -1,11 +1,11 @@
-import NavBar from "./header"
-import HomeBody from "./HomeBody";
+import NavBar from "../components/Global/header"
+import HomeBody from "../components/Home/HomeBody";
 import React from 'react';
-import Why from "./whyUs";
-import Services from "./services";
-import Footer from "./Footer";
+import Why from "../components/Home/whyUs";
+import Services from "../components/Home/services";
+import Footer from "../components/Global/Footer";
 
-function Home({notOn, setnotOn}) {
+function Home({ notOn, setnotOn }) {
     return (
         <>
             <NavBar

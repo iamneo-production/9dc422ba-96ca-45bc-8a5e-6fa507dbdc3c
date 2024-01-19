@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import "../assests/styling/Home.css"
-import "../assests/styling/GetStartedPopUp.css"
+import "../../assests/styling/Home.css"
+import "../../assests/styling/GetStartedPopUp.css"
 import Slideshow from "./HomeSlider";
-import NotiComp from "./notification_component";
-import { CreateAccountPopup } from "./signup";
+import NotiComp from "../Global/notification_component";
+import { CreateAccountPopup } from "../Accounts/CreateAccountPopUp";
 
 function HomeBody({ notOn, setnotOn }) {
     const style = {

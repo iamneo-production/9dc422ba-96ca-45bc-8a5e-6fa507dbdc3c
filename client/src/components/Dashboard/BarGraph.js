@@ -1,7 +1,7 @@
 import React from "react";
-import Transanctions from "./transactions";
+import Transanctions from "../../assests/data/transactions";
 import Plot from 'react-plotly.js'
-function BarGraph({duration, type}) {
+function BarGraph({ duration, type }) {
     let data = { data: [] }
     // console.log(props.type);
     if (duration === "Annualy") {
@@ -76,33 +76,33 @@ function BarGraph({duration, type}) {
             x: weekArr,
             y: expenseArr,
             name: "Expense",
-            type:type
+            type: type
         }
         ]
     }
-    else if(duration==="Monthly"){
-        date=new Date()
-        today=date.getDate();
-        const monthArr=[];
-        var incomeArr=[];
-        var expenseArr=[];
-        todayDate = date.getMonth() + 1 + "/" + date.getDate()+ "/" + date.getFullYear();
+    else if (duration === "Monthly") {
+        date = new Date()
+        today = date.getDate();
+        const monthArr = [];
+        var incomeArr = [];
+        var expenseArr = [];
+        todayDate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
         todayDate = new Date(todayDate);
-        for(var i=1;i<=today;i++){
+        for (var i = 1; i <= today; i++) {
             monthArr.push(i);
             incomeArr.push(0);
             expenseArr.push(0);
         }
-        Transanctions.forEach(item=>{
-            var transdate=new Date(item.date);
-            var dayDiff=todayDate.getTime()-transdate.getTime();
-            dayDiff=dayDiff/(1000*3600*24);
+        Transanctions.forEach(item => {
+            var transdate = new Date(item.date);
+            var dayDiff = todayDate.getTime() - transdate.getTime();
+            dayDiff = dayDiff / (1000 * 3600 * 24);
             dayDiff++;
-            if(dayDiff<=today){
-                if(item.isCredited){
-                    incomeArr[today-dayDiff]+=item.amount;
-                }else{
-                    expenseArr[today-dayDiff]+=item.amount;
+            if (dayDiff <= today) {
+                if (item.isCredited) {
+                    incomeArr[today - dayDiff] += item.amount;
+                } else {
+                    expenseArr[today - dayDiff] += item.amount;
                 }
             }
         })
