@@ -10,12 +10,12 @@ import NotiComp from "../components/Global/notification_component";
 import { CreateAccountPopup } from "../components/Accounts/CreateAccountPopUp";
 import { Loader } from "../components/Global/loader";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { ValidateUser } from "../apis/userAndAccountDetails";
+import { ValidateUser } from "../apis/validateUser";
 
 import { BiShow } from 'react-icons/bi'
 import { BiHide } from "react-icons/bi";
 function Login({ notOn, setnotOn, loader, setloader }) {
-    const LoginState = useAuthContext();
+    const { dispatch } = useAuthContext();
     let navigate = useNavigate();
     function navigateToDashoard() {
         navigate("/Dashboard");
@@ -39,24 +39,27 @@ function Login({ notOn, setnotOn, loader, setloader }) {
         setpassword(e.target.value);
     }
     const setCredentials = async (e) => {
-        setloader("display");
         e.preventDefault()
-        const res = await ValidateUser(username, password)
-        console.log("succcessfully logged in");
 
-        console.log(username, res.data['x-auth-token']);
+        try {
+            setloader("display");
+            const res = await ValidateUser(username, password)
+            console.log("succcessfully logged in");
 
-        LoginState.dispatch({
-            type: "LOGIN",
-            payload: {
-                username: username,
-                authToken: res.data['x-auth-token']
-            },
-        })
-        setloader("none")
-        navigateToDashoard()
-
-        setloader("none")
+            dispatch({
+                type: "LOGIN",
+                payload: {
+                    username: username,
+                    authToken: res.data['x-auth-token']
+                },
+            })
+            setloader("none")
+            navigateToDashoard()
+            setloader("none")
+        }
+        catch (err) {
+            alert("Something Went Wrong! ", err)
+        }
 
     }
     const style = {
@@ -83,7 +86,7 @@ function Login({ notOn, setnotOn, loader, setloader }) {
             {loader === "display" &&
                 <Loader loader={loader} />
             }
-            <div className="main-box" style={{ display: popUpStyle.display }}>
+            <div className="main-box mt-7" style={{ display: popUpStyle.display }}>
                 <CreateAccountPopup
                     getBackStyle={getBackStyle}
                 />
@@ -104,7 +107,9 @@ function Login({ notOn, setnotOn, loader, setloader }) {
                             <Form.Label className="password-label">Password</Form.Label>
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <Form.Control type={showpass} placeholder="Password" className="password-field" value={password} onChange={(e) => changepass(e)} suggested="current-paasword" autoComplete="on" required />
-                                <PassLogo onClick={() => handlePass()} size={20} />
+                                <PassLogo onClick={() => handlePass()} size={20}
+                                    className="absolute right-[36%]"
+                                />
                             </div>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox" style={{ width: "100%", marginLeft: "35.5%" }}>

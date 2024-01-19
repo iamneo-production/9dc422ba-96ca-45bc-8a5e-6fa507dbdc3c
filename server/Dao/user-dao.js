@@ -83,7 +83,7 @@ async function resgisterNewUser(userObj, response) {
         state: userObj.state,
         country: userObj.country,
         pin: userObj.pin,
-        aadharId: userObj.aadharId,
+        aadharID: userObj.aadharId,
         panNo: userObj.panNo,
         gender: userObj.gender,
         annialIncome: userObj.annialIncome,

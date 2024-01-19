@@ -34,7 +34,7 @@
     border-radius: 5px;
 }
 
-.transaction-display, .financial-chart,.cashflow {
+.transaction-display, .financial-chart, .cashflow {
     border: 2px solid black;
     border-radius: 20px;
     height: 30%;
@@ -49,6 +49,7 @@
 .show-more-transactions {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .financial-chart-period {
@@ -62,20 +63,22 @@
     align-items: center;
     margin-top: 0px;
 }
-.graph-icons{
+
+.graph-icons {
     margin-left: auto;
-    margin-right:2%;
+    margin-right: 2%;
     width: 5%;
     height: 100px;
-    display:flex;
+    display: flex;
     position: static;
     z-index: 10;
     flex-direction: column;
     justify-content: center;
 }
-.accBalance{
+
+.accBalance {
     border: 2px solid black;
-    width:80%;
+    width: 80%;
     margin: auto;
     height: auto;
     border-radius: 10px;
@@ -84,7 +87,8 @@
     font-weight: bolder;
     font-size: x-large;
 }
-.investment-chart{
+
+.investment-chart {
     border: 2px solid black;
     height: auto;
     width: 80%;
@@ -92,12 +96,14 @@
     text-align: center;
     border-radius: 10px;
     background-color: #f8f4d3;
-    font-weight:600;
+    font-weight: 600;
 }
-.stat-display{
+
+.stat-display {
     font-size: xx-large;
 
 }
+
 /* @media screen and (max-width:955px) {
     .user-details-row{
         margin-bottom: 30px;
@@ -134,59 +140,74 @@
     .transaction-content {
         height: 50%;
     }
-    .graph-icons{
+
+    .graph-icons {
         width: 6%;
         height: fit-content;
     }
-    .sidebar-menu-item,.accBalance,.investment-chart{
+
+    .sidebar-menu-item, .accBalance, .investment-chart {
         width: 90%;
     }
-    .stat-display{
+
+    .stat-display {
         font-size: x-large;
     }
-    .expense-over-time{
+
+    .expense-over-time {
         font-size: 15px !important;
     }
-    #extra-feature{
+
+    #extra-feature {
         display: none;
     }
 }
+
 @media screen and (max-width:595px) {
-    .stat-display{
+    .stat-display {
         font-size: medium;
     }
-    .stat-and-pie-container{
+
+    .stat-and-pie-container {
         margin-top: 2%;
         height: 80% !important;
     }
 }
+
 @media screen and (max-width:426px) {
-    .financial-chart-period{
+    .financial-chart-period {
         margin-right: 20%;
     }
-    .graph-icons{
+
+    .graph-icons {
         width: 8%;
     }
-    .stat-display{
-        font-size:x-small;
+
+    .stat-display {
+        font-size: x-small;
     }
-    .aerrow{
+
+    .aerrow {
         width: 25px;
         height: 45px;
     }
-    .expense-over-time{
+
+    .expense-over-time {
         margin-top: 5px !important;
         font-size: 12px !important;
     }
 }
+
 @media screen and (max-width: 400px) {
-    .graph-icons{
+    .graph-icons {
         width: 15%;
     }
-    .cashflow-more{
+
+    .cashflow-more {
         width: 20px;
     }
-    .expense-over-time{
+
+    .expense-over-time {
         font-size: 10px !important;
     }
 }

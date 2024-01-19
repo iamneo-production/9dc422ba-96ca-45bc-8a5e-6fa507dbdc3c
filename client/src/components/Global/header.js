@@ -25,7 +25,7 @@ function NavBar({ setnotOn }) {
                     <Nav className="justify-content-end" style={{ display: "flex", alignItems: "center", width: "100%", fontSize: "20px", marginRight: "20px" }}>
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/Services" style={{ marginLeft: "15px" }}>Services</Nav.Link>
-                        <Nav.Link href="/Dashboard" style={{ marginLeft: "15px" }}>Dashboard</Nav.Link>
+                        {!username && <Nav.Link href="/Dashboard" style={{ marginLeft: "15px" }}>Dashboard</Nav.Link>}
                         {username ? <Nav.Link onClick={() => dispatch({ type: "LOGOUT" })}>LogOut</Nav.Link> :
                             <Nav.Link href="/Login" style={{ marginLeft: "15px" }}>Login/SignUp</Nav.Link>
                         }
