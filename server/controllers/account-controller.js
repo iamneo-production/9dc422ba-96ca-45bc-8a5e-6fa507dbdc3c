@@ -174,7 +174,7 @@ accountrouter.get('/getpayees/:accountno', authTokenValidator, async (req, res) 
 // auth token is used for security
 
 accountrouter.post('/transferamount', authTokenValidator, async (req, res) => {
-    console.log({ req }, { res });
+    // console.log({ req }, { res });
     let transferAmount = req.body;
     // schema validation using joi
     let { error } = accountValidator.validateTransferAmountSchema(transferAmount);
@@ -197,7 +197,8 @@ accountrouter.post('/transferamount', authTokenValidator, async (req, res) => {
     try {
         await accountDao.transferAmount(transferAmount, res, req.header('x-auth-token'))
     } catch (error) {
-        log.error(`Error in transaction from ${transferAmount.from.accountNo} to ${transferAmount.to.accountNo} of amount ${transferAmount.from.amount}: ` + err);
+        log.error(`Error in transaction from ${transferAmount.from.accountNo} to ${transferAmount.to.accountNo} of amount ${transferAmount.from.amount}: ` + error);
+        return res.send({ message: 'Error in controller try catch' })
     }
 });
 
