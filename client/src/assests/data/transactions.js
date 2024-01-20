@@ -35,14 +35,14 @@ const Transanctions = [
         date: "May 24, 2022",
         time: "21:30"
 
-    },  {
-        transID:"000374698734893",
-        from:"Sanket",
-        isCredited:true,
-        amount:5000,
-        remark:"Solan Trip",
-        date:"Jul 12,2022",
-        time:"12:00"
+    }, {
+        transID: "000374698734893",
+        from: "Sanket",
+        isCredited: true,
+        amount: 5000,
+        remark: "Solan Trip",
+        date: "Jul 12,2022",
+        time: "12:00"
 
     }, {
         transID: "000374698734893",
@@ -107,87 +107,87 @@ const Transanctions = [
         remark: "medicine",
         isCredited: false,
         time: "02:29"
-    },{
-        from:"Kevin",
-        transID:634623846286384,
-        amount:1000,
-        date:"Dec 08, 2022",
-        remark:"moza hi moza",
-        isCredited:true,
-        time:"13:48"
+    }, {
+        from: "Kevin",
+        transID: 634623846286384,
+        amount: 1000,
+        date: "Dec 08, 2022",
+        remark: "moza hi moza",
+        isCredited: true,
+        time: "13:48"
     },
     {
-        from:"Kevin",
-        transID:634623846286384,
-        amount:4000,
-        date:"Dec 04, 2022",
-        remark:"moza hi moza",
-        isCredited:false,
-        time:"13:48"
+        from: "Kevin",
+        transID: 634623846286384,
+        amount: 4000,
+        date: "Dec 04, 2022",
+        remark: "moza hi moza",
+        isCredited: false,
+        time: "13:48"
     },
     {
-        from:"Hotel",
-        transID:634623846286384,
-        amount:7000,
-        date:"Dec 04, 2022",
-        remark:"Drinks",
-        isCredited:false,
-        time:"13:48"
+        from: "Hotel",
+        transID: 634623846286384,
+        amount: 7000,
+        date: "Dec 04, 2022",
+        remark: "Drinks",
+        isCredited: false,
+        time: "13:48"
     },
     {
-        from:"Ken",
-        transID:634623846286384,
-        amount:6000,
-        date:"Dec 08, 2022",
-        remark:"Party",
-        isCredited:false,
-        time:"13:48"
+        from: "Ken",
+        transID: 634623846286384,
+        amount: 6000,
+        date: "Dec 08, 2022",
+        remark: "Party",
+        isCredited: false,
+        time: "13:48"
     },
     {
-        from:"Rubina",
-        transID:634623846286384,
-        amount:5000,
-        date:"Dec 03, 2022",
-        remark:"Cloths",
-        isCredited:true,
-        time:"13:48"
+        from: "Rubina",
+        transID: 634623846286384,
+        amount: 5000,
+        date: "Dec 03, 2022",
+        remark: "Cloths",
+        isCredited: true,
+        time: "13:48"
     },
     {
-        from:"Rohan",
-        transID:634623846286384,
-        amount:10000,
-        date:"Dec 05, 2022",
-        remark:"Grocery",
-        isCredited:false,
-        time:"13:48"
+        from: "Rohan",
+        transID: 634623846286384,
+        amount: 10000,
+        date: "Dec 05, 2022",
+        remark: "Grocery",
+        isCredited: false,
+        time: "13:48"
     },
     {
-        from:"sheldon",
-        transID:634623846286384,
-        amount:4000,
-        date:"Dec 06, 2022",
-        remark:"Fruits",
-        isCredited:false,
-        time:"13:48"
+        from: "sheldon",
+        transID: 634623846286384,
+        amount: 4000,
+        date: "Dec 06, 2022",
+        remark: "Fruits",
+        isCredited: false,
+        time: "13:48"
     },
     {
-        from:"Manjinder",
-        transID:634623846286384,
-        amount:3000,
-        date:"Dec 07, 2022",
-        remark:"Trip",
-        isCredited:true,
-        time:"13:48"
+        from: "Manjinder",
+        transID: 634623846286384,
+        amount: 3000,
+        date: "Dec 07, 2022",
+        remark: "Trip",
+        isCredited: true,
+        time: "13:48"
     },
     {
-        from:"Kevin",
-        transID:634623846286384,
-        amount:4000,
-        date:"Dec 07, 2022",
-        remark:"Medicine",
-        isCredited:false,
-        time:"13:50"
+        from: "Kevin",
+        transID: 634623846286384,
+        amount: 4000,
+        date: "Dec 07, 2022",
+        remark: "Medicine",
+        isCredited: false,
+        time: "13:50"
     },
-    
+
 ]
 export default Transanctions;
