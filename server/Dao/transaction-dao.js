@@ -53,45 +53,46 @@ const logTransactionSummary = async (req, response) => {
 
 // simple get transaction summary function
 
-const gettransSumm = async (req, res) => {
+const gettransSumm = async (accountNo, res) => {
     try {
-        await retrievetransSumm(req)
-            .then((summary) => {
-                console.log({ summary });
-                return res.send({
-                    messageCode: 'TRNSMRY',
-                    summary: { summary }
-                });
-            })
+        const result = await retrievetransSumm(accountNo);
+        console.log({ result });
+        return res.status(200).send({
+            message: 'Retrieved transactions',
+            summary: result
+        })
+
     } catch (error) {
-        log.error(`Error in retrieving transSUmm ${req}: ` + error);
+        log.error(`Error in retrieving transSUmm ${accountNo}: ` + error);
         return response.status(400).send({
             messageCode: new String(err.errmsg).split(" ")[0],
-            message: 'Unable to retrive transaction summary for ' + req
+            message: 'Unable to retrive transaction summary for ' + accountNo
         });
     }
 
 }
 
-async function retrievetransSumm(e) {
+async function retrievetransSumm(accountNo) {
     try {
         // need to find trans summary
         // and then put it in an array send 200
-        return await TransactionModel.find({ from: e })
-            .then(result => {
-                let tempSummary = {};
-                let responseSummary = ["dwdejubcfje"];
-                result.forEach(summary => {
-                    temp = {};
-                    temp.amount = summary.amount;
-                    temp.transferedOn = summary.transferedOn;
-                    temp.to = summary.to;
-                    temp.from = summary.from;
-                    temp.remark = summary.remark;
-                    responseSummary.push(tempSummary);
-                });
-                return responseSummary;
-            })
+        const responseFrom = await TransactionModel.find({ from: accountNo }).exec();
+        const responseTo = await TransactionModel.find({ to: accountNo }).exec();
+
+        let responseSummary = [];
+
+        responseFrom.forEach(summary => {
+            let temp = { ...summary.toObject() }; // Using toObject() to convert Mongoose document to plain JavaScript object
+            responseSummary.push(temp);
+        });
+
+        responseTo.forEach(summary => {
+            let temp = { ...summary.toObject() };
+            responseSummary.push(temp);
+        });
+
+        const summary = { responseSummary };
+        return summary;
     } catch (error) {
         throw new Error(error);
     }
