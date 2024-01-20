@@ -30,7 +30,6 @@ const Navigation = () => {
             console.log("Reloaded");
         }
     }, [dispatch, storedUsername, username, authToken])
-    const [loader, setLoader] = useState("none")
     const [notOn, setnotOn] = useState({ display: "none" });
     return (
         <BrowserRouter>
@@ -40,8 +39,6 @@ const Navigation = () => {
                 {!username && <Route exact path="/login" element={<Login
                     notOn={notOn}
                     setnotOn={setnotOn}
-                    setloader={setLoader}
-                    loader={loader}
                 />} />}
 
                 {/* <Route path="/signup" element={<SignUp notOn={notOn} setnotOn={setnotOn}/>} /> */}
@@ -49,8 +46,6 @@ const Navigation = () => {
                 <Route path="/Dashboard" element={<Dashboard
                     notOn={notOn}
                     setnotOn={setnotOn}
-                    loader={loader}
-                    setLoader={setLoader}
                 />} />
                 <Route exact path="CreateSavingsAccount" element={<SavingsAccount notOn={notOn} setnotOn={setnotOn} />} />
                 <Route exact path="CreateSalaryAccount" element={<SalaryAccount notOn={notOn} setnotOn={setnotOn} />} />
@@ -58,10 +53,8 @@ const Navigation = () => {
                 <Route path="/OpenAccount" element={<CreateAccount
                     notOn={notOn}
                     setnotOn={setnotOn}
-                    setloader={setLoader}
-                    loader={loader}
                 />} />
-                <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn} loader={loader} setloader={setLoader} />} />
+                <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn} />} />
                 <Route path="/Contact-us" element={<ContactUs notOn={notOn} setnotOn={setnotOn} />} />
                 <Route path="/editAccountDetails" element={<EditUserDetails />} />
             </Routes>

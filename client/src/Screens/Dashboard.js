@@ -9,19 +9,25 @@ import DashboardContainer from "../components/Dashboard/Container";
 import { useAuthContext } from "../hooks/useAuthContext";
 import axios from 'axios';
 import { useDataContext } from "../hooks/useDataContext";
+import { useLoader } from "../hooks/useLoader";
 
-const baseUrl = "https://n-eo-bank.vercel.app/api/"
+const baseUrl = "https://neobank-nu.vercel.app/api/"
 
-const Dashboard = ({ notOn, setnotOn, loader, setLoader }) => {
+const Dashboard = ({ notOn, setnotOn }) => {
     //hooks
+    const { setLoader } = useLoader()
     const { username, authToken } = useAuthContext()
     const { setAccountData, setUserData } = useDataContext()
 
     //states
 
-    const [dashboardEnable, setDashboaredEnable] = useState({})
+    const [dashboardEnable, setDashboaredEnable] = useState({
+        opacity: "5%",
+        display: "block"
+    })
     useEffect(() => {
         async function CallApi() {
+            setLoader(true)
             try {
                 const res = await axios({
                     method: 'GET',
@@ -60,15 +66,14 @@ const Dashboard = ({ notOn, setnotOn, loader, setLoader }) => {
                     opacity: "100",
                     display: "none"
                 })
-                setLoader("display")
 
-                setLoader("none")
             } else if (!username) {
                 setDashboaredEnable({
                     opacity: "5%",
                     display: "block"
                 })
             }
+            setLoader(false)
         }
         CallApi();
 
@@ -81,19 +86,16 @@ const Dashboard = ({ notOn, setnotOn, loader, setLoader }) => {
             <NavBar
                 setnotOn={setnotOn}
             />
+            <Loader />
             <AccessAlert
                 dashboardEnable={dashboardEnable}
             />
-            {loader === "display" &&
-                <Loader loader={loader} />
-            }
             <NotiComp
                 notOn={notOn}
             />
             <DashboardContainer
                 dashboardEnable={dashboardEnable}
                 setDashboaredEnable={setDashboaredEnable}
-                setLoader={setLoader}
                 setnotOn={setnotOn}
             />
             <div style={{ height: "80px" }}>

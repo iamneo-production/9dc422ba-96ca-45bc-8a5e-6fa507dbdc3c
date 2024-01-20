@@ -6,7 +6,8 @@ import Alert from "@mui/material/Alert";
 import { Loader } from "../components/Global/loader";
 import "../assests/styling/openAccount.css"
 import NotiComp from "../components/Global/notification_component";
-function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
+function CreateAccount({ data, notOn, setnotOn }) {
+
     const [errmsg, seterrmsg] = useState("hidden");
     const [errmsgText, seterrmsgText] = useState("")
     if (errmsg === "visible") {
@@ -19,8 +20,7 @@ function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
             <NotiComp
                 notOn={notOn}
             />
-            {loader === 'display' && <Loader
-                loader={loader} />}
+            <Loader />
             <div style={{ width: "100%", height: "45px", marginTop: "5px", visibility: errmsg }}>
                 <Alert style={{ width: "20%", float: "right", marginRight: "2%" }} variant="filled" severity="error">{errmsgText}</Alert>
             </div>
@@ -31,8 +31,6 @@ function CreateAccount({ data, notOn, setnotOn, loader, setloader }) {
                         setmsg={seterrmsg}
                         setText={seterrmsgText}
                         data={data}
-                        setloader={setloader}
-                        loader={loader}
                     />
                 </div>
             </div>
