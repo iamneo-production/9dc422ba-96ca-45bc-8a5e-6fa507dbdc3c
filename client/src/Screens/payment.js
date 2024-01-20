@@ -8,15 +8,16 @@ import Addpayee from "../components/payment/Addpayee";
 import { useDataContext } from "../hooks/useDataContext";
 import TransactionStep1 from "../components/payment/TransactionStep1";
 import TStep2 from "../components/payment/TStep2";
-const Payment = ({ notOn, setnotOn }) => {
+import { usePaymentStep } from "../hooks/usePaymentStep";
+const Payment = ({ notOn, setnotOn, setPayeeAccountNo, payeeAccountNo }) => {
     //hooks
     // console.log(notOn);
-    const { accountData } = useDataContext()
+    const { accountData, userData } = useDataContext()
+    const { setPaymentStep, paymentStep } = usePaymentStep()
 
     //states
-    const [payeeAccountNo, setPayeeAccountNo] = useState("");
     const [userAccNumber, setUserAccNumber] = useState("");
-    const [paymentStep, setPaymentStep] = useState(1);
+    const [userPhone, setUserPhone] = useState("")
     const [amount, setAmount] = useState("");
     const [remark, setRemark] = useState("");
     const [data, setData] = useState({})
@@ -24,12 +25,10 @@ const Payment = ({ notOn, setnotOn }) => {
 
     useEffect(() => {
         setUserAccNumber(accountData?.accountNo)
-        console.log(accountData);
-    }, [accountData])
+        setUserPhone(userData?.phoneNo)
+    }, [accountData, userData])
 
-
-
-
+    console.log(data);
     return (
         <>
             <NavBar setnotOn={setnotOn} />
@@ -65,16 +64,9 @@ const Payment = ({ notOn, setnotOn }) => {
                         paymentStep === 3 ?
                             <TStep2
                                 setnotOn={setnotOn}
-                                payeeAccountNo={payeeAccountNo}
-                                setData={setData}
-                                userAccNumber={userAccNumber}
                                 paymentStep={paymentStep}
-                                setPaymentStep={setPaymentStep}
-                                setAmount={setAmount}
-                                setRemark={setRemark}
-                                remark={remark}
-                                amount={amount}
                                 data={data}
+                                userPhone={userPhone}
                             />
                             :
                             <div>
