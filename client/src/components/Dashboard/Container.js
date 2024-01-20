@@ -25,7 +25,6 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
     //states
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
-    const [accBalance, setaccBalance] = useState(0);
     const [graphDuration, setgraphDuration] = useState("Weekly")
     const [graphType, setgraphType] = useState("bar")
 
@@ -66,23 +65,19 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
 
     useEffect(() => {
 
-        let amt = 0;
         let inc = 0;
         let exp = 0;
         for (let i = 0; i < Transactions.length; i++) {
             if (Transactions[i].isCredited === true) {
                 let val = parseInt(Transactions[i].amount);
                 inc += val;
-                amt += val;
             } else {
                 let val = parseInt(Transactions[i].amount)
                 exp += val;
-                amt -= val;
             }
         }
         setIncome(inc);
         setexpense(exp);
-        setaccBalance(amt);
     }, []);
 
 
@@ -329,16 +324,17 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
                     <div style={{ height: "5%" }}></div>
                     <div className="investment-chart">
                         <div style={{ border: '1px solid black', backgroundColor: '#f0f4f4', borderRadius: "8px", fontSize: "20px" }}>
-                            INVESTMENT
+                            Payee List
                         </div>
                         <div>
                             <ol style={{ marginLeft: "15%", textAlign: "left" }}>
-                                <li>Lorem Ipsum</li>
-                                <li>Donor vhi</li>
-                                <li>Salam Ewaalekum</li>
-                                <li>Qwerty Qwerty</li>
-                                <li>Holopinsss</li>
-                                <li>Mississippi</li>
+                                {
+                                    accountData?.payees.map((item, index) => (
+                                        <li key={index}>
+                                            {item.firstname + " " + item.lastname}
+                                        </li>
+                                    ))
+                                }
                             </ol>
                         </div>
                     </div>
