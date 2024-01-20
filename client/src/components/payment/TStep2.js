@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useLoader } from '../../hooks/useLoader';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
-const TStep2 = ({ setnotOn, amount, payeeAccountNo, userAccNumber, remark, data, paymentStep }) => {
+const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
 
     const { setLoader } = useLoader()
     const { authToken } = useAuthContext();
     const [tpin, setTpin] = useState("");
+    const [otp, setOtp] = useState("");
 
     const updatetpin = (e) => {
         setTpin(e.target.value)
@@ -19,39 +20,103 @@ const TStep2 = ({ setnotOn, amount, payeeAccountNo, userAccNumber, remark, data,
         navigate("/dashboard")
     }
 
+    async function OTPgenerate() {
+        if (tpin === "112233") {
+            setLoader(true)
+            try {
+                const res1 = await axios({
+                    method: "post",
+                    url: "https://neobank-nu.vercel.app/api/account/sendOtp",
+                    data: {
+                        "phoneNo": "8591941194"
+                    },
+                    headers: {
+                        "content-Type": "application/json",
+                        'x-auth-token': authToken
+                    }
+                })
+                console.log(res1.status);
+                alert("Otp Sent!!")
+            }
+            catch (err) {
+                alert("Failed to generate OTP")
+            }
+            finally {
+                setLoader(false)
+            }
+        }
+        else {
+            alert("Incorrect T-Pin")
+        }
+    }
+
+    const transaction = async () => {
+        setLoader(true)
+        try {
+            console.log(data);
+            const res1 = await axios({
+                method: "post",
+                url: "https://neobank-nu.vercel.app/api/account/transferamount",
+                data: data,
+                headers: {
+                    "content-Type": "application/json",
+                    'x-auth-token': authToken
+                }
+            })
+            console.log(res1.status);
+            alert("Payment Successful");
+            navigatetoDashboard();
+        }
+        catch (err) {
+            throw TypeError(err)
+        }
+        finally {
+            setLoader(false)
+        }
+    }
+
+    const verifyOTP = async () => {
+        setLoader(true)
+        try {
+            const res1 = await axios({
+                method: "post",
+                url: "https://neobank-nu.vercel.app/api/account/verifyOtp",
+                data: {
+                    phoneNo: "8591941194",
+                    otp: otp
+                },
+                headers: {
+                    "content-Type": "application/json",
+                    'x-auth-token': authToken
+                }
+            })
+            if (res1.status === 200) {
+                alert("OTP verified!!")
+            } else {
+                console.log(res1.statusText);
+            }
+        }
+        catch (err) {
+            throw TypeError(err);
+        } finally {
+            setLoader(false)
+        }
+    }
 
     const makepayment = (e) => {
         e.preventDefault();
-        async function transaction() {
-            if (tpin === "112233") {
-                setLoader(true)
-                try {
-                    console.log(data);
-                    const res1 = await axios({
-                        method: "post",
-                        url: "https://neobank-nu.vercel.app/api/account/transferamount",
-                        data: data,
-                        headers: {
-                            "content-Type": "application/json",
-                            'x-auth-token': authToken
-                        }
-                    })
-                    console.log(res1.status);
-                    alert("Payment Successful");
-                    navigatetoDashboard();
-                }
-                catch (err) {
-                    alert("Couldn't process the transaction try again")
-                }
-                finally {
-                    setLoader(false)
-                }
+        setLoader(true)
+        async function pay() {
+            try {
+                await verifyOTP()
+                await transaction();
             }
-            else {
-                alert("Incorrect T-Pin")
+            catch (err) {
+                alert("Failed to verify OTP")
             }
         }
-        transaction()
+        pay()
+        setLoader(false)
     }
 
     return (
@@ -66,14 +131,14 @@ const TStep2 = ({ setnotOn, amount, payeeAccountNo, userAccNumber, remark, data,
                             <label className="label">
                                 Transaction PIN*
                             </label>
-                            <input className="form-input " type={"text"} name="payeeAccountNo" placeholder="Enter Your 6 digit T-PIN" onChange={(e) => updatetpin(e)} minLength={"6"} maxLength={'6'} required />
+                            <input className="form-input " type={"text"} name="T-pin" placeholder="Enter Your 6 digit T-PIN" onChange={(e) => updatetpin(e)} minLength={"6"} maxLength={'6'} required />
                         </div>
-                        <Button style={{ backgroundColor: "#48842c", width: "35%", margin: "10%" }}>Get OTP</Button>
+                        <Button onClick={OTPgenerate} style={{ backgroundColor: "#48842c", width: "35%", margin: "10%" }}>Get OTP</Button>
                         <div className="aadharentry">
                             <label className="label">
                                 OTP*
                             </label>
-                            <input className="form-input " type={"text"} name="ifsc" placeholder="Enter OTP Sent on Your Device" onChange={(e) => (e)} minLength={6} maxLength={6} required />
+                            <input className="form-input " type={"text"} name="OTP" placeholder="Enter OTP Sent on Your Device" onChange={(e) => setOtp(e.target.value)} minLength={6} maxLength={6} required />
                         </div>
                         <div className="nextbuttonform">
                             <div style={{ margin: "30%", width: "30%" }}>
