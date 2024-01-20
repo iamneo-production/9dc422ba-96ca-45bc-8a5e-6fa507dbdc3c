@@ -10,6 +10,15 @@ const payeeInputSchemaModel = {
     }
 }
 
+const sendOtpSchemaModel = {
+    phoneNo: Joi.string().required()
+}
+
+const verifyOtpSchemaModel = {
+    phoneNo: Joi.string().required(),
+    otp: Joi.string().required()
+}
+
 const newAccountInputSchemaModel = {
     username: Joi.string().min(6).required(),
     closingBalance: Joi.string().required(),
@@ -49,5 +58,7 @@ module.exports = {
     payeeInputSchemaModel,
     newAccountInputSchemaModel,
     transferAmountSchemaModel,
-    mongoAccountSchema
+    mongoAccountSchema,
+    sendOtpSchemaModel,
+    verifyOtpSchemaModel
 }

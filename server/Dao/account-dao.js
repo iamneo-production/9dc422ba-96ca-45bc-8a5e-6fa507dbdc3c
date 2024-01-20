@@ -171,6 +171,26 @@ const transferAmount = async (transferAmount, response, token) => {
         });
         // now in order to change receivers balance get its current no
         let toClosingBalance = parseFloat(toResult.closingBalance);
+
+        // check whether to exists in payee array
+        // console.log(fromResult);
+        // console.log({ to });
+        // console.log({ from });
+        let flag = false;
+        const payeeArray = fromResult.payees;
+        // console.log({ payeeArray });
+        for (let i = 0; i < payeeArray.length; i++) {
+            if (payeeArray[i].accountNo == to.accountNo) {
+                console.log("condition checked");
+                flag = true;
+            }
+        }
+        if (!flag) {
+            return response.status(400).send({
+                message: 'Add beneficiary first to make a transaction'
+            })
+        }
+
         // now update it accordingly
         await AccountModel.updateOne({ accountNo: to.accountNo }, { $set: { closingBalance: toClosingBalance + transactionAmount } }, (toTransactionErr, toResult) => {
             if (toTransactionErr || !toResult) {
@@ -194,7 +214,7 @@ const transferAmount = async (transferAmount, response, token) => {
         });
 
         //calling log trans (transaction table)
-        logTransaction(transferAmount, token);
+        await logTransaction(transferAmount, token);
         log.info('Transaction completed from ' + from.accountNo + ' to ' + to.accountNo + ' of amount ' + from.amount);
         return response.send({
             messageCode: 'ACCTRANC',
@@ -228,7 +248,7 @@ async function logTransaction(transferAmount, token) {
     try {
         await axios({
             method: 'post',
-            url: 'https://n-eo-bank.vercel.app/api/transaction/logtransactionsummary',
+            url: 'https://neobank-nu.vercel.app/api/transaction/logtransactionsummary',
             data: JSON.stringify(requestBody),
             headers: {
                 'content-type': 'application/json',
