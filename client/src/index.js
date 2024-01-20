@@ -6,6 +6,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import reportWebVitals from './reportWebVitals';
 import { DataContextProvider } from './context/DataContext';
 import { LoaderContextProvider } from './context/LoaderContext';
+import { PaymentContextProvider } from './context/PaymentContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <AuthContextProvider>
       <DataContextProvider>
         <LoaderContextProvider>
-          <App />
+          <PaymentContextProvider>
+            <App />
+          </PaymentContextProvider>
         </LoaderContextProvider>
       </DataContextProvider>
     </AuthContextProvider>
