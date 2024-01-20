@@ -13,8 +13,18 @@ const validateTransferAmountSchema = (transferAmount) => {
     return Joi.validate(transferAmount, accountSchemaModel.transferAmountSchemaModel);
 }
 
+const validateSendOtpSchema = (phoneNo) => {
+    return Joi.validate(phoneNo, accountSchemaModel.sendOtpSchemaModel)
+}
+
+const validateVerifyOtpSchema = (otpInfo) => {
+    return Joi.validate(otpInfo, accountSchemaModel.verifyOtpSchemaModel)
+}
+
 module.exports = {
     validateCreateNewAccountSchema,
     validatePayeeSchema,
-    validateTransferAmountSchema
+    validateTransferAmountSchema,
+    validateSendOtpSchema,
+    validateVerifyOtpSchema
 }

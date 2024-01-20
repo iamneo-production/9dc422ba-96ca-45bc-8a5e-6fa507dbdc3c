@@ -7,6 +7,10 @@ const log = new Logger('Account-Controller-table');
 const authTokenValidator = require('../middleware/auth-token-validator');
 const notValidSchema = require('../lib/notValidSchema');
 const isSameAccountNo = require('../lib/sameAccountNo');
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
+const verifySid = process.env.verifySID;
 
 // -----------> http://localhost:3000/account <----------------  //
 
@@ -62,6 +66,69 @@ accountrouter.post('/createnewaccount', authTokenValidator, async (req, res) => 
         log.error(`Error in creating new account for username ${newAccount.username}: ` + err);
     }
 });
+
+accountrouter.post('/sendOtp', authTokenValidator, async (req, res) => {
+    const phoneNo = req.body;
+    console.log("checkpoint 1");
+    let { error } = accountValidator.validateSendOtpSchema(phoneNo);
+    console.log("checkpoint 2");
+    if (notValidSchema.isNotValidSchema(error, res)) return;
+    try {
+        // send otp service
+        console.log(client);
+        const otpResponse = await client.verify.v2
+            .services(verifySid)
+            .verifications.create({
+                to: `+91${phoneNo.phoneNo}`,
+                channel: 'sms',
+            })
+        console.log(otpResponse);
+        log.info(`Sucessfully sent the otp to phoneNo ${phoneNo.phoneNo}`);
+        res.status(200).send({
+            message: 'Otp Sent to phoneNo' + phoneNo.phoneNo,
+            result: otpResponse
+        })
+    } catch (error) {
+        // error in sending the otp using twilio
+        log.error(`Error in sending the otp using twilio for phone No ${phoneNo.phoneNo}`)
+        return res.status(400).send({
+            message: 'Error in sending otp!'
+        })
+    }
+})
+
+accountrouter.post('/verifyOtp', authTokenValidator, async (req, res) => {
+    const otpInfo = req.body;
+    console.log({ otpInfo });
+    const otp = otpInfo.otp;
+    const phoneNo = otpInfo.phoneNo;
+    let { error } = accountValidator.validateVerifyOtpSchema(otpInfo);
+    if (notValidSchema.isNotValidSchema(error, res)) return;
+    try {
+        const verifiedResponse = await client.verify.v2.services(verifySid)
+            .verificationChecks
+            .create({ to: `+91${phoneNo}`, code: otp });
+        console.log({ verifiedResponse });
+
+        if (verifiedResponse.status === 'approved') {
+            log.info(`Successfully verified`);
+            return res.status(200).send({
+                message: 'Otp matched',
+            });
+        }
+        else {
+            res.status(400).send({
+                message: 'Wrong otp entered'
+            })
+        }
+
+    } catch (error) {
+        log.error(`Error in verifing the otp` + error);
+        res.status(404).send({
+            message: 'Wrong otp'
+        })
+    }
+})
 
 //debugging some functions
 // will be adding testing scripts of jest very soon
