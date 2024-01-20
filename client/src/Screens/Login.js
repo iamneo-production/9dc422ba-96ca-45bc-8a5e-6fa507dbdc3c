@@ -14,7 +14,10 @@ import { ValidateUser } from "../apis/validateUser";
 
 import { BiShow } from 'react-icons/bi'
 import { BiHide } from "react-icons/bi";
-function Login({ notOn, setnotOn, loader, setloader }) {
+import { useLoader } from "../hooks/useLoader";
+function Login({ notOn, setnotOn }) {
+
+    const { loader, setLoader } = useLoader()
     const { dispatch } = useAuthContext();
     let navigate = useNavigate();
     function navigateToDashoard() {
@@ -42,7 +45,7 @@ function Login({ notOn, setnotOn, loader, setloader }) {
         e.preventDefault()
 
         try {
-            setloader("display");
+            setLoader(true);
             const res = await ValidateUser(username, password)
             console.log("succcessfully logged in");
 
@@ -53,9 +56,8 @@ function Login({ notOn, setnotOn, loader, setloader }) {
                     authToken: res.data['x-auth-token']
                 },
             })
-            setloader("none")
+            setLoader(false)
             navigateToDashoard()
-            setloader("none")
         }
         catch (err) {
             alert("Something Went Wrong! ", err)
@@ -83,9 +85,8 @@ function Login({ notOn, setnotOn, loader, setloader }) {
     return (
         <>
             <NavBar setnotOn={setnotOn} />
-            {loader === "display" &&
-                <Loader loader={loader} />
-            }
+            <Loader />
+
             <div className="main-box mt-7" style={{ display: popUpStyle.display }}>
                 <CreateAccountPopup
                     getBackStyle={getBackStyle}
