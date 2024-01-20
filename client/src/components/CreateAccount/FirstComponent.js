@@ -8,7 +8,10 @@ import toast from "react-hot-toast";
 import { ValidateUser } from "../../apis/validateUser";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { Loader } from "../Global/loader";
-function Step1({ data, setmsg, setText, setloader, loader }) {
+import { useLoader } from "../../hooks/useLoader";
+function Step1({ data, setmsg, setText }) {
+    const { setLoader } = useLoader();
+
     // const statedata=props.data
     const [step, setstep] = useState(2);
     //formdata stats
@@ -46,10 +49,10 @@ function Step1({ data, setmsg, setText, setloader, loader }) {
     }
 
     async function checkAadharValidation() {
-        setloader("block")
+        setLoader(true)
         // console.log("aadhar validation checking");
         setTimeout(() => {
-            setloader("none");
+            setLoader(false);
             setIsAdharValid(true);
             toast.success("Aadhar is Verified")
         }, 1000)
@@ -180,7 +183,7 @@ function Step1({ data, setmsg, setText, setloader, loader }) {
         console.log(UserData);
         const res = await axios({
             method: 'post',
-            url: 'https://n-eo-bank.vercel.app/api/user/register',
+            url: 'https://neobank-nu.vercel.app/api/user/register',
             data: UserData
         })
         console.log(res);
@@ -191,7 +194,7 @@ function Step1({ data, setmsg, setText, setloader, loader }) {
     async function CreateAccount(e) {
         e.preventDefault();
         try {
-            setloader("display");
+            setLoader(true);
 
             await CreateUser(e);
             const res = await ValidateUser(username, password)
@@ -206,7 +209,7 @@ function Step1({ data, setmsg, setText, setloader, loader }) {
             console.log("succcessfully logged in");
             await axios({
                 method: 'post',
-                url: "https://n-eo-bank.vercel.app/api/account/createnewaccount",
+                url: "https://neobank-nu.vercel.app/api/account/createnewaccount",
                 headers: {
                     "Content-Type": "application/json",
                     "x-auth-token": res.data['x-auth-token']
@@ -217,7 +220,7 @@ function Step1({ data, setmsg, setText, setloader, loader }) {
                 }
             }).then((e) => alert("Congratulations Your Account has been Successfully Created!"))
 
-            setloader("none")
+            setLoader(false)
             navigateToDashoard()
         }
         catch (err) {
@@ -572,11 +575,7 @@ function Step1({ data, setmsg, setText, setloader, loader }) {
         case 9:
             return (
                 <>
-                    {loader === "display" &&
-                        <Loader
-                            loader={loader}
-                        />
-                    }
+                    <Loader />
                     <div className="form-content-box">
                         <div className="KYCtext">
                             KYC is a standard due diligence process used by financial institutions and other financial services companies to assess and monitor customer risk and verify a customer’s identity. KYC ensures that a customer is who they say they are.
