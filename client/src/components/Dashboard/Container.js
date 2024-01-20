@@ -9,32 +9,37 @@ import { VscGraphLine } from "react-icons/vsc"
 import { BsArrowRightSquareFill } from "react-icons/bs"
 import { PieChart } from "react-minimal-pie-chart";
 import BarGraph from "./BarGraph";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import "../../assests/styling/Dashboard.css"
-import Transactions from "../../assests/data/transactions";
+// import Transactions from "../../assests/data/transactions";
 import { useDataContext } from '../../hooks/useDataContext';
+import { usePaymentStep } from '../../hooks/usePaymentStep';
+import { useLoader } from '../../hooks/useLoader';
 
 
 
 
-const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, setnotOn }) => {
+const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) => {
     //hooks
     const { userData, accountData } = useDataContext()
+    const { setPaymentStep } = usePaymentStep()
+    const { setLoader } = useLoader()
+    let navigate = useNavigate();
 
     //states
     const [income, setIncome] = useState(0);
     const [expense, setexpense] = useState(0);
     const [graphDuration, setgraphDuration] = useState("Weekly")
     const [graphType, setgraphType] = useState("bar")
+    const [transactions, setTransactions] = useState([])
+    const [data, setData] = useState([])
 
     let piedata = [
         { title: "Income", value: income, color: "#4708b4" },
         { title: "Expense", value: expense, color: "#f97405" }
     ]
 
-    const DisplayTransArray = Transactions.slice(Transactions.length - 7, Transactions.length);
-    let count = 1;
 
     const isCreditedfrom = (item) => {
         if (item.isCredited === true) {
@@ -63,22 +68,64 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
         setgraphType('scatter');
     }
 
-    useEffect(() => {
+    function navigateToPaymentIfPayeeExist() {
+        setPaymentStep(2);
+        navigate("/makepayment");
+    }
 
+    const fixTransactions = () => {
+
+        console.log(transactions);
+        const dummy = []
+        for (let i = 0; i < transactions.length; i++) {
+            const isCredited = transactions[i]?.to === accountData?.accountNo ? true : false
+            const obj = {
+                date: transactions[i]?.transferedOn.slice(0, 10),
+                time: transactions[i]?.transferedOn.slice(11, 16),
+                transID: transactions[i]?._id.toString().slice(5),
+                isCredited: isCredited,
+                from: transactions[i]?.from,
+                amount: transactions[i]?.amount,
+                remark: transactions[i]?.remark
+            }
+
+            dummy.push(obj)
+        }
+        setData(dummy)
+    }
+
+    useEffect(() => {
+        async function loadTransactions() {
+            try {
+                const res = await axios({
+                    method: 'GET',
+                    url: `https://neobank-nu.vercel.app/api/transaction/trasanctionsummary/${accountData?.accountNo}`,
+                })
+                setTransactions(res.data.summary.responseSummary)
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+        setLoader(true)
+        loadTransactions()
+        console.log(transactions);
+        fixTransactions()
         let inc = 0;
         let exp = 0;
-        for (let i = 0; i < Transactions.length; i++) {
-            if (Transactions[i].isCredited === true) {
-                let val = parseInt(Transactions[i].amount);
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].isCredited === true) {
+                let val = parseInt(data[i].amount);
                 inc += val;
             } else {
-                let val = parseInt(Transactions[i].amount)
+                let val = parseInt(data[i].amount)
                 exp += val;
             }
         }
         setIncome(inc);
         setexpense(exp);
-    }, []);
+        setLoader(false)
+    }, [accountData]);
 
 
 
@@ -123,7 +170,7 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
                         </div>
                         <div className="transaction-content">
                             <div style={{ display: "flex", margin: "auto", marginBottom: "2%" }}>
-                                <div style={{ display: "flex", margin: "auto", textAlign: "center", width: "25%" }}>
+                                <div style={{ display: "flex", margin: "auto", textAlign: "center", width: "20%" }}>
                                     <div style={{ width: "40%" }}>
                                         Time
                                     </div>
@@ -131,27 +178,27 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
                                         Date
                                     </div>
                                 </div>
-                                <div style={{ width: "25%" }}>
+                                <div style={{ width: "20%", textAlign: 'center' }}>
                                     Transactions ID
                                 </div>
-                                <div style={{ width: "30%", display: "flex", textAlign: "left" }}>
-                                    <div style={{ width: "33%" }}>
+                                <div style={{ width: "40%", display: "flex", textAlign: "center" }}>
+                                    <div style={{ width: "20%" }}>
                                         Cre/Deb
                                     </div>
-                                    <div style={{ width: "33%" }}>
-                                        From
+                                    <div style={{ width: "50%" }}>
+                                        From(Account Num.)
                                     </div>
-                                    <div style={{ width: "33%" }}>
-                                        Amount
+                                    <div style={{ width: "30%" }}>
+                                        Amount(Rs)
                                     </div>
                                 </div>
                                 <div style={{ width: "20%", textAlign: "center" }}>
                                     Remark
                                 </div>
                             </div>
-                            {DisplayTransArray.map(item => (
-                                <div style={{ display: "flex", margin: "auto" }} key={count++}>
-                                    <div style={{ display: "flex", margin: "auto", textAlign: "center", width: "25%" }}>
+                            {data.map((item, index) => (
+                                <div style={{ display: "flex", margin: "auto" }} key={index}>
+                                    <div style={{ display: "flex", textAlign: "center", width: "20%" }}>
                                         <div style={{ width: "40%" }}>
                                             {item.time}
                                         </div>
@@ -159,18 +206,18 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
                                             {item.date}
                                         </div>
                                     </div>
-                                    <div style={{ width: "25%" }}>
+                                    <div style={{ width: "20%", textAlign: 'center' }}>
                                         {item.transID}
                                     </div>
-                                    <div style={{ width: "30%", display: "flex", textAlign: "left" }}>
-                                        <div style={{ width: "33%" }}>
+                                    <div style={{ width: "40%", display: "flex", textAlign: "center" }}>
+                                        <div style={{ width: "20%" }}>
                                             {isCreditedfrom(item)}
                                         </div>
-                                        <div style={{ width: "33%" }}>
+                                        <div style={{ width: "50%" }}>
                                             {item.from}
                                         </div>
                                         <div style={{ width: "33%", color: updatetType(item) }}>
-                                            {"Rs. " + item.amount}
+                                            {item.amount}
                                         </div>
                                     </div>
                                     <div style={{ width: "20%", textAlign: "center" }}>
@@ -215,6 +262,7 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
                             <BarGraph
                                 duration={graphDuration}
                                 type={graphType}
+                                Transanctions={data}
                             />
                         </div>
                         <div className="show-more-transactions">
@@ -330,7 +378,10 @@ const DashboardContainer = ({ dashboardEnable, setDashboaredEnable, setLoader, s
                             <ol style={{ marginLeft: "15%", textAlign: "left" }}>
                                 {
                                     accountData?.payees.map((item, index) => (
-                                        <li key={index}>
+                                        <li key={index} onClick={() => {
+                                            setPayeeAccountNo(item.accountNo)
+                                            navigateToPaymentIfPayeeExist()
+                                        }}>
                                             {item.firstname + " " + item.lastname}
                                         </li>
                                     ))
