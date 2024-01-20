@@ -241,7 +241,7 @@ async function logTransaction(transferAmount, token) {
         from: transferAmount.from.accountNo,
         to: transferAmount.to.accountNo,
         transferedOn: date.getFullYear() + '-' + month + '-' + date.getDate(),
-        remark: transferAmount.remark
+        remark: transferAmount.remark,
     };
 
     // console.log({ date }, { MM }, { month }, { requestBody },);
