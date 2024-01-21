@@ -7,40 +7,37 @@ import { Button, Container } from "react-bootstrap";
 import { GoGraph } from "react-icons/go"
 import { VscGraphLine } from "react-icons/vsc"
 import { BsArrowRightSquareFill } from "react-icons/bs"
-import { PieChart } from "react-minimal-pie-chart";
 import BarGraph from "./BarGraph";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
 import "../../assests/styling/Dashboard.css"
 // import Transactions from "../../assests/data/transactions";
 import { useDataContext } from '../../hooks/useDataContext';
 import { usePaymentStep } from '../../hooks/usePaymentStep';
-import { useLoader } from '../../hooks/useLoader';
+import PIECHART from './PieChart';
 
 
 
 
 const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) => {
     //hooks
-    const { userData, accountData } = useDataContext()
+    const { userData, accountData, tData, income, expense } = useDataContext()
     const { setPaymentStep } = usePaymentStep()
-    const { setLoader } = useLoader()
     let navigate = useNavigate();
 
     //states
-    const [income, setIncome] = useState(0);
-    const [expense, setexpense] = useState(0);
     const [graphDuration, setgraphDuration] = useState("Weekly")
     const [graphType, setgraphType] = useState("bar")
-    const [transactions, setTransactions] = useState([])
-    const [data, setData] = useState([])
-
-    let piedata = [
+    const [piedata, setPiedata] = useState([
         { title: "Income", value: income, color: "#4708b4" },
         { title: "Expense", value: expense, color: "#f97405" }
-    ]
+    ])
 
-
+    useEffect(() => {
+        setPiedata([
+            { title: "Income", value: income, color: "#4708b4" },
+            { title: "Expense", value: expense, color: "#f97405" }
+        ])
+    }, [income, expense])
     const isCreditedfrom = (item) => {
         if (item.isCredited === true) {
             return ("From: ")
@@ -48,6 +45,7 @@ const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) =>
             return ("To: ")
         }
     }
+
 
     function updatetType(item) {
         if (item.isCredited === true) {
@@ -72,60 +70,6 @@ const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) =>
         setPaymentStep(2);
         navigate("/makepayment");
     }
-
-    const fixTransactions = () => {
-
-        console.log(transactions);
-        const dummy = []
-        for (let i = 0; i < transactions.length; i++) {
-            const isCredited = transactions[i]?.to === accountData?.accountNo ? true : false
-            const obj = {
-                date: transactions[i]?.transferedOn.slice(0, 10),
-                time: transactions[i]?.transferedOn.slice(11, 16),
-                transID: transactions[i]?._id.toString().slice(5),
-                isCredited: isCredited,
-                from: transactions[i]?.from,
-                amount: transactions[i]?.amount,
-                remark: transactions[i]?.remark
-            }
-
-            dummy.push(obj)
-        }
-        setData(dummy)
-    }
-
-    useEffect(() => {
-        async function loadTransactions() {
-            try {
-                const res = await axios({
-                    method: 'GET',
-                    url: `https://neobank-nu.vercel.app/api/transaction/trasanctionsummary/${accountData?.accountNo}`,
-                })
-                setTransactions(res.data.summary.responseSummary)
-            }
-            catch (err) {
-                console.log(err);
-            }
-        }
-        setLoader(true)
-        loadTransactions()
-        console.log(transactions);
-        fixTransactions()
-        let inc = 0;
-        let exp = 0;
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].isCredited === true) {
-                let val = parseInt(data[i].amount);
-                inc += val;
-            } else {
-                let val = parseInt(data[i].amount)
-                exp += val;
-            }
-        }
-        setIncome(inc);
-        setexpense(exp);
-        setLoader(false)
-    }, [accountData]);
 
 
 
@@ -152,9 +96,9 @@ const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) =>
 
                 </Col>
                 <Col md={3} className="title-col-dash">
-                    <a href={"/editAccountDetails"} style={{ fontSize: "16px", fontWeight: "bold" }} >
+                    <Link to={"/editAccountDetails"} style={{ fontSize: "16px", fontWeight: "bold" }} >
                         Edit Account Detail
-                    </a>
+                    </Link>
                 </Col>
             </Row>
             <Row style={{ height: "1400px" }}>
@@ -196,7 +140,7 @@ const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) =>
                                     Remark
                                 </div>
                             </div>
-                            {data.map((item, index) => (
+                            {tData.slice(0, 8).map((item, index) => (
                                 <div style={{ display: "flex", margin: "auto" }} key={index}>
                                     <div style={{ display: "flex", textAlign: "center", width: "20%" }}>
                                         <div style={{ width: "40%" }}>
@@ -262,7 +206,7 @@ const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) =>
                             <BarGraph
                                 duration={graphDuration}
                                 type={graphType}
-                                Transanctions={data}
+                                Transanctions={tData}
                             />
                         </div>
                         <div className="show-more-transactions">
@@ -289,8 +233,9 @@ const DashboardContainer = ({ dashboardEnable, setnotOn, setPayeeAccountNo }) =>
                             <div style={{ height: "100%", width: "100%" }}>
                                 <div className="stat-and-pie-container" style={{ marginLeft: "1px", backgroundColor: "#fffcec", display: "flex", height: "95%" }}>
                                     <div style={{ width: "70%" }}>
-                                        <PieChart className="piechart" data={piedata} animate={"True"} radius={50} startAngle={270} center={[50, 50]} label={(piedata) => piedata.dataEntry.title} labelStyle={{ fontSize: "9px", backgroundColor: "white" }}>
-                                        </PieChart>
+                                        <PIECHART
+                                            piedata={piedata}
+                                        />
                                     </div>
                                     <div className="stat-display" style={{ display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "auto", marginRight: "5px", width: "auto" }}>
                                         <div style={{ height: "auto", border: "2px solid #4708b4", borderRadius: "10px", width: "100%", margin: "auto", color: "#4708b4", display: "flex" }}>
