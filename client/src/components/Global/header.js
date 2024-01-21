@@ -7,14 +7,25 @@ import { AiOutlineSearch } from "react-icons/ai";
 import logo from "../../assests/img/logo.png"
 import "../../assests/styling/header.css"
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoader } from '../../hooks/useLoader';
 
 function NavBar({ setnotOn }) {
-    const { username, dispatch } = useAuthContext()
+    const { username, dispatch } = useAuthContext();
+    const { setLoader } = useLoader()
     const setnotOncheck = (e) => {
         if (setnotOn) {
             setnotOn({ display: "block" })
         }
+    }
+    const navigate = useNavigate()
+    const handleLogOut = () => {
+        setLoader(true)
+        setTimeout(() => {
+            dispatch({ type: "LOGOUT" });
+            navigate('/');
+            setLoader(false);
+        }, 1000);
     }
     return (
         <Navbar bg="light" expand="lg" id='nav'>
@@ -34,7 +45,7 @@ function NavBar({ setnotOn }) {
                             <Link to="/" className='link'>Home</Link>
                             <Link to="/Services" className='link'>Services</Link>
                             {!username && <Link to="/Dashboard" className='link'>Dashboard</Link>}
-                            {username ? <Link className='link' onClick={() => dispatch({ type: "LOGOUT" })}>LogOut</Link> :
+                            {username ? <Link className='link' onClick={handleLogOut}>LogOut</Link> :
                                 <Link to="/Login" className='link'>Login/SignUp</Link>
                             }
                             <Link to='#link' className='link' style={{ marginLeft: "20px" }} onClick={e => setnotOncheck(e)} ><Noty width={"20px"} color={"#122C34"} /></Link>
