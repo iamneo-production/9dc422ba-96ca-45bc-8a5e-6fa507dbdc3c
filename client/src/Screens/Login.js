@@ -56,11 +56,13 @@ function Login({ notOn, setnotOn }) {
                     authToken: res.data['x-auth-token']
                 },
             })
-            setLoader(false)
             navigateToDashoard()
         }
         catch (err) {
             alert("Something Went Wrong! ", err)
+        } finally {
+            setLoader(false)
+
         }
 
     }
