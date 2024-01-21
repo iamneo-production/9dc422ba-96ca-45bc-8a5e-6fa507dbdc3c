@@ -28,7 +28,6 @@ const Payment = ({ notOn, setnotOn, setPayeeAccountNo, payeeAccountNo }) => {
         setUserPhone(userData?.phoneNo)
     }, [accountData, userData])
 
-    console.log(data);
     return (
         <>
             <NavBar setnotOn={setnotOn} />
