@@ -44,7 +44,7 @@ async function validateLoginUser(loginInfo, response) {
         // Now we have the username in result then check its password
         // for that use bcrypt for decrypting and then comparing it to our db
         // if there is a amtch then generate a JWT and send it to headers
-        if (result && bcrypt.compare(loginInfo.password, result.password)) {
+        if (result && bcrypt.compareSync(loginInfo.password, result.password)) {
             log.info(loginInfo.username + ' has been validated');
             const jwtToken = jwt.sign({
                 username: result.username,
