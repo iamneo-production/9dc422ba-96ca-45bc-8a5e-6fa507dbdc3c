@@ -17,19 +17,66 @@ const Dashboard = ({ notOn, setnotOn, setPayeeAccountNo }) => {
     //hooks
     const { setLoader } = useLoader()
     const { username, authToken } = useAuthContext()
-    const { setAccountData, setUserData } = useDataContext()
+    const { setAccountData, setUserData, setTData, userData, accountData, setExpense, setIncome } = useDataContext()
 
     //states
-
     const [dashboardEnable, setDashboaredEnable] = useState({
         opacity: "5%",
         display: "block"
     })
+
+    const fixTransactions = async (transactions, accountNo) => {
+        // console.log(transactions);
+        const dummy = []
+        for (let i = 0; i < transactions.length; i++) {
+            const isCredited = transactions[i]?.to === accountNo ? true : false
+            const obj = {
+                date: transactions[i]?.transferedOn.slice(0, 10),
+                time: transactions[i]?.transferedOn.slice(11, 16),
+                transID: transactions[i]?._id.toString().slice(5),
+                isCredited: isCredited,
+                from: transactions[i]?.from,
+                amount: transactions[i]?.amount,
+                remark: transactions[i]?.remark
+            }
+            dummy.push(obj)
+        }
+        setTData(dummy)
+        var inc = 0;
+        var exp = 0;
+        for (let i = 0; i < dummy.length; i++) {
+            if (dummy[i].isCredited === true) {
+                let val = parseInt(dummy[i].amount);
+                inc += val;
+            } else {
+                let val = parseInt(dummy[i].amount)
+                exp += val;
+            }
+        }
+        console.log(inc, exp);
+        setIncome(inc);
+        setExpense(exp);
+        setLoader(false);
+    }
+    async function transactionFunctions(accountNo) {
+        setLoader(true)
+        try {
+            const res3 = await axios({
+                method: 'GET',
+                url: `${baseUrl}transaction/trasanctionsummary/${accountNo}`,
+            })
+            fixTransactions(res3.data.summary.responseSummary, accountNo)
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         async function CallApi() {
             setLoader(true)
             try {
-                const res = await axios({
+                const res1 = await axios({
                     method: 'GET',
                     url: `${baseUrl}account/getaccountdetailsbyusername/${username}`,
                     headers: {
@@ -38,14 +85,14 @@ const Dashboard = ({ notOn, setnotOn, setPayeeAccountNo }) => {
                         "x-auth-token": authToken
                     }
                 })
-                // console.log(res);
-                setAccountData(res.data.accountDetails)
+                await transactionFunctions(res1.data.accountDetails.accountNo)
+                setAccountData(res1.data.accountDetails)
             }
             catch (err) {
                 console.log(err);
             }
             try {
-                const res = await axios({
+                const res2 = await axios({
                     method: 'GET',
                     mode: 'no-cors',
                     url: `${baseUrl}user/getuserbyuserrwg/${username}`,
@@ -56,26 +103,30 @@ const Dashboard = ({ notOn, setnotOn, setPayeeAccountNo }) => {
                     }
                 })
                 // console.log(res);
-                setUserData(res.data[0])
+                setUserData(res2.data[0])
 
             } catch (e) {
                 console.log(e);
             }
-            if (username) {
-                setDashboaredEnable({
-                    opacity: "100",
-                    display: "none"
-                })
-
-            } else if (!username) {
-                setDashboaredEnable({
-                    opacity: "5%",
-                    display: "block"
-                })
-            }
             setLoader(false)
         }
-        CallApi();
+        if (accountData === null) {
+            console.log(accountData, "data doesn't exits", userData);
+            CallApi();
+        }
+        if (username) {
+            setDashboaredEnable({
+                opacity: "100",
+                display: "none"
+            })
+
+        } else if (!username) {
+            setDashboaredEnable({
+                opacity: "5%",
+                display: "block"
+            })
+        }
+
 
     }, [])
 

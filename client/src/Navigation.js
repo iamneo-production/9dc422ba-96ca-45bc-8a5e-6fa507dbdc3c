@@ -36,8 +36,13 @@ const Navigation = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={username != null ? <Dashboard notOn={notOn}
-                    setnotOn={setnotOn} setPayeeAccountNo={setPayeeAccountNo} /> : <Home notOn={notOn} setnotOn={setnotOn} />} />
+                <Route path="/" element={username != null ?
+                    <Dashboard
+                        notOn={notOn}
+                        setnotOn={setnotOn}
+                        setPayeeAccountNo={setPayeeAccountNo}
+                    /> :
+                    <Home notOn={notOn} setnotOn={setnotOn} />} />
                 {!username && <Route exact path="/login" element={<Login
                     notOn={notOn}
                     setnotOn={setnotOn}
@@ -45,11 +50,12 @@ const Navigation = () => {
 
                 {/* <Route path="/signup" element={<SignUp notOn={notOn} setnotOn={setnotOn}/>} /> */}
                 <Route path="/Services" element={<MainServices notOn={notOn} setnotOn={setnotOn} />} />
-                <Route path="/Dashboard" element={<Dashboard
-                    notOn={notOn}
-                    setnotOn={setnotOn}
-                    setPayeeAccountNo={setPayeeAccountNo}
-                />} />
+                <Route path="/Dashboard" element={
+                    <Dashboard
+                        notOn={notOn}
+                        setnotOn={setnotOn}
+                        setPayeeAccountNo={setPayeeAccountNo}
+                    />} />
                 <Route exact path="CreateSavingsAccount" element={<SavingsAccount notOn={notOn} setnotOn={setnotOn} />} />
                 <Route exact path="CreateSalaryAccount" element={<SalaryAccount notOn={notOn} setnotOn={setnotOn} />} />
                 <Route exact path="CreateCurrentAccount" element={<CurrentAccount notOn={notOn} setnotOn={setnotOn} />} />
