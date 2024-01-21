@@ -1,22 +1,22 @@
 import React from "react";
-import Transanctions from "../../assests/data/transactions";
+// import Transanctions from "../../assests/data/transactions";
 import Plot from 'react-plotly.js'
-function BarGraph({ duration, type }) {
+function BarGraph({ duration, type, Transanctions }) {
     let data = { data: [] }
     // console.log(props.type);
     if (duration === "Annualy") {
         const monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         const monthDataExpense = [];
         const monthDataIncome = [];
-        monthArr.forEach(element => {
+        monthArr.forEach((element, index) => {
             let incomeThisMonth = 0;
             let expenseThisMonth = 0;
             Transanctions.forEach(item => {
-                if (item.date.substring(0, 3) === element) {
+                if (parseInt(item.date.substring(6, 8)) === index + 1) {
                     if (item.isCredited) {
-                        incomeThisMonth += item.amount;
+                        incomeThisMonth += parseInt(item.amount);
                     } else {
-                        expenseThisMonth += item.amount;
+                        expenseThisMonth += parseInt(item.amount);
                     }
                 }
             })
@@ -51,10 +51,10 @@ function BarGraph({ duration, type }) {
             dayDiff = dayDiff / (1000 * 3600 * 24);
             if (dayDiff < 7) {
                 if (trans.isCredited) {
-                    incomeArr[transdate.getDay()] += trans.amount;
+                    incomeArr[transdate.getDay()] += parseInt(trans.amount);
 
                 } else {
-                    expenseArr[transdate.getDay()] += trans.amount;
+                    expenseArr[transdate.getDay()] += parseInt(trans.amount);
 
                 }
             }
@@ -100,9 +100,9 @@ function BarGraph({ duration, type }) {
             dayDiff++;
             if (dayDiff <= today) {
                 if (item.isCredited) {
-                    incomeArr[today - dayDiff] += item.amount;
+                    incomeArr[today - dayDiff] += parseInt(item.amount);
                 } else {
-                    expenseArr[today - dayDiff] += item.amount;
+                    expenseArr[today - dayDiff] += parseInt(item.amount);
                 }
             }
         })

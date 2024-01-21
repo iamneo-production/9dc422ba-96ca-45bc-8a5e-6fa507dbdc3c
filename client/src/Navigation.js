@@ -17,6 +17,9 @@ const Navigation = () => {
     const { username, dispatch } = useAuthContext()
     const storedUsername = window.localStorage.getItem("username")
     const authToken = window.localStorage.getItem("authToken")
+    const [notOn, setnotOn] = useState({ display: "none" });
+    const [payeeAccountNo, setPayeeAccountNo] = useState("");
+
 
     useEffect(() => {
         if (storedUsername != null) {
@@ -30,12 +33,11 @@ const Navigation = () => {
             console.log("Reloaded");
         }
     }, [dispatch, storedUsername, username, authToken])
-    const [notOn, setnotOn] = useState({ display: "none" });
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={username != null ? <Dashboard notOn={notOn}
-                    setnotOn={setnotOn} /> : <Home notOn={notOn} setnotOn={setnotOn} />} />
+                    setnotOn={setnotOn} setPayeeAccountNo={setPayeeAccountNo} /> : <Home notOn={notOn} setnotOn={setnotOn} />} />
                 {!username && <Route exact path="/login" element={<Login
                     notOn={notOn}
                     setnotOn={setnotOn}
@@ -46,6 +48,7 @@ const Navigation = () => {
                 <Route path="/Dashboard" element={<Dashboard
                     notOn={notOn}
                     setnotOn={setnotOn}
+                    setPayeeAccountNo={setPayeeAccountNo}
                 />} />
                 <Route exact path="CreateSavingsAccount" element={<SavingsAccount notOn={notOn} setnotOn={setnotOn} />} />
                 <Route exact path="CreateSalaryAccount" element={<SalaryAccount notOn={notOn} setnotOn={setnotOn} />} />
@@ -54,7 +57,10 @@ const Navigation = () => {
                     notOn={notOn}
                     setnotOn={setnotOn}
                 />} />
-                <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn} />} />
+                <Route path="/makepayment" element={<Payment notOn={notOn} setnotOn={setnotOn}
+                    setPayeeAccountNo={setPayeeAccountNo}
+                    payeeAccountNo={payeeAccountNo}
+                />} />
                 <Route path="/Contact-us" element={<ContactUs notOn={notOn} setnotOn={setnotOn} />} />
                 <Route path="/editAccountDetails" element={<EditUserDetails />} />
             </Routes>

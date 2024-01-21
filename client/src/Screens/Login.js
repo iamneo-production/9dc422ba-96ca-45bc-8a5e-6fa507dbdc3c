@@ -17,11 +17,11 @@ import { BiHide } from "react-icons/bi";
 import { useLoader } from "../hooks/useLoader";
 function Login({ notOn, setnotOn }) {
 
-    const { loader, setLoader } = useLoader()
+    const { setLoader } = useLoader()
     const { dispatch } = useAuthContext();
     let navigate = useNavigate();
     function navigateToDashoard() {
-        navigate("/Dashboard");
+        navigate("/");
     }
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");

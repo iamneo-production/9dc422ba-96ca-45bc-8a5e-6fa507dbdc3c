@@ -13,7 +13,7 @@ import { useLoader } from "../hooks/useLoader";
 
 const baseUrl = "https://neobank-nu.vercel.app/api/"
 
-const Dashboard = ({ notOn, setnotOn }) => {
+const Dashboard = ({ notOn, setnotOn, setPayeeAccountNo }) => {
     //hooks
     const { setLoader } = useLoader()
     const { username, authToken } = useAuthContext()
@@ -95,10 +95,10 @@ const Dashboard = ({ notOn, setnotOn }) => {
             />
             <DashboardContainer
                 dashboardEnable={dashboardEnable}
-                setDashboaredEnable={setDashboaredEnable}
                 setnotOn={setnotOn}
+                setPayeeAccountNo={setPayeeAccountNo}
             />
-            <div style={{ height: "80px" }}>
+            <div style={{ height: "100px" }}>
             </div>
             <Footer />
         </>
