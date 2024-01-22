@@ -24,6 +24,7 @@ function NavBar({ setnotOn }) {
         setTimeout(() => {
             dispatch({ type: "LOGOUT" });
             navigate('/');
+            window.location.reload()
             setLoader(false);
         }, 1000);
     }
