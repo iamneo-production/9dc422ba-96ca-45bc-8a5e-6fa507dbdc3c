@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { Button } from "react-bootstrap";
-import { AiFillCaretRight } from "react-icons/ai"
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useLoader } from '../../hooks/useLoader';
+import { StepNaviagtor } from '../CreateAccount/FirstComponent';
 
-const Addpayee = ({ setnotOn, payeeAccountNo, setPayeeAccountNo, userAccNumber, paymentStep, setPaymentStep }) => {
+const Addpayee = ({ setnotOn, payeeAccountNo, setPayeeAccountNo, userAccNumber, paymentStep, setPaymentStep, totalsteps }) => {
     const { authToken } = useAuthContext()
     const { setLoader } = useLoader();
 
@@ -43,7 +42,7 @@ const Addpayee = ({ setnotOn, payeeAccountNo, setPayeeAccountNo, userAccNumber, 
             const [firstname, lastname] = senderName.split(" ");
             const res = await axios({
                 method: "post",
-                url: "https://neobank-nu.vercel.app/api/account/addpayee",
+                url: `${process.env.REACT_APP_SERVER}api/account/addpayee`,
                 headers: {
                     "Content-Type": "application/json",
                     'x-auth-token': authToken
@@ -101,12 +100,12 @@ const Addpayee = ({ setnotOn, payeeAccountNo, setPayeeAccountNo, userAccNumber, 
                             </label>
                             <input className="form-input " type={"text"} name="ifsc" placeholder="Enter IFSC COde" value={iFSCcode} onChange={(e) => updateIfsc(e)} minLength={"11"} maxLength={'11'} required />
                         </div>
-                        <div className="nextbuttonform">
-                            <div style={{ margin: "30%", width: "30%" }}>
-                                {paymentStep}/3
-                            </div>
-                            <Button type="submit" style={{ backgroundColor: "#48842c", width: "100%" }}>Next <AiFillCaretRight /></Button>
-                        </div>
+                        <StepNaviagtor
+                            step={paymentStep}
+                            backExits={false}
+                            prevStep={null}
+                            totalsteps={totalsteps}
+                        />
                     </form>
 
                 </div>

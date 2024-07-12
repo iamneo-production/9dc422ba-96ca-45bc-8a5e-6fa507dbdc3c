@@ -1,8 +1,9 @@
 import axios from "axios";
+
 export const ValidateUser = async (username, password) => {
     return await axios({
         method: 'POST',
-        url: `https://neobank-nu.vercel.app/api/user/validateuser`,
+        url: `${process.env.REACT_APP_SERVER}api/user/validateuser`,
         data: {
             username: username,
             password: password

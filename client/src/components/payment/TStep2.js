@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLoader } from '../../hooks/useLoader';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useRefreshUser } from '../../hooks/useRefreshUser';
+import { StepNaviagtor } from '../CreateAccount/FirstComponent';
 
 const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
 
@@ -11,6 +13,7 @@ const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
     const { authToken } = useAuthContext();
     const [tpin, setTpin] = useState("");
     const [otp, setOtp] = useState("");
+    const [refreshUser] = useRefreshUser()
 
     const updatetpin = (e) => {
         setTpin(e.target.value)
@@ -26,7 +29,7 @@ const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
             try {
                 const res1 = await axios({
                     method: "post",
-                    url: "https://neobank-nu.vercel.app/api/account/sendOtp",
+                    url: `${process.env.REACT_APP_SERVER}api/account/sendOtp`,
                     data: {
                         "phoneNo": "8591941194"
                     },
@@ -56,7 +59,7 @@ const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
             console.log(data);
             const res1 = await axios({
                 method: "post",
-                url: "https://neobank-nu.vercel.app/api/account/transferamount",
+                url: `${process.env.REACT_APP_SERVER}api/account/transferamount`,
                 data: data,
                 headers: {
                     "content-Type": "application/json",
@@ -80,7 +83,7 @@ const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
         try {
             const res1 = await axios({
                 method: "post",
-                url: "https://neobank-nu.vercel.app/api/account/verifyOtp",
+                url: `${process.env.REACT_APP_SERVER}api/account/verifyOtp`,
                 data: {
                     phoneNo: "8591941194",
                     otp: otp
@@ -108,8 +111,9 @@ const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
         setLoader(true)
         async function pay() {
             try {
-                await verifyOTP()
+                await verifyOTP();
                 await transaction();
+                await refreshUser();
             }
             catch (err) {
                 alert("Failed to verify OTP")
@@ -140,12 +144,12 @@ const TStep2 = ({ setnotOn, data, paymentStep, userPhone }) => {
                             </label>
                             <input className="form-input " type={"text"} name="OTP" placeholder="Enter OTP Sent on Your Device" onChange={(e) => setOtp(e.target.value)} minLength={6} maxLength={6} required />
                         </div>
-                        <div className="nextbuttonform">
-                            <div style={{ margin: "30%", width: "30%" }}>
-                                {paymentStep}/3
-                            </div>
-                            <Button type="submit" style={{ backgroundColor: "#48842c", width: "100%" }} >Done</Button>
-                        </div>
+                        <StepNaviagtor
+                            step={paymentStep}
+                            totalsteps={3}
+                            prevStep={null}
+                            backExits={false}
+                        />
                     </form>
 
                 </div>
