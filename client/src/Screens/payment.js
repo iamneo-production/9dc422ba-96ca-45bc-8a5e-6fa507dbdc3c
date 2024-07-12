@@ -28,6 +28,8 @@ const Payment = ({ notOn, setnotOn, setPayeeAccountNo, payeeAccountNo }) => {
         setUserPhone(userData?.phoneNo)
     }, [accountData, userData])
 
+    const totalsteps = 3;
+
     return (
         <>
             <NavBar setnotOn={setnotOn} />
@@ -43,6 +45,7 @@ const Payment = ({ notOn, setnotOn, setPayeeAccountNo, payeeAccountNo }) => {
                         userAccNumber={userAccNumber}
                         paymentStep={paymentStep}
                         setPaymentStep={setPaymentStep}
+                        totalsteps={totalsteps}
                     />
                     :
                     paymentStep === 2 ?

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button } from "react-bootstrap";
-import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
+import { StepNaviagtor } from '../CreateAccount/FirstComponent';
 
 const TransactionStep1 = ({ setnotOn, setPaymentStep, paymentStep, userAccNumber, setData, payeeAccountNo, setRemark, setAmount, amount, remark }) => {
 
@@ -52,14 +51,12 @@ const TransactionStep1 = ({ setnotOn, setPaymentStep, paymentStep, userAccNumber
                             </label>
                             <input className="form-input " type={"text"} name="Remark" placeholder="Remarks" value={remark} onChange={(e) => updateRemark(e)} />
                         </div>
-                        <div className="nextbuttonform">
-                            <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStepPayemnt(e)}>
-                                <AiFillCaretLeft /> Back</Button>
-                            <div style={{ margin: 'auto' }}>
-                                {paymentStep}/3
-                            </div>
-                            <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }}>Next <AiFillCaretRight /></Button>
-                        </div>
+                        <StepNaviagtor
+                            step={paymentStep}
+                            totalsteps={3}
+                            prevStep={prevStepPayemnt}
+                            backExits={true}
+                        />
                     </form>
 
                 </div>

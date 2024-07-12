@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { Loader } from "../Global/loader";
 import { useLoader } from "../../hooks/useLoader";
 
-const StepNaviagtor = ({ step, backExits, prevStep }) => {
+export const StepNaviagtor = ({ step, backExits, prevStep, totalsteps }) => {
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10%' }}>
             {backExits ?
@@ -22,7 +22,7 @@ const StepNaviagtor = ({ step, backExits, prevStep }) => {
                 </Button>
                 :
                 <div ></div>}
-            <div >{step}/9</div>
+            <div >{step}/{totalsteps}</div>
             <Button type="submit" className="nextbuttonform" >
                 <span>Next</span>
                 <span className="ml-2">
@@ -33,11 +33,14 @@ const StepNaviagtor = ({ step, backExits, prevStep }) => {
     )
 }
 
+
 function Step1({ data, setmsg, setText }) {
+    const totalsteps = 9
     const { setLoader } = useLoader();
+    console.log(process.env.REACT_APP_SERVER);
 
     // const statedata=props.data
-    const [step, setstep] = useState(2);
+    const [step, setstep] = useState(1);
     //formdata stats
     const [aadharvalue, setaadharvalue] = useState("");
     const [pannumber, setpannumber] = useState("");
@@ -179,9 +182,6 @@ function Step1({ data, setmsg, setText }) {
     function prevStep() {
         setstep(step - 1)
     }
-    useEffect(() => {
-        prevStep();
-    }, []);
     let navigate = useNavigate();
     function navigateToDashoard() {
         navigate("/Dashboard");
@@ -207,7 +207,7 @@ function Step1({ data, setmsg, setText }) {
         console.log(UserData);
         const res = await axios({
             method: 'post',
-            url: 'https://neobank-nu.vercel.app/api/user/register',
+            url: `${process.env.REACT_APP_SERVER}api/user/register`,
             data: UserData
         })
         console.log(res);
@@ -233,7 +233,7 @@ function Step1({ data, setmsg, setText }) {
             console.log("succcessfully logged in");
             await axios({
                 method: 'post',
-                url: "https://neobank-nu.vercel.app/api/account/createnewaccount",
+                url: `${process.env.REACT_APP_SERVER}api/account/createnewaccount`,
                 headers: {
                     "Content-Type": "application/json",
                     "x-auth-token": res.data['x-auth-token']
@@ -278,6 +278,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={true}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </div>
                     </form>
@@ -314,6 +315,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={false}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </form>
 
@@ -345,6 +347,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={true}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </form>
 
@@ -382,6 +385,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={true}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </form>
 
@@ -431,6 +435,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={true}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </form>
 
@@ -468,6 +473,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={true}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </form>
 
@@ -506,6 +512,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={true}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </form>
 
@@ -570,6 +577,7 @@ function Step1({ data, setmsg, setText }) {
                                 step={step}
                                 backExits={true}
                                 prevStep={prevStep}
+                                totalsteps={totalsteps}
                             />
                         </form>
 
@@ -609,9 +617,7 @@ function Step1({ data, setmsg, setText }) {
                                         </label>
                                         <input className="form-input" type={"time"} name="kycTime" required />
                                     </div>
-                                    <div className="nextbuttonform">
-                                        <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }} >Submit</Button>
-                                    </div>
+                                    <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%", marginTop: '10%' }} >Submit</Button>
                                 </form>
                             </div>
                             <div style={{ width: "30%", marginLeft: "10%" }}>

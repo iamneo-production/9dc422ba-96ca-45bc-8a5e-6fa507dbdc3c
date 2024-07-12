@@ -9,7 +9,6 @@ import Footer from '../components/Global/Footer';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import '../assests/styling/error.css'
-import { SyntheticEventData } from 'react-dom/test-utils/index.js';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -98,13 +97,14 @@ export default function BasicTabs() {
         setverifyUser(e.target.value)
     }
     function finalPasswordSet(e: React.BaseSyntheticEvent) {
-
-        if (value < 3) {
-            setValue(value + 1)
+        if (newPass === confirmPass && newPass !== "" && currpass !== "") {
+            if (value < 3) {
+                setValue(value + 1)
+            }
+            /*TDOD: Verify old password*/
+        } else {
+            seterrorMsgstyle("block");
         }
-        /* 
-        Verify old password
-        */
     }
     function VerifyEmailFinal(e: React.BaseSyntheticEvent) {
         if (newEmail === "" || newEmail !== confirmEmail) {
@@ -129,7 +129,7 @@ export default function BasicTabs() {
     }
 
     const [errorMsgstyle, seterrorMsgstyle] = useState("none")
-    const [errorMsg, seterrorMsg] = useState("Kindly put all the fields correctly")
+    const errorMsg = "Kindly put all the fields correctly"
     return (
         <div data-testid="editAccountDetails">
             <NavBar setnotOn={""} />
