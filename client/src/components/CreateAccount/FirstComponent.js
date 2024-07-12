@@ -9,6 +9,30 @@ import { ValidateUser } from "../../apis/validateUser";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { Loader } from "../Global/loader";
 import { useLoader } from "../../hooks/useLoader";
+
+const StepNaviagtor = ({ step, backExits, prevStep }) => {
+    return (
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10%' }}>
+            {backExits ?
+                <Button onClick={prevStep} className="nextbuttonform" >
+                    <span className="mr-2">
+                        <AiFillCaretLeft />
+                    </span>
+                    <span>Back</span>
+                </Button>
+                :
+                <div ></div>}
+            <div >{step}/9</div>
+            <Button type="submit" className="nextbuttonform" >
+                <span>Next</span>
+                <span className="ml-2">
+                    <AiFillCaretRight />
+                </span>
+            </Button>
+        </div>
+    )
+}
+
 function Step1({ data, setmsg, setText }) {
     const { setLoader } = useLoader();
 
@@ -250,14 +274,11 @@ function Step1({ data, setmsg, setText }) {
                                 <Button className="aadharsubmit" onClick={(e) => checkAadharValidation(e)} >Validate Aadhar</Button>
                             </div>
 
-                            <div className="nextbuttonform">
-
-                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
-                                <div style={{ margin: "auto" }}>
-                                    {step}/9
-                                </div>
-                                <Button type={"submit"} style={{ backgroundColor: "#48842c", width: "30%" }}>Next <AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={true}
+                                prevStep={prevStep}
+                            />
                         </div>
                     </form>
                 </>
@@ -289,10 +310,11 @@ function Step1({ data, setmsg, setText }) {
                                 </label>
                                 <input className="form-input" type={"Email"} name="Email" placeholder="Email" value={email} onChange={e => handleEmailChange(e)} required />
                             </div>
-                            <div className="nextbuttonform">
-                                <div style={{ margin: "auto", marginLeft: "45%" }}>{step}/9</div>
-                                <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%", float: "right" }} >Next<AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={false}
+                                prevStep={prevStep}
+                            />
                         </form>
 
                     </div>
@@ -319,14 +341,11 @@ function Step1({ data, setmsg, setText }) {
                                 </label>
                                 <input className="form-input" type={"password"} name="password" placeholder="Enter Your Password" value={password} onChange={(e) => updatepass(e)} minLength={"8"} required />
                             </div>
-                            <div className="nextbuttonform">
-
-                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
-                                <div style={{ margin: "auto" }}>
-                                    {step}/9
-                                </div>
-                                <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }}>Next <AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={true}
+                                prevStep={prevStep}
+                            />
                         </form>
 
                     </div>
@@ -359,14 +378,11 @@ function Step1({ data, setmsg, setText }) {
                                 </label>
                                 <input className="form-input" type={"text"} name="lname" placeholder="Enter Your Last Name" value={lname} onChange={e => LnameToUpperCase(e) && (e)} required />
                             </div>
-                            <div className="nextbuttonform">
-
-                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
-                                <div style={{ margin: "auto" }}>
-                                    {step}/9
-                                </div>
-                                <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }}>Next <AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={true}
+                                prevStep={prevStep}
+                            />
                         </form>
 
                     </div>
@@ -411,14 +427,11 @@ function Step1({ data, setmsg, setText }) {
                                     <option id="2" value={"Others.."}>Others..</option>
                                 </select>
                             </div>
-                            <div className="nextbuttonform">
-
-                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
-                                <div style={{ margin: "auto" }}>
-                                    {step}/9
-                                </div>
-                                <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }} >Next <AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={true}
+                                prevStep={prevStep}
+                            />
                         </form>
 
                     </div>
@@ -451,14 +464,11 @@ function Step1({ data, setmsg, setText }) {
                                 </label>
                                 <input className="form-input" type={"text"} name="MotherMaidenName" placeholder="Enter Your Mother's Maiden Name" value={motherMaidenName} onChange={e => motherMaidennameToUpperCase(e) && (e)} required />
                             </div>
-                            <div className="nextbuttonform">
-
-                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
-                                <div style={{ margin: "auto" }}>
-                                    {step}/9
-                                </div>
-                                <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }}>Next <AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={true}
+                                prevStep={prevStep}
+                            />
                         </form>
 
                     </div>
@@ -492,14 +502,11 @@ function Step1({ data, setmsg, setText }) {
                                 </label>
                                 <input className="form-input" type={"text"} name="district" placeholder="Enter Your District" value={district} onChange={e => updateDistrict(e)} required />
                             </div>
-                            <div className="nextbuttonform">
-
-                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
-                                <div style={{ margin: "auto" }}>
-                                    {step}/9
-                                </div>
-                                <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }}>Next <AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={true}
+                                prevStep={prevStep}
+                            />
                         </form>
 
                     </div>
@@ -559,14 +566,11 @@ function Step1({ data, setmsg, setText }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="nextbuttonform">
-
-                                <Button style={{ backgroundColor: "#48842c", width: "30%" }} onClick={e => prevStep(e)}><AiFillCaretLeft /> Back</Button>
-                                <div style={{ margin: "auto" }}>
-                                    {step}/9
-                                </div>
-                                <Button type="submit" style={{ backgroundColor: "#48842c", width: "30%" }} >Next <AiFillCaretRight /></Button>
-                            </div>
+                            <StepNaviagtor
+                                step={step}
+                                backExits={true}
+                                prevStep={prevStep}
+                            />
                         </form>
 
                     </div>
